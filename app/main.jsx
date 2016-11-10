@@ -7,7 +7,7 @@ import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
 
 render (
           <Router history={browserHistory}>
-            <Route path="/" component={Container} onEnter={onCartEnter} >
+            <Route path="/" component={Container} >
             </Route>
           </Router>
         ,
