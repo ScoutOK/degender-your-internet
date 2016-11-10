@@ -7,4 +7,4 @@ If you think we missed any words, please let us know in the feedback section.
 
 About the creator: I am an agender female who is sick of always thinking about gender and is quite tired.
 
-Packages used: Browserify, node.js, react
+Packages used: webpack, node.js, react, redux, firebase
