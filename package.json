@@ -1,0 +1,24 @@
+{
+  "name": "degender-your-internet",
+  "version": "1.0.0",
+  "description": "google extension to make your web experience delightfully non-binary",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScoutOK/DegenderTheInternet.git"
+  },
+  "author": "Scout O'Keefe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ScoutOK/DegenderTheInternet/issues"
+  },
+  "homepage": "https://github.com/ScoutOK/DegenderTheInternet#readme",
+  "dependencies": {
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-router": "^3.0.0"
+  }
+}
