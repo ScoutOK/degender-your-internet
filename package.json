@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/ScoutOK/DegenderTheInternet#readme",
   "dependencies": {
-    "react": "^15.3.2"
+    "react": "^15.3.2",
+    "react-dom": "^15.3.2",
+    "react-router": "^3.0.0"
   }
 }
