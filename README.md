@@ -1,4 +1,4 @@
-# DegenderTheInternet
+# Degender Your Internet
 Are you tired of gender thoughts?
 Do you wish to experience the internet without constently being reminded of your marginalized gender status?
 This Google Chrome extension will remove and gendered pronouns from your webpages and de-gender any gendered adjectives.
