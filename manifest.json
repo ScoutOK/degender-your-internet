@@ -6,7 +6,7 @@
   "version": "1.0",
 
   "browser_action": {
-    "default_icon": "img/degenderLogoColor.png",
+    "default_icon": "/public/img/degenderLogoColor.png",
     "default_popup": "popup.html"
   },
   "permissions": [
