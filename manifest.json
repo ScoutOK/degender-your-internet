@@ -4,10 +4,13 @@
   "name": "Degender Your Internet",
   "description": "This extension removes all gendered language from your web experience",
   "version": "1.0",
+  "icons": {
+    "128": "/public/img/degenderLogoColor.png"
+  },
 
   "browser_action": {
     "default_icon": "/public/img/degenderLogoColor.png",
-    "default_popup": "/public/index.html"
+    "default_popup": "/index.html"
   },
   "permissions": [
     "activeTab",
