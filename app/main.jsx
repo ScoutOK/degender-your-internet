@@ -21,7 +21,9 @@ const config = {
 
 firebase.initializeApp(config);
 
-window.React = React;
+if (typeof window !== 'undefined') {
+    window.React = React;
+}
 
 render (
         <Provider store={store}>
