@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux'
 
 
-export default class Container extends Component {
+export class Container extends Component {
   render() {
     return  ( <div>
       <nav>
@@ -23,3 +24,6 @@ export default class Container extends Component {
     )
   }
 }
+
+
+export default connect()(Container)

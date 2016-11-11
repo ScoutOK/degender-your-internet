@@ -2,7 +2,12 @@ import React from 'react'
 import { render } from 'react-dom'
 import Container from './components/Container'
 import Popup from './components/Popup'
-import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
+
+import { Provider } from 'react-redux'
+import store from './store'
+
+//seems like react router doesn't work without a server :((((
+//import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
 import * as firebase from 'firebase'
 
 const config = {
@@ -16,10 +21,14 @@ const config = {
 
 firebase.initializeApp(config);
 
-window.React = React;
+if (typeof window !== 'undefined') {
+    window.React = React;
+}
 
 render (
-          <Container />
+        <Provider store={store}>
+          <Popup />
+        </Provider>
         ,
   document.getElementById('app')
 )
