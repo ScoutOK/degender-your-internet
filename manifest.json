@@ -7,7 +7,7 @@
 
   "browser_action": {
     "default_icon": "/public/img/degenderLogoColor.png",
-    "default_popup": "popup.html"
+    "default_popup": "/public/popup.html"
   },
   "permissions": [
     "activeTab",

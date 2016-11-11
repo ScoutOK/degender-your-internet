@@ -4,6 +4,7 @@
   "description": "google extension to make your web experience delightfully non-binary",
   "main": "index.js",
   "scripts": {
+    "start": "react-scripts start",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-watch": "webpack -w"
   },
@@ -25,9 +26,14 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-2": "^6.18.0",
     "css-loader": "^0.25.0",
+    "firebase": "^3.6.0",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-redux": "^4.4.5",
     "react-router": "^3.0.0",
+    "redux": "^3.6.0",
+    "redux-logger": "^2.7.4",
+    "redux-thunk": "^2.1.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.3"
   }
