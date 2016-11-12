@@ -1,10 +1,14 @@
 
-//function to get the HTML of a given ta
-function getHTML(){
-    return document.body.outerHTML
-}
 
-console.log('the degender content script is totes')
+console.log('the degender content script is totes active')
+
+
+//build a div to go at the top of the page
+let topBar = document.createElement("div");
+
+topBar.setAttribute('id', 'degender-bar')
+
+console.log(topBar)
 
 //document.getElementById('gc-footer').style.backgroundColor = 'red'
 
@@ -52,6 +56,7 @@ const convertPage = () => {
     goodTextStrings[i].data = findAndReplacePronoun('his', 'their', goodTextStrings[i].data);
     goodTextStrings[i].data = findAndReplacePronoun('him', 'them', goodTextStrings[i].data);
   }
+  document.body.insertBefore(topBar, document.body.firstChild)
 }
 
 console.log(goodTextStrings)
