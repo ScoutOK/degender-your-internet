@@ -15,22 +15,18 @@ let pageStats = {
   adjectives: {}
 }
 
-//document.getElementById('gc-footer').style.backgroundColor = 'red'
-
-//let pageBody = document.body
-
-//using createTreeWalker to get all the text from the page
-//let textWalker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
 
 const findAndReplacePronoun = (pronoun, replacement, string) => {
   const proLeng = pronoun.length;
+  let replaceSpan = document.createElement('span');
+  replaceSpan.setAttribute('class', 'converted');
   for (let i = 0; i < string.length - proLeng + 1; i++) {
     if (string.substr(i, proLeng).toLowerCase() == pronoun) {
       //test to see if can reasonable assume that this is indeed the pronoun
       if (!/([a-zA-Z])/.test(string[i - 1]) && !/([a-zA-Z])/.test(string[i + proLeng])) {
         if(pageStats.pronouns[pronoun]) pageStats.pronouns[pronoun]++
         else pageStats.pronouns[pronoun] = 1
-        string = string.substring(0, i) + replacement + string.substring(i+proLeng);
+        string = string.substring(0, i) + '<span class=\'coverted pronoun\'>' + replacement + '</span>' + string.substring(i+proLeng);
       }
     }
   }
@@ -38,38 +34,30 @@ const findAndReplacePronoun = (pronoun, replacement, string) => {
 }
 
 
-function getTextNodes(el){
-  var n, a=[], walk=document.createTreeWalker(el,NodeFilter.SHOW_TEXT,null,false);
-  while(n=walk.nextNode()) a.push(n);
-  return a;
-}
+//in order to add tags around the changes, need to access the text in a different way :(
+let allElements = document.body.getElementsByTagName("*");
+console.log(allElements)
 
-let allTextNodes = getTextNodes(document.body);
-console.log(allTextNodes)
+//would still be nice to not have to go over elements with no innerHTML
 
-let goodTextStrings = allTextNodes.filter((ele)=>{
-  return /[a-z]/.test(ele.data.toLowerCase())
-})
+//UGH, forgot that this is technically not an array
+// let goodElements = allElements.filter((ele)=>{
+//   return /[a-z]/.test(ele.innerHTML.toLowerCase())
+// })
 
-//this is still pointing to the object but it changes as the object does, so no go
-//trying the JSON way
-const originalText = JSON.parse(JSON.stringify(goodTextStrings));
-//NOPE
 
-//now that have strings, gonna try the most basic cases
+
 const convertPronoun = () => {
-  for (let i = 0; i < goodTextStrings.length; i++) {
-    goodTextStrings[i].data = findAndReplacePronoun('she', 'they', goodTextStrings[i].data);
-    goodTextStrings[i].data = findAndReplacePronoun('her', 'their', goodTextStrings[i].data);
-    goodTextStrings[i].data = findAndReplacePronoun('hers', 'theirs', goodTextStrings[i].data);
-    goodTextStrings[i].data = findAndReplacePronoun('he', 'they', goodTextStrings[i].data);
-    goodTextStrings[i].data = findAndReplacePronoun('his', 'their', goodTextStrings[i].data);
-    goodTextStrings[i].data = findAndReplacePronoun('him', 'them', goodTextStrings[i].data);
+  for (let i = 0; i < allElements.length; i++) {
+    allElements[i].innerHTML = findAndReplacePronoun('she', 'they', allElements[i].innerHTML);
+    allElements[i].innerHTML = findAndReplacePronoun('her', 'their', allElements[i].innerHTML);
+    allElements[i].innerHTML = findAndReplacePronoun('hers', 'theirs', allElements[i].innerHTML);
+    allElements[i].innerHTML = findAndReplacePronoun('he', 'they', allElements[i].innerHTML);
+    allElements[i].innerHTML = findAndReplacePronoun('his', 'their', allElements[i].innerHTML);
+    allElements[i].innerHTML = findAndReplacePronoun('him', 'them', allElements[i].innerHTML);
   }
   document.body.insertBefore(topBar, document.body.firstChild)
   console.log(pageStats)
-  console.log(goodTextStrings)
-  console.log(originalText)
 }
 
 const revertPage = () => {
