@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 //import { Link } from 'react-router';
 import {connect} from 'react-redux';
-import { fetchHTML } from '../ducks/pageHtml'
+import { sendToPage } from '../ducks/convert'
 
 
 export class Popup extends Component {
   render() {
     return (
       <div id='popup-box'>
-        <button onClick={() => this.props.fetchHTML(currentTab)}>Degender This Page</button>
+        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id='degender-button' onClick={this.props.sendToPage}>Degender This Page</button>
         <ul>
           <li>Settings</li>
           <li>Show Altered Words</li>
@@ -22,8 +22,8 @@ export class Popup extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchHTML: () => {
-      dispatch(fetchHTML())
+    sendToPage: () => {
+      dispatch(sendToPage())
     }
   }
 }

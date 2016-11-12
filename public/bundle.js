@@ -62,11 +62,11 @@
 	
 	var _reactRedux = __webpack_require__(173);
 	
-	var _store = __webpack_require__(207);
+	var _store = __webpack_require__(205);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _firebase = __webpack_require__(217);
+	var _firebase = __webpack_require__(218);
 	
 	var firebase = _interopRequireWildcard(_firebase);
 	
@@ -23324,7 +23324,7 @@
 	
 	var _reactRedux = __webpack_require__(173);
 	
-	var _pageHtml = __webpack_require__(204);
+	var _convert = __webpack_require__(204);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -23348,16 +23348,12 @@
 	  _createClass(Popup, [{
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-	
 	      return _react2.default.createElement(
 	        'div',
 	        { id: 'popup-box' },
 	        _react2.default.createElement(
 	          'button',
-	          { onClick: function onClick() {
-	              return _this2.props.fetchHTML(currentTab);
-	            } },
+	          { className: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent', id: 'degender-button', onClick: this.props.sendToPage },
 	          'Degender This Page'
 	        ),
 	        _react2.default.createElement(
@@ -23392,8 +23388,8 @@
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	  return {
-	    fetchHTML: function fetchHTML() {
-	      dispatch((0, _pageHtml.fetchHTML)());
+	    sendToPage: function sendToPage() {
+	      dispatch((0, _convert.sendToPage)());
 	    }
 	  };
 	};
@@ -23402,6 +23398,130 @@
 
 /***/ },
 /* 204 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = reducer;
+	var CONVERT_PAGE = 'CONVERT_PAGE';
+	
+	//reducer
+	function reducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case CONVERT_PAGE:
+	      return action.page_state || 'gurl, something went wrong';
+	    default:
+	      return state;
+	  }
+	}
+	
+	//sync action creators
+	var convertPage = exports.convertPage = function convertPage(page_state) {
+	  return {
+	    type: CONVERT_PAGE,
+	    page_state: page_state
+	  };
+	};
+	
+	//async action creators (ish, more just interact with the page DOM action creators)
+	var sendToPage = exports.sendToPage = function sendToPage() {
+	  return function (dispatch) {
+	    return promTab.then(function (tab) {
+	      console.log('this is tab variable', tab.id);
+	      chrome.tabs.sendRequest(tab.id, { "message": "convert" });
+	    });
+	  };
+	};
+	
+	var promTab = new Promise(function (resolve, reject) {
+	  chrome.tabs.getSelected(null, function (tab) {
+	    resolve(tab);
+	  });
+	});
+	//seems like there might be an issue sending these from the redux files???
+
+/***/ },
+/* 205 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(180);
+	
+	var _ducks = __webpack_require__(206);
+	
+	var _ducks2 = _interopRequireDefault(_ducks);
+	
+	var _reduxLogger = __webpack_require__(211);
+	
+	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
+	
+	var _reduxThunk = __webpack_require__(217);
+	
+	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var store = (0, _redux.createStore)(_ducks2.default, (0, _redux.applyMiddleware)((0, _reduxLogger2.default)(), _reduxThunk2.default));
+	
+	exports.default = store;
+
+/***/ },
+/* 206 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _redux = __webpack_require__(180);
+	
+	var rootReducer = (0, _redux.combineReducers)({
+	  button: __webpack_require__(207).default,
+	  html: __webpack_require__(208).default
+	});
+	
+	exports.default = rootReducer;
+
+/***/ },
+/* 207 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = reducer;
+	//actions
+	
+	//reducer
+	function reducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    default:
+	      return state;
+	  }
+	}
+	
+	//action creators
+
+/***/ },
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23412,7 +23532,7 @@
 	exports.fetchHTML = exports.getHTML = undefined;
 	exports.default = reducer;
 	
-	var _bluebird = __webpack_require__(205);
+	var _bluebird = __webpack_require__(209);
 	
 	var _bluebird2 = _interopRequireDefault(_bluebird);
 	
@@ -23457,13 +23577,12 @@
 	
 	var promTab = new _bluebird2.default(function (resolve, reject) {
 	  chrome.tabs.query({ active: true, currentWindow: true }, function (tab) {
-	    console.log(tab);
 	    resolve(tab);
 	  });
 	});
 
 /***/ },
-/* 205 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global, setImmediate) {/* @preserve
@@ -29064,10 +29183,10 @@
 	
 	},{"./es5":13}]},{},[4])(4)
 	});                    ;if (typeof window !== 'undefined' && window !== null) {                               window.P = window.Promise;                                                     } else if (typeof self !== 'undefined' && self !== null) {                             self.P = self.Promise;                                                         }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), (function() { return this; }()), __webpack_require__(206).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), (function() { return this; }()), __webpack_require__(210).setImmediate))
 
 /***/ },
-/* 206 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(3).nextTick;
@@ -29146,84 +29265,10 @@
 	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
 	  delete immediateIds[id];
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(206).setImmediate, __webpack_require__(206).clearImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(210).setImmediate, __webpack_require__(210).clearImmediate))
 
 /***/ },
-/* 207 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _redux = __webpack_require__(180);
-	
-	var _ducks = __webpack_require__(208);
-	
-	var _ducks2 = _interopRequireDefault(_ducks);
-	
-	var _reduxLogger = __webpack_require__(210);
-	
-	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
-	
-	var _reduxThunk = __webpack_require__(216);
-	
-	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var store = (0, _redux.createStore)(_ducks2.default, (0, _redux.applyMiddleware)((0, _reduxLogger2.default)(), _reduxThunk2.default));
-	
-	exports.default = store;
-
-/***/ },
-/* 208 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _redux = __webpack_require__(180);
-	
-	var rootReducer = (0, _redux.combineReducers)({
-	  button: __webpack_require__(209).default,
-	  html: __webpack_require__(204).default
-	});
-	
-	exports.default = rootReducer;
-
-/***/ },
-/* 209 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = reducer;
-	//actions
-	
-	//reducer
-	function reducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	  var action = arguments[1];
-	
-	  switch (action.type) {
-	    default:
-	      return state;
-	  }
-	}
-	
-	//action creators
-
-/***/ },
-/* 210 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29234,11 +29279,11 @@
 	  value: true
 	});
 	
-	var _core = __webpack_require__(211);
+	var _core = __webpack_require__(212);
 	
-	var _helpers = __webpack_require__(212);
+	var _helpers = __webpack_require__(213);
 	
-	var _defaults = __webpack_require__(215);
+	var _defaults = __webpack_require__(216);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -29341,7 +29386,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 211 */
+/* 212 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29351,9 +29396,9 @@
 	});
 	exports.printBuffer = printBuffer;
 	
-	var _helpers = __webpack_require__(212);
+	var _helpers = __webpack_require__(213);
 	
-	var _diff = __webpack_require__(213);
+	var _diff = __webpack_require__(214);
 	
 	var _diff2 = _interopRequireDefault(_diff);
 	
@@ -29482,7 +29527,7 @@
 	}
 
 /***/ },
-/* 212 */
+/* 213 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -29506,7 +29551,7 @@
 	var timer = exports.timer = typeof performance !== "undefined" && performance !== null && typeof performance.now === "function" ? performance : Date;
 
 /***/ },
-/* 213 */
+/* 214 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29516,7 +29561,7 @@
 	});
 	exports.default = diffLogger;
 	
-	var _deepDiff = __webpack_require__(214);
+	var _deepDiff = __webpack_require__(215);
 	
 	var _deepDiff2 = _interopRequireDefault(_deepDiff);
 	
@@ -29602,7 +29647,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 214 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -30031,7 +30076,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 215 */
+/* 216 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -30082,7 +30127,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 216 */
+/* 217 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -30110,7 +30155,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 217 */
+/* 218 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -30120,16 +30165,16 @@
 	 *
 	 *   firebase = require('firebase');
 	 */
-	var firebase = __webpack_require__(218);
-	__webpack_require__(219);
+	var firebase = __webpack_require__(219);
 	__webpack_require__(220);
 	__webpack_require__(221);
 	__webpack_require__(222);
+	__webpack_require__(223);
 	module.exports = firebase;
 
 
 /***/ },
-/* 218 */
+/* 219 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.6.0
@@ -30167,10 +30212,10 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 219 */
+/* 220 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var firebase = __webpack_require__(218);
+	var firebase = __webpack_require__(219);
 	/*! @license Firebase v3.6.0
 	    Build: 3.6.0-rc.3
 	    Terms: https://developers.google.com/terms */
@@ -30387,10 +30432,10 @@
 
 
 /***/ },
-/* 220 */
+/* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var firebase = __webpack_require__(218);
+	var firebase = __webpack_require__(219);
 	/*! @license Firebase v3.6.0
 	    Build: 3.6.0-rc.3
 	    Terms: https://developers.google.com/terms
@@ -30654,10 +30699,10 @@
 
 
 /***/ },
-/* 221 */
+/* 222 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var firebase = __webpack_require__(218);
+	var firebase = __webpack_require__(219);
 	/*! @license Firebase v3.6.0
 	    Build: 3.6.0-rc.3
 	    Terms: https://developers.google.com/terms */
@@ -30766,10 +30811,10 @@
 
 
 /***/ },
-/* 222 */
+/* 223 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var firebase = __webpack_require__(218);
+	var firebase = __webpack_require__(219);
 	/*! @license Firebase v3.6.0
 	    Build: 3.6.0-rc.3
 	    Terms: https://developers.google.com/terms */

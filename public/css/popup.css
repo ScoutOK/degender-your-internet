@@ -4,4 +4,9 @@
 
 #popup-box {
   width: 20rem;
+  padding: 2rem;
+}
+
+#degender-button {
+  margin: auto;
 }

@@ -35,7 +35,6 @@ export const fetchHTML = () => {
 
 const promTab = new Promise((resolve, reject)=>{
   chrome.tabs.query({active: true, currentWindow: true}, function(tab) {
-    console.log(tab)
     resolve(tab);
   });
 
