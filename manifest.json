@@ -16,6 +16,9 @@
     "default_icon": "/public/img/degenderLogoColor.png",
     "default_popup": "/index.html"
   },
+  "background": {
+    "scripts": ["/public/js/event.js"]
+  },
   "permissions": [
     "tabs",
     "https://ajax.googleapis.com/"

@@ -1,14 +1,12 @@
-// var currentTab
+ function popup() {
+    console.log('in popup')
+    chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+    var activeTab = tabs[0];
+    chrome.tabs.sendMessage(activeTab.id, {"message": "convert"});
+   });
+}
 
-// chrome.tabs.query({active: true, currentWindow: true}, function(tab) {
-//   console.log(tab)
-//   currentTab = tab
-// });
 
-var backport = chrome.extension.connect({
-    name: "Sample Communication"
-});
-backport.postMessage("Hi BackGround");
-backport.onMessage.addListener(function(msg) {
-    console.log("message recieved" + msg);
-});
+document.getElementById("test-button").addEventListener("click", popup);
+
+
