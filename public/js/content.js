@@ -8,7 +8,12 @@ let topBar = document.createElement("div");
 
 topBar.setAttribute('id', 'degender-bar')
 
-console.log(topBar)
+
+//object to contain info about oage for analytics
+let pageStats = {
+  pronouns: {},
+  adjectives: {}
+}
 
 //document.getElementById('gc-footer').style.backgroundColor = 'red'
 
@@ -23,6 +28,8 @@ const findAndReplacePronoun = (pronoun, replacement, string) => {
     if (string.substr(i, proLeng).toLowerCase() == pronoun) {
       //test to see if can reasonable assume that this is indeed the pronoun
       if (!/([a-zA-Z])/.test(string[i - 1]) && !/([a-zA-Z])/.test(string[i + proLeng])) {
+        if(pageStats.pronouns[pronoun]) pageStats.pronouns[pronoun]++
+        else pageStats.pronouns[pronoun] = 1
         string = string.substring(0, i) + replacement + string.substring(i+proLeng);
       }
     }
@@ -44,10 +51,13 @@ let goodTextStrings = allTextNodes.filter((ele)=>{
   return /[a-z]/.test(ele.data.toLowerCase())
 })
 
-const originalText = goodTextStrings;
+//this is still pointing to the object but it changes as the object does, so no go
+//trying the JSON way
+const originalText = JSON.parse(JSON.stringify(goodTextStrings));
+//NOPE
 
 //now that have strings, gonna try the most basic cases
-const convertPage = () => {
+const convertPronoun = () => {
   for (let i = 0; i < goodTextStrings.length; i++) {
     goodTextStrings[i].data = findAndReplacePronoun('she', 'they', goodTextStrings[i].data);
     goodTextStrings[i].data = findAndReplacePronoun('her', 'their', goodTextStrings[i].data);
@@ -57,16 +67,27 @@ const convertPage = () => {
     goodTextStrings[i].data = findAndReplacePronoun('him', 'them', goodTextStrings[i].data);
   }
   document.body.insertBefore(topBar, document.body.firstChild)
+  console.log(pageStats)
+  console.log(goodTextStrings)
+  console.log(originalText)
 }
 
-console.log(goodTextStrings)
+const revertPage = () => {
+  goodTextStrings = originalText
+}
+
+
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   console.log('in listener', request)
   switch (request.message) {
     case 'convert':
-      convertPage();
+      convertPronoun();
       sendResponse({pageStatus: 'converted'});
+      break
+    case 'revert':
+      revertPage();
+      sendResponse({pageStatus: 'original'});
       break
     default:
       sendResponse({error: 'that input makes no sense'})
