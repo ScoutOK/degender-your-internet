@@ -2,9 +2,15 @@
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  border: #333 3px solid;
+}
+
 #popup-box {
   width: 20rem;
   padding: 2rem;
+  background: linear-gradient(170deg, #89c8c9, #ef8594);
 }
 
 #degender-button {

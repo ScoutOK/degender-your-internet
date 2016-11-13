@@ -20,6 +20,11 @@
   display: none;
 }
 
+#degender-bar .buttons {
+  display: flex;
+  justify-content: space-between;
+}
+
 #degender-bar button {
   cursor: pointer;
   background: #555;
