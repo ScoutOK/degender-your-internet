@@ -17,15 +17,15 @@ webpackJsonp([2],{
 	
 	var _reactRedux = __webpack_require__(173);
 	
-	var _store = __webpack_require__(222);
+	var _store = __webpack_require__(221);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _popup = __webpack_require__(228);
+	var _popup = __webpack_require__(227);
 	
 	var _popup2 = _interopRequireDefault(_popup);
 	
-	var _firebase = __webpack_require__(230);
+	var _firebase = __webpack_require__(229);
 	
 	var firebase = _interopRequireWildcard(_firebase);
 	
@@ -971,7 +971,7 @@ webpackJsonp([2],{
 	
 	var _reactRedux = __webpack_require__(173);
 	
-	var _convert = __webpack_require__(221);
+	var _convert = __webpack_require__(235);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1046,57 +1046,6 @@ webpackJsonp([2],{
 /***/ },
 
 /***/ 221:
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = reducer;
-	var CONVERT_PAGE = 'CONVERT_PAGE';
-	
-	//reducer
-	function reducer() {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-	  var action = arguments[1];
-	
-	  switch (action.type) {
-	    case CONVERT_PAGE:
-	      return action.page_state || 'gurl, something went wrong';
-	    default:
-	      return state;
-	  }
-	}
-	
-	//sync action creators
-	var convertPage = exports.convertPage = function convertPage(page_state) {
-	  return {
-	    type: CONVERT_PAGE,
-	    page_state: page_state
-	  };
-	};
-	
-	//async action creators (ish, more just interact with the page DOM action creators)
-	var sendToPage = exports.sendToPage = function sendToPage() {
-	  return function (dispatch) {
-	    return promTab.then(function (tab) {
-	      console.log('this is tab variable', tab.id);
-	      chrome.tabs.sendRequest(tab.id, { "message": "convert" });
-	    });
-	  };
-	};
-	
-	var promTab = new Promise(function (resolve, reject) {
-	  chrome.tabs.getSelected(null, function (tab) {
-	    resolve(tab);
-	  });
-	});
-	//seems like there might be an issue sending these from the redux files???
-
-/***/ },
-
-/***/ 222:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1107,7 +1056,7 @@ webpackJsonp([2],{
 	
 	var _redux = __webpack_require__(180);
 	
-	var _ducks = __webpack_require__(223);
+	var _ducks = __webpack_require__(222);
 	
 	var _ducks2 = _interopRequireDefault(_ducks);
 	
@@ -1127,7 +1076,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 223:
+/***/ 222:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1139,15 +1088,15 @@ webpackJsonp([2],{
 	var _redux = __webpack_require__(180);
 	
 	var rootReducer = (0, _redux.combineReducers)({
-	  button: __webpack_require__(224).default,
-	  html: __webpack_require__(225).default
+	  button: __webpack_require__(223).default,
+	  html: __webpack_require__(224).default
 	});
 	
 	exports.default = rootReducer;
 
 /***/ },
 
-/***/ 224:
+/***/ 223:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1173,7 +1122,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 225:
+/***/ 224:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1184,7 +1133,7 @@ webpackJsonp([2],{
 	exports.fetchHTML = exports.getHTML = undefined;
 	exports.default = reducer;
 	
-	var _bluebird = __webpack_require__(226);
+	var _bluebird = __webpack_require__(225);
 	
 	var _bluebird2 = _interopRequireDefault(_bluebird);
 	
@@ -1235,7 +1184,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 226:
+/***/ 225:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process, global, setImmediate) {/* @preserve
@@ -6836,11 +6785,11 @@ webpackJsonp([2],{
 	
 	},{"./es5":13}]},{},[4])(4)
 	});                    ;if (typeof window !== 'undefined' && window !== null) {                               window.P = window.Promise;                                                     } else if (typeof self !== 'undefined' && self !== null) {                             self.P = self.Promise;                                                         }
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), (function() { return this; }()), __webpack_require__(227).setImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), (function() { return this; }()), __webpack_require__(226).setImmediate))
 
 /***/ },
 
-/***/ 227:
+/***/ 226:
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(setImmediate, clearImmediate) {var nextTick = __webpack_require__(3).nextTick;
@@ -6919,17 +6868,17 @@ webpackJsonp([2],{
 	exports.clearImmediate = typeof clearImmediate === "function" ? clearImmediate : function(id) {
 	  delete immediateIds[id];
 	};
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(227).setImmediate, __webpack_require__(227).clearImmediate))
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(226).setImmediate, __webpack_require__(226).clearImmediate))
 
 /***/ },
 
-/***/ 228:
+/***/ 227:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(229);
+	var content = __webpack_require__(228);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(216)(content, {});
@@ -6950,7 +6899,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 229:
+/***/ 228:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(215)();
@@ -6965,7 +6914,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 230:
+/***/ 229:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -6975,17 +6924,17 @@ webpackJsonp([2],{
 	 *
 	 *   firebase = require('firebase');
 	 */
-	var firebase = __webpack_require__(231);
+	var firebase = __webpack_require__(230);
+	__webpack_require__(231);
 	__webpack_require__(232);
 	__webpack_require__(233);
 	__webpack_require__(234);
-	__webpack_require__(235);
 	module.exports = firebase;
 
 
 /***/ },
 
-/***/ 231:
+/***/ 230:
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.6.0
@@ -7024,10 +6973,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 232:
+/***/ 231:
 /***/ function(module, exports, __webpack_require__) {
 
-	var firebase = __webpack_require__(231);
+	var firebase = __webpack_require__(230);
 	/*! @license Firebase v3.6.0
 	    Build: 3.6.0-rc.3
 	    Terms: https://developers.google.com/terms */
@@ -7245,10 +7194,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 233:
+/***/ 232:
 /***/ function(module, exports, __webpack_require__) {
 
-	var firebase = __webpack_require__(231);
+	var firebase = __webpack_require__(230);
 	/*! @license Firebase v3.6.0
 	    Build: 3.6.0-rc.3
 	    Terms: https://developers.google.com/terms
@@ -7513,10 +7462,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 234:
+/***/ 233:
 /***/ function(module, exports, __webpack_require__) {
 
-	var firebase = __webpack_require__(231);
+	var firebase = __webpack_require__(230);
 	/*! @license Firebase v3.6.0
 	    Build: 3.6.0-rc.3
 	    Terms: https://developers.google.com/terms */
@@ -7626,10 +7575,10 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 235:
+/***/ 234:
 /***/ function(module, exports, __webpack_require__) {
 
-	var firebase = __webpack_require__(231);
+	var firebase = __webpack_require__(230);
 	/*! @license Firebase v3.6.0
 	    Build: 3.6.0-rc.3
 	    Terms: https://developers.google.com/terms */
@@ -7666,6 +7615,57 @@ webpackJsonp([2],{
 	var X=function(a){"serviceWorker"in navigator&&navigator.serviceWorker.addEventListener("message",function(b){if(b.data&&b.data[t.m])switch(b=b.data,b[t.m]){case u.N:case u.H:a.Y.next(b[t.u])}},!1)};if(!(firebase&&firebase.INTERNAL&&firebase.INTERNAL.registerService))throw Error("Cannot install Firebase Messaging - be sure to load firebase-app.js first.");firebase.INTERNAL.registerService("messaging",function(a){return self&&"ServiceWorkerGlobalScope"in self?new S(a):new Y(a)},{Messaging:Y});})();
 	module.exports = firebase.messaging;
 
+
+/***/ },
+
+/***/ 235:
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = reducer;
+	var CONVERT_PAGE = 'CONVERT_PAGE';
+	
+	//reducer
+	function reducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case CONVERT_PAGE:
+	      return action.page_state || 'gurl, something went wrong';
+	    default:
+	      return state;
+	  }
+	}
+	
+	//sync action creators
+	var convertPage = exports.convertPage = function convertPage(page_state) {
+	  return {
+	    type: CONVERT_PAGE,
+	    page_state: page_state
+	  };
+	};
+	
+	//async action creators (ish, more just interact with the page DOM action creators)
+	var sendToPage = exports.sendToPage = function sendToPage() {
+	  return function (dispatch) {
+	    return promTab.then(function (tab) {
+	      console.log('this is tab variable', tab.id);
+	      chrome.tabs.sendRequest(tab.id, { "message": "convert" });
+	    });
+	  };
+	};
+	
+	var promTab = new Promise(function (resolve, reject) {
+	  chrome.tabs.getSelected(null, function (tab) {
+	    resolve(tab);
+	  });
+	});
+	//seems like there might be an issue sending these from the redux files???
 
 /***/ }
 
