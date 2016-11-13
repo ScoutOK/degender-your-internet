@@ -8,7 +8,7 @@ export class Popup extends Component {
   render() {
     return (
       <div id='popup-box'>
-        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id='degender-button' onClick={this.props.sendToPage}>Degender This Page</button>
+        <button className="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id='degender-button'>Degender This Page</button>
         <ul>
           <li>Settings</li>
           <li>Show Altered Words</li>

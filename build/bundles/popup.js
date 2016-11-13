@@ -1000,7 +1000,7 @@ webpackJsonp([2],{
 	        { id: 'popup-box' },
 	        _react2.default.createElement(
 	          'button',
-	          { className: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent', id: 'degender-button', onClick: this.props.sendToPage },
+	          { className: 'mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent', id: 'degender-button' },
 	          'Degender This Page'
 	        ),
 	        _react2.default.createElement(
