@@ -81,12 +81,12 @@ const convert = () => {
       if (pronouns[eleArr[j]]) {
         if (pageStats.pronouns[eleArr[j]]) pageStats.pronouns[eleArr[j]]++
         else pageStats.pronouns[eleArr[j]] = 1
-        eleArr[j] = '<span class=\'coverted pronoun\'>' + pronouns[eleArr[j]] + '</span>'
+        eleArr[j] = '<span class=\'converted pronoun\'>' + pronouns[eleArr[j]] + '</span>'
       }
       if (nouns[eleArr[j]]) {
         if (pageStats.nouns[eleArr[j]]) pageStats.nouns[eleArr[j]]++
         else pageStats.nouns[eleArr[j]] = 1
-        eleArr[j] = '<span class=\'coverted noun\'>' + nouns[eleArr[j]] + '</span>'
+        eleArr[j] = '<span class=\'converted noun\'>' + nouns[eleArr[j]] + '</span>'
       }
     }
     allElements[i].innerHTML = eleArr.join(' ')
@@ -104,6 +104,40 @@ const revertPage = () => {
   document.body.childNodes[2].style.marginTop = '0px';
 }
 
+const colorPronouns = () => {
+  let changedPro = document.getElementsByClassName('converted pronoun')
+  for (let i = 0; i < changedPro.length; i++) {
+    changedPro[i].className = changedPro[i].className + ' active-converted'
+  }
+}
+
+const colorNouns = () => {
+  let changedNoun = document.getElementsByClassName('converted noun')
+  for (let i = 0; i < changedNoun.length; i++) {
+    changedNoun[i].className = changedNoun[i].className + ' active-converted'
+  }
+}
+
+const colorAdj = () => {
+  let changedAdj = document.getElementsByClassName('converted adj')
+  for (let i = 0; i < changedAdj.length; i++) {
+    changedAdj[i].className = changedAdj[i].className + ' active-converted'
+  }
+}
+
+const colorAll = () => {
+  let changed = document.getElementsByClassName('converted')
+  for (let i = 0; i < changed.length; i++) {
+    changed[i].className = changed[i].className + ' active-converted'
+  }
+}
+
+const addListens = () => {
+  document.getElementById("highPro").addEventListener("click", colorPronouns);
+  document.getElementById("highAdj").addEventListener("click", colorAdj);
+  document.getElementById("highNoun").addEventListener("click", colorNouns);
+  document.getElementById("highAll").addEventListener("click", colorAll);
+}
 
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
@@ -116,6 +150,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
       }
       topBar.className = ''
       convert();
+      addListens();
       sendResponse({pageStatus: 'converted'});
       break
     case 'revert':
@@ -127,5 +162,4 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
       sendResponse({error: 'that input makes no sense'})
   }
 })
-
 

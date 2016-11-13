@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 //import { Link } from 'react-router';
-import {connect} from 'react-redux';
-import { sendToPage } from '../ducks/convert'
+//import {connect} from 'react-redux';
+//import { sendToPage } from '../ducks/convert'
 
 
 export default class Popup extends Component {
