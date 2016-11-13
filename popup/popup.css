@@ -9,12 +9,20 @@ body {
 
 #popup-box {
   width: 20rem;
-  padding: 2rem;
   background: linear-gradient(170deg, #89c8c9, #ef8594);
+}
+
+#popup-box .button-box {
+  padding: 2rem;
+  text-align: center;
 }
 
 #degender-button {
   margin: auto;
+}
+
+#popup-box a {
+  color: #333;
 }
 
 #popup-box button {
@@ -38,3 +46,18 @@ body {
   border: 0;
   transition: background-color .2s ease;
 }
+
+#popup-box ul.bottom {
+  width: 100%;
+  background-color: red;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#popup-box ul.bottom li{
+  display: block;
+  width: 50%;
+}
+
+
