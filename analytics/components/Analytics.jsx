@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 
 
-export class Container extends Component {
+export default class Analytics extends Component {
   render() {
-    return  ( <div>
+    return  (
+    <div>
       <nav>
         <h1>Degender Analytics</h1>
         <ul>
@@ -25,4 +26,4 @@ export class Container extends Component {
 }
 
 
-export default connect()(Container)
+//export default connect()(Analytics)

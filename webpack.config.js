@@ -3,10 +3,7 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: {
-    analytics: '/analytics/main.jsx',
-    popup: './popup/main.jsx'
-  },
+  entry: './analytics/main.jsx',
   output: {
     path: __dirname,
     filename: './build/bundle.js'
