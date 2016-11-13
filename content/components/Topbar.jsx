@@ -10,10 +10,10 @@ export default class Topbar extends Component {
 
         <h1>This page has been degendered</h1>
         <button id='revert'>Revert</button>
-        <button id='highPro'>Highlight Altered Pronouns</button>
-        <button id='highAdj'>Highlight Altered Adjectives</button>
-        <button id='highNone'>Highlight Altered Nouns</button>
-        <button id='highAll'>Highlight All Altered Text</button>
+        <button id='highPro'>Altered Pronouns</button>
+        <button id='highAdj'>Altered Adjectives</button>
+        <button id='highNone'>Altered Nouns</button>
+        <button id='highAll'>All Altered Text</button>
 
       </div>
     )

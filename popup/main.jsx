@@ -26,9 +26,7 @@ if (typeof window !== 'undefined') {
 }
 
 render (
-        <Provider store={store}>
           <Popup />
-        </Provider>
         ,
   document.getElementById('popup')
 )
