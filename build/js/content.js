@@ -20,51 +20,22 @@ let pageStats = {
   adjectives: {}
 }
 
-
-const findAndReplacePronoun = (pronoun, replacement, string) => {
-  const proLeng = pronoun.length;
-  let replaceSpan = document.createElement('span');
-  replaceSpan.setAttribute('class', 'converted');
-  for (let i = 0; i < string.length - proLeng + 1; i++) {
-    if (string.substr(i, proLeng).toLowerCase() == pronoun) {
-      //test to see if can reasonable assume that this is indeed the pronoun
-      if (!/([a-zA-Z])/.test(string[i - 1]) && !/([a-zA-Z])/.test(string[i + proLeng])) {
-        if(pageStats.pronouns[pronoun]) pageStats.pronouns[pronoun]++
-        else pageStats.pronouns[pronoun] = 1
-        string = string.substring(0, i) + '<span class=\'coverted pronoun\'>' + replacement + '</span>' + string.substring(i+proLeng);
-      }
-    }
-  }
-  return string
-}
-
-
 //in order to add tags around the changes, need to access the text in a different way :(
 let allElements = document.body.getElementsByTagName("*");
 console.log(allElements)
 
 //would still be nice to not have to go over elements with no innerHTML
 
-//UGH, forgot that this is technically not an array
-// let goodElements = allElements.filter((ele)=>{
-//   return /[a-z]/.test(ele.innerHTML.toLowerCase())
-// })
 
-
-
-const convertPronoun = () => {
-  for (let i = 0; i < allElements.length; i++) {
-    allElements[i].innerHTML = findAndReplacePronoun('she', 'they', allElements[i].innerHTML);
-    allElements[i].innerHTML = findAndReplacePronoun('her', 'their', allElements[i].innerHTML);
-    allElements[i].innerHTML = findAndReplacePronoun('hers', 'theirs', allElements[i].innerHTML);
-    allElements[i].innerHTML = findAndReplacePronoun('he', 'they', allElements[i].innerHTML);
-    allElements[i].innerHTML = findAndReplacePronoun('his', 'their', allElements[i].innerHTML);
-    allElements[i].innerHTML = findAndReplacePronoun('him', 'them', allElements[i].innerHTML);
-  }
-  // document.body.insertBefore(topBar, document.body.firstChild)
-  console.log(pageStats)
-  let offsetHeight = document.body.childNodes[0].offsetHeight;
-  document.body.childNodes[2].style.marginTop = offsetHeight + 'px';
+const pronouns = {
+  he: "they",
+  him: "them",
+  his: "their",
+  himself: "themself",
+  she: "they",
+  her: "them",
+  hers: "theirs",
+  herself: "themself",
 }
 
 const nouns = {
@@ -94,19 +65,28 @@ const nouns = {
   "Girl's": "Children's",
 }
 
-const convertNoun = () => {
+const convert = () => {
+  //core logic of converter
   for (let i = 0; i < allElements.length; i++) {
     let eleArr = allElements[i].innerHTML.split(' ');
-    console.log(eleArr)
     for (let j=0; j < eleArr.length; j++) {
+      if (pronouns[eleArr[j]]) {
+        if (pageStats.pronouns[eleArr[j]]) pageStats.pronouns[eleArr[j]]++
+        else pageStats.pronouns[eleArr[j]] = 1
+        eleArr[j] = '<span class=\'coverted pronoun\'>' + pronouns[eleArr[j]] + '</span>'
+      }
       if (nouns[eleArr[j]]) {
         if (pageStats.nouns[eleArr[j]]) pageStats.nouns[eleArr[j]]++
         else pageStats.nouns[eleArr[j]] = 1
-        eleArr[j] = '<span class=\'coverted noun\'>'+nouns[eleArr[j]]+'</span>'
+        eleArr[j] = '<span class=\'coverted noun\'>' + nouns[eleArr[j]] + '</span>'
       }
     }
     allElements[i].innerHTML = eleArr.join(' ')
   }
+  //to help with styling
+  console.log(pageStats)
+  let offsetHeight = document.body.childNodes[0].offsetHeight;
+  document.body.childNodes[2].style.marginTop = offsetHeight + 'px';
 }
 
 const revertPage = () => {
@@ -120,8 +100,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   switch (request.message) {
     case 'convert':
       topBar.className = ''
-      convertPronoun();
-      convertNoun()
+      convert();
       sendResponse({pageStatus: 'converted'});
       break
     case 'revert':
@@ -134,12 +113,4 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   }
 })
 
-
-// chrome.runtime.onMessage.addListener(
-//   function(request, sender, sendResponse) {
-//     if( request.message === "start" ) {
-//      console.log('it finally worked');
-//          }
-//   }
-// );
 
