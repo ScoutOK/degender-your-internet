@@ -11,7 +11,6 @@ topBar.className = 'hide'
 
 document.body.insertBefore(topBar, document.body.firstChild);
 
-console.log(document.body.childNodes);
 
 //object to contain info about oage for analytics
 let pageStats = {
@@ -22,7 +21,16 @@ let pageStats = {
 
 //in order to add tags around the changes, need to access the text in a different way :(
 let allElements = document.body.getElementsByTagName("*");
-console.log(allElements)
+
+const copyHTML = ()=> {
+  let HTMLarr = [];
+  for (let i =0; i < allElements.length; i++) {
+    HTMLarr.push(allElements[i].innerHTML)
+  }
+  return HTMLarr
+}
+
+let orginalHTML = copyHTML();
 
 //would still be nice to not have to go over elements with no innerHTML
 
@@ -90,7 +98,10 @@ const convert = () => {
 }
 
 const revertPage = () => {
-  goodTextStrings = originalText
+  for (let i =0; i < allElements.length; i++) {
+    allElements[i].innerHTML = orginalHTML[i];
+  }
+  document.body.childNodes[2].style.marginTop = '0px';
 }
 
 
