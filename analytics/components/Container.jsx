@@ -16,7 +16,6 @@ export class Container extends Component {
       </nav>
       <main>
         <p>Content will go here if I even get this far, maybe tabs? There is a great big world of possibility!</p>
-        {this.props.children}
       </main>
       <footer>
       </footer>
