@@ -46,3 +46,9 @@
   border: 0;
   transition: background-color .2s ease;
 }
+
+.active-converted {
+  background: #bc93cd;
+  border-radius: 4px;
+  padding: 0 .25rem;
+}

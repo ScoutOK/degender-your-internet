@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux'
+//import {connect} from 'react-redux'
 
 
 export default class Topbar extends Component {
@@ -8,20 +8,21 @@ export default class Topbar extends Component {
     this.state ={
       converted: false
     };
-    this.revert = this.revert.bind(this);
+    this.highlightPro = this.highlightPro.bind(this)
   }
-  revert() {
-    console.log('in revert page')
+  highlightPro() {
+    console.log('in highlight pro')
   }
   render() {
     console.log(this.state)
+    console.log(this.highlightPro)
     return  (
       <div>
         <h1>This page has been degendered</h1>
         <div className='buttons'>
-          <button id='highPro'>Altered Pronouns</button>
+          <button id="highPro" onClick={() => this.highlightPro()}>Altered Pronouns</button>
           <button id='highAdj'>Altered Adjectives</button>
-          <button id='highNone'>Altered Nouns</button>
+          <button id='highNoun'>Altered Nouns</button>
           <button id='highAll'>All Altered Text</button>
           <button id='analyze'>Analyze Page</button>
         </div>
