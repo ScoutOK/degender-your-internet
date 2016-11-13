@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 
 
-export class Container extends Component {
+export default class Analytics extends Component {
   render() {
-    return  ( <div>
+    return  (
+    <div>
       <nav>
         <h1>Degender Analytics</h1>
         <ul>
@@ -16,7 +17,6 @@ export class Container extends Component {
       </nav>
       <main>
         <p>Content will go here if I even get this far, maybe tabs? There is a great big world of possibility!</p>
-        {this.props.children}
       </main>
       <footer>
       </footer>
@@ -26,4 +26,4 @@ export class Container extends Component {
 }
 
 
-export default connect()(Container)
+//export default connect()(Analytics)

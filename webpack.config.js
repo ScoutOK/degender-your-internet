@@ -3,10 +3,10 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './app/main.jsx',
+  entry: './analytics/main.jsx',
   output: {
     path: __dirname,
-    filename: './public/bundle.js'
+    filename: './build/bundle.js'
   },
   context: __dirname,
   devtool: 'source-map',
