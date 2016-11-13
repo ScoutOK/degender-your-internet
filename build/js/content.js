@@ -16,6 +16,7 @@ console.log(document.body.childNodes);
 //object to contain info about oage for analytics
 let pageStats = {
   pronouns: {},
+  nouns: {},
   adjectives: {}
 }
 
@@ -94,7 +95,18 @@ const nouns = {
 }
 
 const convertNoun = () => {
-
+  for (let i = 0; i < allElements.length; i++) {
+    let eleArr = allElements[i].innerHTML.split(' ');
+    console.log(eleArr)
+    for (let j=0; j < eleArr.length; j++) {
+      if (nouns[eleArr[j]]) {
+        if (pageStats.nouns[eleArr[j]]) pageStats.nouns[eleArr[j]]++
+        else pageStats.nouns[eleArr[j]] = 1
+        eleArr[j] = '<span class=\'coverted noun\'>'+nouns[eleArr[j]]+'</span>'
+      }
+    }
+    allElements[i].innerHTML = eleArr.join(' ')
+  }
 }
 
 const revertPage = () => {
@@ -109,6 +121,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     case 'convert':
       topBar.className = ''
       convertPronoun();
+      convertNoun()
       sendResponse({pageStatus: 'converted'});
       break
     case 'revert':
