@@ -76,8 +76,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   console.log('in listener', request)
   switch (request.message) {
     case 'convert':
-      convertPronoun();
       topBar.className = ''
+      convertPronoun();
       sendResponse({pageStatus: 'converted'});
       break
     case 'revert':
