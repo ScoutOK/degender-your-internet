@@ -66,6 +66,37 @@ const convertPronoun = () => {
   document.body.childNodes[2].style.marginTop = offsetHeight + 'px';
 }
 
+const nouns = {
+  man : "person",
+  Man: "Person",
+  men: "people",
+  Men: "People",
+  mens: "people's",
+  Mens: "People's",
+  boy: "child",
+  Boy: "Child",
+  boys: "children",
+  Boys: "Children",
+  "boy's": "children's",
+  "Boy's": "Children's",
+  woman: "person",
+  Woman: "Person",
+  women: "people",
+  Women: "People",
+  womens: "people's",
+  Womens: "People's",
+  girl: "child",
+  Girl: "Child",
+  girls: "children",
+  Girls: "Children",
+  "girl's": "children's",
+  "Girl's": "Children's",
+}
+
+const convertNoun = () => {
+
+}
+
 const revertPage = () => {
   goodTextStrings = originalText
 }
