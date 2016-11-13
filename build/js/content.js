@@ -7,6 +7,7 @@ console.log('the degender content script is totes active')
 let topBar = document.createElement("div");
 
 topBar.setAttribute('id', 'degender-bar');
+topBar.className = 'hide'
 
 document.body.insertBefore(topBar, document.body.firstChild);
 
@@ -75,11 +76,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   console.log('in listener', request)
   switch (request.message) {
     case 'convert':
+      topBar.className = ''
       convertPronoun();
       sendResponse({pageStatus: 'converted'});
       break
     case 'revert':
       revertPage();
+      topBar.className = 'hide'
       sendResponse({pageStatus: 'original'});
       break
     default:
