@@ -3,11 +3,18 @@
 var webpack = require('webpack');
 
 module.exports = {
-  entry: './analytics/main.jsx',
+  entry: {
+    content: './content/main.jsx',
+    analytics: './analytics/main.jsx',
+    popup: './popup/main.jsx'
+  },
   output: {
     path: __dirname,
-    filename: './build/bundle.js'
+    filename: './build/bundles/[name].js'
   },
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin("./build/bundles/commons.chunk.js")
+  ],
   context: __dirname,
   devtool: 'source-map',
   resolve: {

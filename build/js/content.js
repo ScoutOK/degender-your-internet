@@ -6,8 +6,11 @@ console.log('the degender content script is totes active')
 //build a div to go at the top of the page
 let topBar = document.createElement("div");
 
-topBar.setAttribute('id', 'degender-bar')
+topBar.setAttribute('id', 'degender-bar');
 
+document.body.insertBefore(topBar, document.body.firstChild);
+
+console.log(document.body.childNodes);
 
 //object to contain info about oage for analytics
 let pageStats = {
@@ -56,8 +59,10 @@ const convertPronoun = () => {
     allElements[i].innerHTML = findAndReplacePronoun('his', 'their', allElements[i].innerHTML);
     allElements[i].innerHTML = findAndReplacePronoun('him', 'them', allElements[i].innerHTML);
   }
-  document.body.insertBefore(topBar, document.body.firstChild)
+  // document.body.insertBefore(topBar, document.body.firstChild)
   console.log(pageStats)
+  let offsetHeight = document.body.childNodes[0].offsetHeight;
+  document.body.childNodes[2].style.marginTop = offsetHeight + 'px';
 }
 
 const revertPage = () => {
@@ -90,3 +95,4 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 //          }
 //   }
 // );
+

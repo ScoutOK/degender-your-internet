@@ -9,7 +9,7 @@
   },
   "content_scripts": [{
     "matches": ["<all_urls>"],
-    "js": ["/js/content.js"],
+    "js": ["/js/content.js", "/bundles/commons.chunk.js", "/bundles/content.js"],
     "run-at": "document_end"
   }],
   "browser_action": {
