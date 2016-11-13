@@ -8,6 +8,8 @@ let topBar = document.createElement("div");
 
 topBar.setAttribute('id', 'degender-bar')
 
+topBar.innerHTML = '<h1>This page has been degendered</h1><button id=\'revert\'>Revert</button><button id=\'highPronouns\'>Highlight Altered Pronouns</button><button id=\'highAdj\'>Highlight Altered Adjectives</button><button id=\'highAll\'>Highlight All Altered Text</button>'
+
 
 //object to contain info about oage for analytics
 let pageStats = {
