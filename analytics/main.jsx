@@ -5,6 +5,8 @@ import Container from './components/Container'
 import { Provider } from 'react-redux'
 import store from './store'
 
+import styles from './page.css'
+
 //seems like react router doesn't work without a server :((((
 //import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
 // import * as firebase from 'firebase'

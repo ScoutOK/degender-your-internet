@@ -4,6 +4,7 @@ import Popup from './components/Popup'
 
 import { Provider } from 'react-redux'
 import store from './store'
+import styles from './popup.css'
 
 //seems like react router doesn't work without a server :((((
 //import { Router, Route, IndexRedirect, browserHistory } from 'react-router'
