@@ -31,12 +31,13 @@ export default class Popup extends Component {
   render() {
     return (
       <div id='popup-box'>
+        <h1>Degender Your Internet</h1>
         <div className='button-box'>
           <button id='degender-button' onClick={this.degender}>{this.state.converted === true ? 'Revert' : 'Degender This Page'}</button>
         </div>
         <ul className='bottom'>
-          <li>Settings</li>
-          <li>Feedback</li>
+          <li><a>Settings</a></li>
+          <li><a href="mailto:ohkeefe@gmail.com">Feedback</a></li>
         </ul>
       </div>
       )

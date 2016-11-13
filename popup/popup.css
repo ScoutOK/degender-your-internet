@@ -10,15 +10,18 @@ body {
 #popup-box {
   width: 20rem;
   background: linear-gradient(170deg, #89c8c9, #ef8594);
+  padding: 1rem;
+}
+
+#popup-box h1 {
+  color: #333;
+  text-align: center;
+  margin-top: 0;
 }
 
 #popup-box .button-box {
-  padding: 2rem;
   text-align: center;
-}
-
-#degender-button {
-  margin: auto;
+  padding: 1rem 0 2rem;
 }
 
 #popup-box a {
@@ -32,10 +35,10 @@ body {
   color: #fff;
   text-shadow: none;
   border: 0!important;
-  font-size: 0.75rem;
+  font-size: 1rem;
   font-weight: 400;
   text-transform: uppercase;
-  padding: 5px 15px;
+  padding: .5rem 1rem;
   box-shadow: none;
   line-height: 1rem;
   transition: background-color .2s ease;
@@ -48,16 +51,28 @@ body {
 }
 
 #popup-box ul.bottom {
+  padding: 1rem;
   width: 100%;
-  background-color: red;
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  justify-content: space-around;
 }
 
 #popup-box ul.bottom li{
   display: block;
-  width: 50%;
+  width: 40%;
+  background: #555;
+  border-radius: 4px;
+}
+#popup-box ul.bottom li a {
+  display: block;
+  text-align: center;
+  width: 100%;
+  padding: .5rem 0;
+  color: #fff;
+  text-decoration: none;
 }
 
 
