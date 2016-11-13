@@ -110,8 +110,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   console.log('in listener', request)
   switch (request.message) {
     case 'convert':
-      if (document.documentElement.lang !== 'fr') {
-        window.alert('It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. If you would like to help develop Degender Your Internet for other languages, please contact me')
+      if (document.documentElement.lang !== 'en') {
+        alert('It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. If you would like to help develop Degender Your Internet for other languages, please contact me')
         break
       }
       topBar.className = ''
