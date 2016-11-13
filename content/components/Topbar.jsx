@@ -20,7 +20,8 @@ export default class Topbar extends Component {
       <div>
         <h1>This page has been degendered</h1>
         <div className='buttons'>
-          <button id="highPro" onClick={() => this.highlightPro()}>Altered Pronouns</button>
+          <button id="revert">Revert</button>
+          <button id="highPro">Altered Pronouns</button>
           <button id='highAdj'>Altered Adjectives</button>
           <button id='highNoun'>Altered Nouns</button>
           <button id='highAll'>All Altered Text</button>

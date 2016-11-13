@@ -44,6 +44,14 @@ const pronouns = {
   her: "them",
   hers: "theirs",
   herself: "themself",
+  He: "They",
+  Him: "Them",
+  His: "Their",
+  Himself: "Themself",
+  She: "They",
+  Her: "Them",
+  Hers: "Theirs",
+  Herself: "Themself",
 }
 
 const nouns = {
@@ -81,6 +89,7 @@ const convert = () => {
       if (pronouns[eleArr[j]]) {
         if (pageStats.pronouns[eleArr[j]]) pageStats.pronouns[eleArr[j]]++
         else pageStats.pronouns[eleArr[j]] = 1
+        console.log(eleArr[j])
         eleArr[j] = '<span class=\'converted pronoun\'>' + pronouns[eleArr[j]] + '</span>'
       }
       if (nouns[eleArr[j]]) {
@@ -102,6 +111,7 @@ const revertPage = () => {
     allElements[i].innerHTML = orginalHTML[i];
   }
   document.body.childNodes[2].style.marginTop = '0px';
+  topBar.className = 'hide'
 }
 
 const colorPronouns = () => {
@@ -133,6 +143,7 @@ const colorAll = () => {
 }
 
 const addListens = () => {
+  document.getElementById("revert").addEventListener("click", revertPage);
   document.getElementById("highPro").addEventListener("click", colorPronouns);
   document.getElementById("highAdj").addEventListener("click", colorAdj);
   document.getElementById("highNoun").addEventListener("click", colorNouns);
@@ -155,7 +166,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
       break
     case 'revert':
       revertPage();
-      topBar.className = 'hide'
       sendResponse({pageStatus: 'original'});
       break
     default:
