@@ -1,5 +1,19 @@
-#topBar {
-  background: blue;
+
+
+#degender-bar {
+  background: linear-gradient(170deg, #89c8c9, #ef8594);
   width: 100%;
-  height: 100px;
+  padding: 1rem;
+  color: #333;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 500;
+  box-sizing: border-box;
+}
+
+#degender-bar h1 {
+  font-family: "Telefon Black", Sans-Serif;
+  padding: 0;
+  margin-top: 0;
 }
