@@ -15,7 +15,7 @@
 }
 
 
-document.getElementById("test-button").addEventListener("click", popup);
+document.getElementById("degender-button").addEventListener("click", popup);
 document.getElementById("revert").addEventListener("click", revert);
 
 
