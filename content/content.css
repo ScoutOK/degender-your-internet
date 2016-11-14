@@ -47,6 +47,11 @@
   transition: background-color .2s ease;
 }
 
+#degender-bar button.active {
+  background: #ccc;
+  color: #333;
+}
+
 .active-converted {
   background: #bc93cd;
   border-radius: 4px;

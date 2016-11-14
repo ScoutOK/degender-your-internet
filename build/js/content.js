@@ -127,10 +127,10 @@ const convert = () => {
   for (let i = 0; i < allElements.length; i++) {
     let eleArr = allElements[i].innerHTML.split(' ');
     for (let j=0; j < eleArr.length; j++) {
+      console.log(eleArr[j])
       if (pronouns[eleArr[j]]) {
         if (pageStats.pronouns[eleArr[j]]) pageStats.pronouns[eleArr[j]]++
         else pageStats.pronouns[eleArr[j]] = 1
-        console.log(eleArr[j])
         eleArr[j] = '<span class=\'converted pronoun\'>' + pronouns[eleArr[j]] + '</span>'
       }
       if (nouns[eleArr[j]]) {
@@ -160,40 +160,49 @@ const revertPage = () => {
   topBar.className = 'hide'
 }
 
-const colorPronouns = () => {
-  let changedPro = document.getElementsByClassName('converted pronoun')
-  for (let i = 0; i < changedPro.length; i++) {
-    changedPro[i].className = changedPro[i].className + ' active-converted'
-  }
-}
-
-const colorNouns = () => {
-  let changedNoun = document.getElementsByClassName('converted noun')
-  for (let i = 0; i < changedNoun.length; i++) {
-    changedNoun[i].className = changedNoun[i].className + ' active-converted'
-  }
-}
-
-const colorAdj = () => {
-  let changedAdj = document.getElementsByClassName('converted adj')
-  for (let i = 0; i < changedAdj.length; i++) {
-    changedAdj[i].className = changedAdj[i].className + ' active-converted'
-  }
-}
-
-const colorAll = () => {
-  let changed = document.getElementsByClassName('converted')
+const color = (speech) => {
+  let changed = document.getElementsByClassName('converted ' + speech)
   for (let i = 0; i < changed.length; i++) {
     changed[i].className = changed[i].className + ' active-converted'
   }
 }
 
+const decolor = (speech) => {
+  let changed = document.getElementsByClassName('converted ' + speech)
+  for (let i = 0; i < changed.length; i++) {
+    changed[i].className = 'converted ' + speech
+  }
+}
+
 const addListens = () => {
   document.getElementById("revert").addEventListener("click", revertPage);
-  document.getElementById("highPro").addEventListener("click", colorPronouns);
-  document.getElementById("highAdj").addEventListener("click", colorAdj);
-  document.getElementById("highNoun").addEventListener("click", colorNouns);
-  document.getElementById("highAll").addEventListener("click", colorAll);
+  document.getElementById("highPro").addEventListener("click", (evt) => {
+    if (evt.target.className === 'active'){
+      evt.target.className = ''
+      decolor('pronoun')
+    } else {
+      color('pronoun')
+      evt.target.className = 'active'
+    }
+  });
+  document.getElementById("highAdj").addEventListener("click", (evt) => {
+    if (evt.target.className === 'active'){
+      evt.target.className = ''
+      decolor('adj')
+    } else {
+      color('adj')
+      evt.target.className = 'active'
+    }
+  });
+  document.getElementById("highNoun").addEventListener("click", (evt) => {
+    if (evt.target.className === 'active') {
+      evt.target.className = ''
+      decolor('noun')
+    } else {
+      color('noun')
+      evt.target.className = 'active'
+    }
+  });
 }
 
 
