@@ -79,6 +79,47 @@ const nouns = {
   Girls: "Children",
   "girl's": "children's",
   "Girl's": "Children's",
+  husband: "spouse",
+  Husbane: "Spouse",
+  wife: "spouse",
+  Wife: "Spouse",
+  sister: "sibling",
+  Sister: "sibling"
+}
+
+const adj = {
+  feisty: "lively",
+  frisky: "spirited",
+  irritable: "grouchy",
+  ambitious: "determined",
+  abrasive: "unpleasant",
+  nasty: "disagreeable",
+  bitchy: "mean",
+  bossy: "forceful",
+  bubbly: "friendly",
+  curvy: "robust",
+  ditzy: "careless",
+  emotional: "impassioned",
+  frigid: "serious",
+  frumpy: "un-made-up",
+  "high-maintenence": "exacting",
+  hysterical: "furious",
+  illogical: "incorrectsass",
+  irrational: "incorrect",
+  pushy: "assertive",
+  sassy: "bold",
+  shrill: "assertive",
+  exotic: "unusual",
+  brash: "cocksure",
+  catty: "mean",
+  slutty: "sexually-active",//don't really have a neutral for this
+  pretty: "attractive",
+  handsome: "attractive",
+  studly: "hot",
+  charming: "pleasant",
+  aggressive: "determined",
+  cocky: "self-confident",
+  arrogant: "overconfident",
 }
 
 const convert = () => {
