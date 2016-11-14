@@ -130,7 +130,6 @@ const convert = () => {
       if (pronouns[eleArr[j]]) {
         if (pageStats.pronouns[eleArr[j]]) pageStats.pronouns[eleArr[j]]++
         else pageStats.pronouns[eleArr[j]] = 1
-        console.log(eleArr[j])
         eleArr[j] = '<span class=\'converted pronoun\'>' + pronouns[eleArr[j]] + '</span>'
       }
       if (nouns[eleArr[j]]) {
