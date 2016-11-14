@@ -138,6 +138,11 @@ const convert = () => {
         else pageStats.nouns[eleArr[j]] = 1
         eleArr[j] = '<span class=\'converted noun\'>' + nouns[eleArr[j]] + '</span>'
       }
+      if (adj[eleArr[j]]) {
+        if (pageStats.adjectives[eleArr[j]]) pageStats.adjectives[eleArr[j]]++
+        else pageStats.adjectives[eleArr[j]] = 1
+        eleArr[j] = '<span class=\'converted adj\'>' + adj[eleArr[j]] + '</span>'
+      }
     }
     allElements[i].innerHTML = eleArr.join(' ')
   }
