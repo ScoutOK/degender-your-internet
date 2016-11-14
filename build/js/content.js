@@ -130,11 +130,8 @@ const convert = () => {
       //see if bit ends with punctuation
       let end = ''
       if (!/([a-zA-Z])/.test(eleArr[j][eleArr[j].length - 1])) {
-        console.log('in RegEx thing')
-        console.log(eleArr[j])
         end = eleArr[j][eleArr[j].length - 1]
         eleArr[j] = eleArr[j].substr(0, eleArr[j].length - 1)
-        console.log(eleArr[j])
       }
       if (pronouns[eleArr[j]]) {
         if (pageStats.pronouns[eleArr[j]]) pageStats.pronouns[eleArr[j]]++
