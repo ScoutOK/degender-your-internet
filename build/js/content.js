@@ -180,19 +180,20 @@ const colorAdj = () => {
   }
 }
 
-const colorAll = () => {
-  let changed = document.getElementsByClassName('converted')
-  for (let i = 0; i < changed.length; i++) {
-    changed[i].className = changed[i].className + ' active-converted'
-  }
-}
-
 const addListens = () => {
   document.getElementById("revert").addEventListener("click", revertPage);
-  document.getElementById("highPro").addEventListener("click", colorPronouns);
-  document.getElementById("highAdj").addEventListener("click", colorAdj);
-  document.getElementById("highNoun").addEventListener("click", colorNouns);
-  document.getElementById("highAll").addEventListener("click", colorAll);
+  document.getElementById("highPro").addEventListener("click", (evt) => {
+    colorPronouns()
+    evt.target.className = evt.target.className + ' active'
+  });
+  document.getElementById("highAdj").addEventListener("click", (evt) => {
+    colorAdj()
+    evt.target.className = evt.target.className + ' active'
+  });
+  document.getElementById("highNoun").addEventListener("click", (evt) => {
+    colorNouns()
+    evt.target.className = evt.target.className + ' active'
+  });
 }
 
 

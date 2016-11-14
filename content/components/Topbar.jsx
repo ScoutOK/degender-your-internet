@@ -24,7 +24,6 @@ export default class Topbar extends Component {
           <button id="highPro">Altered Pronouns</button>
           <button id='highAdj'>Altered Adjectives</button>
           <button id='highNoun'>Altered Nouns</button>
-          <button id='highAll'>All Altered Text</button>
           <button id='analyze'>Analyze Page</button>
         </div>
       </div>
