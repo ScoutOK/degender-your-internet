@@ -5,6 +5,6 @@ This Google Chrome extension will remove and gendered pronouns from your webpage
 
 If you think we missed any words, please let us know in the feedback section.
 
-About the creator: I am an agender female who is sick of always thinking about gender and is quite tired.
+About the creator: I am an agender(ish) female who is sick of always thinking about gender and is quite tired.
 
 Packages used: webpack, node.js, react, redux, firebase
