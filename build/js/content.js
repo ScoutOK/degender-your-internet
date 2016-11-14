@@ -127,21 +127,29 @@ const convert = () => {
   for (let i = 0; i < allElements.length; i++) {
     let eleArr = allElements[i].innerHTML.split(' ');
     for (let j=0; j < eleArr.length; j++) {
-      console.log(eleArr[j])
+      //see if bit ends with punctuation
+      let end = ''
+      if (!/([a-zA-Z])/.test(eleArr[j][eleArr[j].length - 1])) {
+        console.log('in RegEx thing')
+        console.log(eleArr[j])
+        end = eleArr[j][eleArr[j].length - 1]
+        eleArr[j] = eleArr[j].substr(0, eleArr[j].length - 1)
+        console.log(eleArr[j])
+      }
       if (pronouns[eleArr[j]]) {
         if (pageStats.pronouns[eleArr[j]]) pageStats.pronouns[eleArr[j]]++
         else pageStats.pronouns[eleArr[j]] = 1
-        eleArr[j] = '<span class=\'converted pronoun\'>' + pronouns[eleArr[j]] + '</span>'
-      }
-      if (nouns[eleArr[j]]) {
+        eleArr[j] = '<span class=\'converted pronoun\'>' + pronouns[eleArr[j]] +'</span>' + end
+      } else if (nouns[eleArr[j]]) {
         if (pageStats.nouns[eleArr[j]]) pageStats.nouns[eleArr[j]]++
         else pageStats.nouns[eleArr[j]] = 1
-        eleArr[j] = '<span class=\'converted noun\'>' + nouns[eleArr[j]] + '</span>'
-      }
-      if (adj[eleArr[j]]) {
+        eleArr[j] = '<span class=\'converted noun\'>' + nouns[eleArr[j]] + '</span>' + end
+      } else if (adj[eleArr[j]]) {
         if (pageStats.adjectives[eleArr[j]]) pageStats.adjectives[eleArr[j]]++
         else pageStats.adjectives[eleArr[j]] = 1
-        eleArr[j] = '<span class=\'converted adj\'>' + adj[eleArr[j]] + '</span>'
+        eleArr[j] = '<span class=\'converted adj\'>' + adj[eleArr[j]] + '</span>' + end
+      } else {
+        eleArr[j] = eleArr[j] + end
       }
     }
     allElements[i].innerHTML = eleArr.join(' ')
@@ -210,7 +218,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   console.log('in listener', request)
   switch (request.message) {
     case 'convert':
-      if (document.documentElement.lang !== 'en') {
+      if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
         alert('It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. If you would like to help develop Degender Your Internet for other languages, please contact me')
         break
       }
