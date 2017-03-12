@@ -30,12 +30,12 @@ const copyHTML = ()=> {
   return HTMLarr
 }
 
-//first test of compromise
-HTMLarr.forEach(string => {
-  console.log(nlp.match('#Pronoun').out())
-})
+let originalHTML = copyHTML();
 
-let orginalHTML = copyHTML();
+//first test of compromise
+originalHTML.forEach(string => {
+  console.log(nlp(string).match('#Pronoun').out())
+})
 
 //would still be nice to not have to go over elements with no innerHTML
 
@@ -164,7 +164,7 @@ const convert = () => {
 
 const revertPage = () => {
   for (let i =0; i < allElements.length; i++) {
-    allElements[i].innerHTML = orginalHTML[i];
+    allElements[i].innerHTML = originalHTML[i];
   }
   document.body.childNodes[2].style.marginTop = '0px';
   topBar.className = 'hide'

@@ -35,12 +35,12 @@ webpackJsonp([3,4],{
 	  return HTMLarr;
 	};
 	
-	//first test of compromise
-	HTMLarr.forEach(function (string) {
-	  console.log(nlp.match('#Pronoun').out());
-	});
+	var originalHTML = copyHTML();
 	
-	var orginalHTML = copyHTML();
+	//first test of compromise
+	originalHTML.forEach(function (string) {
+	  console.log(nlp(string).match('#Pronoun').out());
+	});
 	
 	//would still be nice to not have to go over elements with no innerHTML
 	
@@ -166,7 +166,7 @@ webpackJsonp([3,4],{
 	
 	var revertPage = function revertPage() {
 	  for (var i = 0; i < allElements.length; i++) {
-	    allElements[i].innerHTML = orginalHTML[i];
+	    allElements[i].innerHTML = originalHTML[i];
 	  }
 	  document.body.childNodes[2].style.marginTop = '0px';
 	  topBar.className = 'hide';
