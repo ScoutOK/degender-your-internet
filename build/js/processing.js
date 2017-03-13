@@ -126,12 +126,29 @@ webpackJsonp([2],{
 	  return topBar;
 	};
 	
+	var revertPage = function revertPage() {
+	  for (var i = 0; i < allElements.length; i++) {
+	    allElements[i].innerHTML = originalHTML[i];
+	  }
+	  document.body.childNodes[2].style.marginTop = '0px';
+	  topBar.className = 'hide';
+	};
+	
+	var addListens = function addListens() {
+	  document.getElementById("revert").addEventListener("click", revertPage);
+	};
+	
 	console.log('the degender content script is totes active');
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	  console.log('in listener', request);
 	
+	  //add wrapper around current body content
+	  var bodyInsides = document.body.innerHTML;
+	  var degenderWrapper = '<div id=\'degender-wrapper\'>' + bodyInsides + '</div>';
+	  document.body.innerHTML = degenderWrapper;
+	
 	  //in order to add tags around the changes, need to access the text in a different way :(
-	  var allElements = document.body.getElementsByTagName("*");
+	  var allElements = document.getElementById('degender-wrapper').getElementsByTagName("*");
 	
 	  var copyHTML = function copyHTML() {
 	    var HTMLarr = [];
@@ -144,10 +161,10 @@ webpackJsonp([2],{
 	  var originalHTML = copyHTML();
 	
 	  //first test of compromise
-	  originalHTML.forEach(function (string) {
-	    console.log('should be pronouns', (0, _compromise2.default)(string).match('#Pronoun'));
-	    //console.log(string, nlp.text(string).tags())
-	  });
+	  // originalHTML.forEach(string => {
+	  //   console.log('should be pronouns', nlp(string).match('#Pronoun'))
+	  //   //console.log(string, nlp.text(string).tags())
+	  // })
 	
 	  //would still be nice to not have to go over elements with no innerHTML
 	
@@ -184,54 +201,17 @@ webpackJsonp([2],{
 	    //document.body.childNodes[1].style.marginTop = offsetHeight + 'px';
 	  };
 	
-	  var revertPage = function revertPage() {
-	    for (var i = 0; i < allElements.length; i++) {
-	      allElements[i].innerHTML = originalHTML[i];
-	    }
-	    document.body.childNodes[2].style.marginTop = '0px';
-	    topBar.className = 'hide';
-	  };
-	
-	  var addListens = function addListens() {
-	    document.getElementById("revert").addEventListener("click", revertPage);
-	    // document.getElementById("highPro").addEventListener("click", (evt) => {
-	    //   if (evt.target.className === 'active'){
-	    //     evt.target.className = ''
-	    //     decolor('pronoun')
-	    //   } else {
-	    //     color('pronoun')
-	    //     evt.target.className = 'active'
-	    //   }
-	    // });
-	    // document.getElementById("highAdj").addEventListener("click", (evt) => {
-	    //   if (evt.target.className === 'active'){
-	    //     evt.target.className = ''
-	    //     decolor('adj')
-	    //   } else {
-	    //     color('adj')
-	    //     evt.target.className = 'active'
-	    //   }
-	    // });
-	    // document.getElementById("highNoun").addEventListener("click", (evt) => {
-	    //   if (evt.target.className === 'active') {
-	    //     evt.target.className = ''
-	    //     decolor('noun')
-	    //   } else {
-	    //     color('noun')
-	    //     evt.target.className = 'active'
-	    //   }
-	    // });
-	  };
-	
 	  switch (request.message) {
 	    case 'convert':
 	      if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
 	        alert('It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. If you would like to help develop Degender Your Internet for other languages, please contact me');
 	        break;
 	      }
-	      //topBar.className = ''
+	
 	      convert(); //something about this function is RUINING my onClicks
 	      var _topBar = createTopbar();
+	      //to set margin at top of original content
+	      document.getElementById('degender-wrapper').style.marginTop = document.getElementById('degender-bar').offsetHeight + 'px';
 	      addListens();
 	      sendResponse({ pageStatus: 'converted' });
 	      break;
@@ -14401,7 +14381,7 @@ webpackJsonp([2],{
 	
 	
 	// module
-	exports.push([module.id, "#degender-bar {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 500;\n  box-sizing: border-box;\n}\n\n#degender-bar h1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n#degender-bar.hide {\n  display: none;\n}\n\n#degender-bar .buttons {\n  display: flex;\n  justify-content: space-between;\n}\n\n#degender-bar button {\n  cursor: pointer;\n  background: #555;\n  border-radius: 4px;\n  color: #fff;\n  text-shadow: none;\n  border: 0!important;\n  font-size: 12pt;\n  font-weight: 400;\n  text-transform: uppercase;\n  padding: 5px 15px;\n  box-shadow: none;\n  line-height: 1rem;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:hover {\n  background: #333;\n  border: 0;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button.active {\n  background: #ccc;\n  color: #333;\n}\n\n.active-converted {\n  background: #bc93cd;\n  border-radius: 4px;\n  padding: 0 .25rem;\n}\n", ""]);
+	exports.push([module.id, "#degender-bar {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 500;\n  box-sizing: border-box;\n}\n\n#degender-bar h1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n#degender-bar.hide {\n  display: none;\n}\n\n#degender-bar .buttons {\n  display: flex;\n  justify-content: space-between;\n}\n\n#degender-bar button {\n  cursor: pointer;\n  background: #555;\n  border-radius: 4px;\n  color: #fff;\n  text-shadow: none;\n  border: 0!important;\n  font-size: 12pt;\n  font-weight: 400;\n  text-transform: uppercase;\n  padding: 5px 15px;\n  box-shadow: none;\n  line-height: 1rem;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:hover {\n  background: #333;\n  border: 0;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button.active {\n  background: #ccc;\n  color: #333;\n}\n\n.active-converted {\n  background: #bc93cd;\n  border-radius: 4px;\n  padding: 0 .25rem;\n}\n\n#degender-wrapper {\n  position: relative;\n}\n", ""]);
 	
 	// exports
 

@@ -115,13 +115,29 @@ const createTopbar = () => {
 
 }
 
+const revertPage = () => {
+  for (let i =0; i < allElements.length; i++) {
+    allElements[i].innerHTML = originalHTML[i];
+  }
+  document.body.childNodes[2].style.marginTop = '0px';
+  topBar.className = 'hide'
+}
+
+const addListens = () => {
+  document.getElementById("revert").addEventListener("click", revertPage);
+}
+
 console.log('the degender content script is totes active')
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   console.log('in listener', request)
 
+  //add wrapper around current body content
+  const bodyInsides = document.body.innerHTML;
+  const degenderWrapper = `<div id='degender-wrapper'>${bodyInsides}</div>`
+  document.body.innerHTML = degenderWrapper;
 
   //in order to add tags around the changes, need to access the text in a different way :(
-  let allElements = document.body.getElementsByTagName("*");
+  let allElements = document.getElementById('degender-wrapper').getElementsByTagName("*");
 
   const copyHTML = ()=> {
     let HTMLarr = [];
@@ -134,10 +150,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   let originalHTML = copyHTML();
 
   //first test of compromise
-  originalHTML.forEach(string => {
-    console.log('should be pronouns', nlp(string).match('#Pronoun'))
-    //console.log(string, nlp.text(string).tags())
-  })
+  // originalHTML.forEach(string => {
+  //   console.log('should be pronouns', nlp(string).match('#Pronoun'))
+  //   //console.log(string, nlp.text(string).tags())
+  // })
 
   //would still be nice to not have to go over elements with no innerHTML
 
@@ -177,54 +193,17 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     //document.body.childNodes[1].style.marginTop = offsetHeight + 'px';
   }
 
-  const revertPage = () => {
-    for (let i =0; i < allElements.length; i++) {
-      allElements[i].innerHTML = originalHTML[i];
-    }
-    document.body.childNodes[2].style.marginTop = '0px';
-    topBar.className = 'hide'
-  }
-
-  const addListens = () => {
-    document.getElementById("revert").addEventListener("click", revertPage);
-    // document.getElementById("highPro").addEventListener("click", (evt) => {
-    //   if (evt.target.className === 'active'){
-    //     evt.target.className = ''
-    //     decolor('pronoun')
-    //   } else {
-    //     color('pronoun')
-    //     evt.target.className = 'active'
-    //   }
-    // });
-    // document.getElementById("highAdj").addEventListener("click", (evt) => {
-    //   if (evt.target.className === 'active'){
-    //     evt.target.className = ''
-    //     decolor('adj')
-    //   } else {
-    //     color('adj')
-    //     evt.target.className = 'active'
-    //   }
-    // });
-    // document.getElementById("highNoun").addEventListener("click", (evt) => {
-    //   if (evt.target.className === 'active') {
-    //     evt.target.className = ''
-    //     decolor('noun')
-    //   } else {
-    //     color('noun')
-    //     evt.target.className = 'active'
-    //   }
-    // });
-  }
-
   switch (request.message) {
     case 'convert':
       if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
         alert('It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. If you would like to help develop Degender Your Internet for other languages, please contact me')
         break
       }
-      //topBar.className = ''
+
       convert();//something about this function is RUINING my onClicks
       const topBar = createTopbar();
+      //to set margin at top of original content
+      document.getElementById('degender-wrapper').style.marginTop = `${document.getElementById('degender-bar').offsetHeight}px`;
       addListens();
       sendResponse({pageStatus: 'converted'});
       break
