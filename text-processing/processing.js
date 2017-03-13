@@ -139,11 +139,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     //console.log(string, nlp.text(string).tags())
   })
 
-  const topBar = createTopbar();
-
   //would still be nice to not have to go over elements with no innerHTML
 
   const convert = () => {
+    console.log(allElements);
     //core logic of converter
     for (let i = 0; i < allElements.length; i++) {
       let eleArr = allElements[i].innerHTML.split(' ');
@@ -174,8 +173,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     }
     //to help with styling
     console.log(pageStats)
-    let offsetHeight = document.body.childNodes[0].offsetHeight;
-    document.body.childNodes[2].style.marginTop = offsetHeight + 'px';
+    //let offsetHeight = document.body.childNodes[0].offsetHeight;
+    //document.body.childNodes[1].style.marginTop = offsetHeight + 'px';
   }
 
   const revertPage = () => {
@@ -223,8 +222,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         alert('It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. If you would like to help develop Degender Your Internet for other languages, please contact me')
         break
       }
-      topBar.className = ''
-      convert();
+      //topBar.className = ''
+      convert();//something about this function is RUINING my onClicks
+      const topBar = createTopbar();
       addListens();
       sendResponse({pageStatus: 'converted'});
       break
