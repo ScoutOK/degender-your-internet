@@ -29,6 +29,7 @@
     "compromise": "^7.0.28",
     "css-loader": "^0.25.0",
     "firebase": "^3.6.0",
+    "nlp_compromise": "^6.5.3",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-redux": "^4.4.5",
