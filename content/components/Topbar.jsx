@@ -9,7 +9,9 @@ export default class Topbar extends Component {
       converted: false
     };
   }
-  color = (speech) => {
+
+  color (speech) {
+    
     let changed = document.getElementsByClassName(`converted ${speech}`)
     //check to see if active-converted class has already been appended
     if (changed[0].className.split(' ').indexOf('active-converted') === -1) {

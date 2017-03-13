@@ -14279,7 +14279,16 @@ webpackJsonp([2],{
 	
 	    var _this = _possibleConstructorReturn(this, (Topbar.__proto__ || Object.getPrototypeOf(Topbar)).call(this));
 	
-	    _this.color = function (speech) {
+	    _this.state = {
+	      converted: false
+	    };
+	    return _this;
+	  }
+	
+	  _createClass(Topbar, [{
+	    key: 'color',
+	    value: function color(speech) {
+	
 	      var changed = document.getElementsByClassName('converted ' + speech);
 	      //check to see if active-converted class has already been appended
 	      if (changed[0].className.split(' ').indexOf('active-converted') === -1) {
@@ -14291,15 +14300,8 @@ webpackJsonp([2],{
 	          changed[_i].className = 'converted ' + speech;
 	        }
 	      }
-	    };
-	
-	    _this.state = {
-	      converted: false
-	    };
-	    return _this;
-	  }
-	
-	  _createClass(Topbar, [{
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
