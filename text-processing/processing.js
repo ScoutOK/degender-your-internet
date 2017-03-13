@@ -150,10 +150,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   let originalHTML = copyHTML();
 
   //first test of compromise
-  // originalHTML.forEach(string => {
-  //   console.log('should be pronouns', nlp(string).match('#Pronoun'))
-  //   //console.log(string, nlp.text(string).tags())
-  // })
+  originalHTML.forEach(string => {
+    console.log('should be pronouns', nlp(string).match('#Pronoun'))
+    //console.log(string, nlp.text(string).tags())
+  })
 
   //would still be nice to not have to go over elements with no innerHTML
 
