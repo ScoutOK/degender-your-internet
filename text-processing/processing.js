@@ -1,6 +1,17 @@
 'use strict'
 
-const nlp = require('compromise');
+import nlp from 'compromise';
+import React from 'react'
+import { render } from 'react-dom'
+import Topbar from '../content/components/Topbar'
+
+// import { Provider } from 'react-redux'
+// import store from './store'
+
+import styles from '../content/content.css'
+
+//boolean to control react rendering VERY IMPORTANT
+let renderBar = false;
 
 const pronouns = {
   he: "they",
@@ -107,6 +118,12 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   //topBar.className = 'hide'
 
   document.body.insertBefore(topBar, document.body.firstChild);
+
+  //render the topbar
+  render (
+    <Topbar />,
+    document.getElementById('degender-bar')
+  )
 
   //in order to add tags around the changes, need to access the text in a different way :(
   let allElements = document.body.getElementsByTagName("*");

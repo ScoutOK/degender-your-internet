@@ -1,11 +1,35 @@
-webpackJsonp([3,4],{
+webpackJsonp([2],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var nlp = __webpack_require__(235);
+	var _compromise = __webpack_require__(274);
+	
+	var _compromise2 = _interopRequireDefault(_compromise);
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(32);
+	
+	var _Topbar = __webpack_require__(275);
+	
+	var _Topbar2 = _interopRequireDefault(_Topbar);
+	
+	var _content = __webpack_require__(276);
+	
+	var _content2 = _interopRequireDefault(_content);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	//boolean to control react rendering VERY IMPORTANT
+	var renderBar = false;
+	
+	// import { Provider } from 'react-redux'
+	// import store from './store'
 	
 	var pronouns = {
 	  he: "they",
@@ -113,6 +137,9 @@ webpackJsonp([3,4],{
 	
 	  document.body.insertBefore(topBar, document.body.firstChild);
 	
+	  //render the topbar
+	  (0, _reactDom.render)(_react2.default.createElement(_Topbar2.default, null), document.getElementById('degender-bar'));
+	
 	  //in order to add tags around the changes, need to access the text in a different way :(
 	  var allElements = document.body.getElementsByTagName("*");
 	
@@ -128,7 +155,7 @@ webpackJsonp([3,4],{
 	
 	  //first test of compromise
 	  originalHTML.forEach(function (string) {
-	    console.log(string, nlp(string).data());
+	    console.log(string, (0, _compromise2.default)(string).data());
 	    //console.log(string, nlp.text(string).tags())
 	  });
 	
@@ -241,7 +268,7 @@ webpackJsonp([3,4],{
 
 /***/ },
 
-/***/ 235:
+/***/ 274:
 /***/ function(module, exports, __webpack_require__) {
 
 	var require;var require;/* WEBPACK VAR INJECTION */(function(global) {(function(f){if(true){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.nlp = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return require(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
@@ -14206,6 +14233,147 @@ webpackJsonp([3,4],{
 	},{}]},{},[41])(41)
 	});
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+
+/***/ 275:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	//import {connect} from 'react-redux'
+	
+	
+	var Topbar = function (_Component) {
+	  _inherits(Topbar, _Component);
+	
+	  function Topbar() {
+	    _classCallCheck(this, Topbar);
+	
+	    var _this = _possibleConstructorReturn(this, (Topbar.__proto__ || Object.getPrototypeOf(Topbar)).call(this));
+	
+	    _this.state = {
+	      converted: false
+	    };
+	    _this.highlightPro = _this.highlightPro.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(Topbar, [{
+	    key: 'highlightPro',
+	    value: function highlightPro() {
+	      console.log('in highlight pro');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      console.log(this.state);
+	      console.log(this.highlightPro);
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          'h1',
+	          null,
+	          'This page has been degendered'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'buttons' },
+	          _react2.default.createElement(
+	            'button',
+	            { id: 'revert' },
+	            'Revert'
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { id: 'highPro' },
+	            'Altered Pronouns'
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { id: 'highAdj' },
+	            'Altered Adjectives'
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { id: 'highNoun' },
+	            'Altered Nouns'
+	          ),
+	          _react2.default.createElement(
+	            'button',
+	            { id: 'analyze' },
+	            'Analyze Page'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Topbar;
+	}(_react.Component);
+	
+	exports.default = Topbar;
+
+/***/ },
+
+/***/ 276:
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(277);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(222)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!../node_modules/css-loader/index.js!./content.css", function() {
+				var newContent = require("!!../node_modules/css-loader/index.js!./content.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+
+/***/ 277:
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(221)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, "#degender-bar {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 500;\n  box-sizing: border-box;\n}\n\n#degender-bar h1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n#degender-bar.hide {\n  display: none;\n}\n\n#degender-bar .buttons {\n  display: flex;\n  justify-content: space-between;\n}\n\n#degender-bar button {\n  cursor: pointer;\n  background: #555;\n  border-radius: 4px;\n  color: #fff;\n  text-shadow: none;\n  border: 0!important;\n  font-size: 12pt;\n  font-weight: 400;\n  text-transform: uppercase;\n  padding: 5px 15px;\n  box-shadow: none;\n  line-height: 1rem;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:hover {\n  background: #333;\n  border: 0;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button.active {\n  background: #ccc;\n  color: #333;\n}\n\n.active-converted {\n  background: #bc93cd;\n  border-radius: 4px;\n  padding: 0 .25rem;\n}\n", ""]);
+	
+	// exports
+
 
 /***/ }
 

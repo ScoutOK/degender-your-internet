@@ -4,7 +4,6 @@ var webpack = require('webpack');
 
 module.exports = {
   entry: {
-    content: './content/main.jsx',
     analytics: './analytics/main.jsx',
     popup: './popup/main.jsx',
     processing: './text-processing/processing.js'

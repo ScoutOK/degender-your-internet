@@ -7,9 +7,6 @@ import Topbar from './components/Topbar'
 
 import styles from './content.css'
 
-
-render (
-          <Topbar />
-        ,
-  document.getElementById('degender-bar')
-)
+if (renderBar) {
+  
+}
