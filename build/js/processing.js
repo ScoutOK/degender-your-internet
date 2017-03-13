@@ -14303,6 +14303,8 @@ webpackJsonp([2],{
 	  _createClass(Topbar, [{
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+	
 	      console.log(this.state);
 	      console.log(this.highlightPro);
 	      return _react2.default.createElement(
@@ -14324,21 +14326,21 @@ webpackJsonp([2],{
 	          _react2.default.createElement(
 	            'button',
 	            { id: 'highPro', onClick: function onClick() {
-	                return color('pronoun');
+	                return _this2.color('pronoun');
 	              } },
 	            'Altered Pronouns'
 	          ),
 	          _react2.default.createElement(
 	            'button',
 	            { id: 'highAdj', onClick: function onClick() {
-	                return color('adj');
+	                return _this2.color('adj');
 	              } },
 	            'Altered Adjectives'
 	          ),
 	          _react2.default.createElement(
 	            'button',
 	            { id: 'highNoun', onClick: function onClick() {
-	                return color('noun');
+	                return _this2.color('noun');
 	              } },
 	            'Altered Nouns'
 	          ),

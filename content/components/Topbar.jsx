@@ -32,9 +32,9 @@ export default class Topbar extends Component {
         <h1>This page has been degendered</h1>
         <div className='buttons'>
           <button id="revert">Revert</button>
-          <button id="highPro" onClick={()=>color('pronoun')}>Altered Pronouns</button>
-          <button id='highAdj' onClick={()=>color('adj')}>Altered Adjectives</button>
-          <button id='highNoun' onClick={()=>color('noun')}>Altered Nouns</button>
+          <button id="highPro" onClick={()=>this.color('pronoun')}>Altered Pronouns</button>
+          <button id='highAdj' onClick={()=>this.color('adj')}>Altered Adjectives</button>
+          <button id='highNoun' onClick={()=>this.color('noun')}>Altered Nouns</button>
           <button id='analyze'>Analyze Page</button>
         </div>
       </div>
