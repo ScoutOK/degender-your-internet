@@ -10,9 +10,20 @@ export default class Topbar extends Component {
     };
     this.highlightPro = this.highlightPro.bind(this)
   }
-  highlightPro() {
-    console.log('in highlight pro')
+  color = (speech) => {
+    let changed = document.getElementsByClassName(`converted ${speech}`)
+    //check to see if active-converted class has already been appended
+    if (changed[0].className.split(' ').indexOf('active-converted') === -1) {
+      for (let i = 0; i < changed.length; i++) {
+        changed[i].className = `${changed[i].className} active-converted`
+      }
+    } else {
+      for (let i = 0; i < changed.length; i++) {
+        changed[i].className = 'converted ' + speech
+      }
+    }
   }
+
   render() {
     console.log(this.state)
     console.log(this.highlightPro)
@@ -21,9 +32,9 @@ export default class Topbar extends Component {
         <h1>This page has been degendered</h1>
         <div className='buttons'>
           <button id="revert">Revert</button>
-          <button id="highPro">Altered Pronouns</button>
-          <button id='highAdj'>Altered Adjectives</button>
-          <button id='highNoun'>Altered Nouns</button>
+          <button id="highPro" onClick={()=>color('pronoun')}>Altered Pronouns</button>
+          <button id='highAdj' onClick={()=>color('adj')}>Altered Adjectives</button>
+          <button id='highNoun' onClick={()=>color('noun')}>Altered Nouns</button>
           <button id='analyze'>Analyze Page</button>
         </div>
       </div>

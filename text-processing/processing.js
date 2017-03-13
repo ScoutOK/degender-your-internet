@@ -186,49 +186,35 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     topBar.className = 'hide'
   }
 
-  const color = (speech) => {
-    let changed = document.getElementsByClassName('converted ' + speech)
-    for (let i = 0; i < changed.length; i++) {
-      changed[i].className = changed[i].className + ' active-converted'
-    }
-  }
-
-  const decolor = (speech) => {
-    let changed = document.getElementsByClassName('converted ' + speech)
-    for (let i = 0; i < changed.length; i++) {
-      changed[i].className = 'converted ' + speech
-    }
-  }
-
   const addListens = () => {
     document.getElementById("revert").addEventListener("click", revertPage);
-    document.getElementById("highPro").addEventListener("click", (evt) => {
-      if (evt.target.className === 'active'){
-        evt.target.className = ''
-        decolor('pronoun')
-      } else {
-        color('pronoun')
-        evt.target.className = 'active'
-      }
-    });
-    document.getElementById("highAdj").addEventListener("click", (evt) => {
-      if (evt.target.className === 'active'){
-        evt.target.className = ''
-        decolor('adj')
-      } else {
-        color('adj')
-        evt.target.className = 'active'
-      }
-    });
-    document.getElementById("highNoun").addEventListener("click", (evt) => {
-      if (evt.target.className === 'active') {
-        evt.target.className = ''
-        decolor('noun')
-      } else {
-        color('noun')
-        evt.target.className = 'active'
-      }
-    });
+    // document.getElementById("highPro").addEventListener("click", (evt) => {
+    //   if (evt.target.className === 'active'){
+    //     evt.target.className = ''
+    //     decolor('pronoun')
+    //   } else {
+    //     color('pronoun')
+    //     evt.target.className = 'active'
+    //   }
+    // });
+    // document.getElementById("highAdj").addEventListener("click", (evt) => {
+    //   if (evt.target.className === 'active'){
+    //     evt.target.className = ''
+    //     decolor('adj')
+    //   } else {
+    //     color('adj')
+    //     evt.target.className = 'active'
+    //   }
+    // });
+    // document.getElementById("highNoun").addEventListener("click", (evt) => {
+    //   if (evt.target.className === 'active') {
+    //     evt.target.className = ''
+    //     decolor('noun')
+    //   } else {
+    //     color('noun')
+    //     evt.target.className = 'active'
+    //   }
+    // });
   }
 
   switch (request.message) {

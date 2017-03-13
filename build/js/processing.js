@@ -193,49 +193,35 @@ webpackJsonp([2],{
 	    topBar.className = 'hide';
 	  };
 	
-	  var color = function color(speech) {
-	    var changed = document.getElementsByClassName('converted ' + speech);
-	    for (var i = 0; i < changed.length; i++) {
-	      changed[i].className = changed[i].className + ' active-converted';
-	    }
-	  };
-	
-	  var decolor = function decolor(speech) {
-	    var changed = document.getElementsByClassName('converted ' + speech);
-	    for (var i = 0; i < changed.length; i++) {
-	      changed[i].className = 'converted ' + speech;
-	    }
-	  };
-	
 	  var addListens = function addListens() {
 	    document.getElementById("revert").addEventListener("click", revertPage);
-	    document.getElementById("highPro").addEventListener("click", function (evt) {
-	      if (evt.target.className === 'active') {
-	        evt.target.className = '';
-	        decolor('pronoun');
-	      } else {
-	        color('pronoun');
-	        evt.target.className = 'active';
-	      }
-	    });
-	    document.getElementById("highAdj").addEventListener("click", function (evt) {
-	      if (evt.target.className === 'active') {
-	        evt.target.className = '';
-	        decolor('adj');
-	      } else {
-	        color('adj');
-	        evt.target.className = 'active';
-	      }
-	    });
-	    document.getElementById("highNoun").addEventListener("click", function (evt) {
-	      if (evt.target.className === 'active') {
-	        evt.target.className = '';
-	        decolor('noun');
-	      } else {
-	        color('noun');
-	        evt.target.className = 'active';
-	      }
-	    });
+	    // document.getElementById("highPro").addEventListener("click", (evt) => {
+	    //   if (evt.target.className === 'active'){
+	    //     evt.target.className = ''
+	    //     decolor('pronoun')
+	    //   } else {
+	    //     color('pronoun')
+	    //     evt.target.className = 'active'
+	    //   }
+	    // });
+	    // document.getElementById("highAdj").addEventListener("click", (evt) => {
+	    //   if (evt.target.className === 'active'){
+	    //     evt.target.className = ''
+	    //     decolor('adj')
+	    //   } else {
+	    //     color('adj')
+	    //     evt.target.className = 'active'
+	    //   }
+	    // });
+	    // document.getElementById("highNoun").addEventListener("click", (evt) => {
+	    //   if (evt.target.className === 'active') {
+	    //     evt.target.className = ''
+	    //     decolor('noun')
+	    //   } else {
+	    //     color('noun')
+	    //     evt.target.className = 'active'
+	    //   }
+	    // });
 	  };
 	
 	  switch (request.message) {
@@ -14293,6 +14279,20 @@ webpackJsonp([2],{
 	
 	    var _this = _possibleConstructorReturn(this, (Topbar.__proto__ || Object.getPrototypeOf(Topbar)).call(this));
 	
+	    _this.color = function (speech) {
+	      var changed = document.getElementsByClassName('converted ' + speech);
+	      //check to see if active-converted class has already been appended
+	      if (changed[0].className.split(' ').indexOf('active-converted') === -1) {
+	        for (var i = 0; i < changed.length; i++) {
+	          changed[i].className = changed[i].className + ' active-converted';
+	        }
+	      } else {
+	        for (var _i = 0; _i < changed.length; _i++) {
+	          changed[_i].className = 'converted ' + speech;
+	        }
+	      }
+	    };
+	
 	    _this.state = {
 	      converted: false
 	    };
@@ -14301,11 +14301,6 @@ webpackJsonp([2],{
 	  }
 	
 	  _createClass(Topbar, [{
-	    key: 'highlightPro',
-	    value: function highlightPro() {
-	      console.log('in highlight pro');
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      console.log(this.state);
@@ -14328,17 +14323,23 @@ webpackJsonp([2],{
 	          ),
 	          _react2.default.createElement(
 	            'button',
-	            { id: 'highPro' },
+	            { id: 'highPro', onClick: function onClick() {
+	                return color('pronoun');
+	              } },
 	            'Altered Pronouns'
 	          ),
 	          _react2.default.createElement(
 	            'button',
-	            { id: 'highAdj' },
+	            { id: 'highAdj', onClick: function onClick() {
+	                return color('adj');
+	              } },
 	            'Altered Adjectives'
 	          ),
 	          _react2.default.createElement(
 	            'button',
-	            { id: 'highNoun' },
+	            { id: 'highNoun', onClick: function onClick() {
+	                return color('noun');
+	              } },
 	            'Altered Nouns'
 	          ),
 	          _react2.default.createElement(
