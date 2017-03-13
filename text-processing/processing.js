@@ -119,7 +119,6 @@ console.log('the degender content script is totes active')
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   console.log('in listener', request)
 
-  const topBar = createTopbar();
 
   //in order to add tags around the changes, need to access the text in a different way :(
   let allElements = document.body.getElementsByTagName("*");
@@ -136,9 +135,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
   //first test of compromise
   originalHTML.forEach(string => {
-    console.log(string, nlp(string).data())
+    console.log('should be pronouns', nlp(string).match('#Pronoun'))
     //console.log(string, nlp.text(string).tags())
   })
+
+  const topBar = createTopbar();
 
   //would still be nice to not have to go over elements with no innerHTML
 

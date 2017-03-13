@@ -9,7 +9,7 @@ webpackJsonp([2],{
 	
 	var _compromise2 = _interopRequireDefault(_compromise);
 	
-	var _Main = __webpack_require__(278);
+	var _Main = __webpack_require__(275);
 	
 	var _Main2 = _interopRequireDefault(_Main);
 	
@@ -130,8 +130,6 @@ webpackJsonp([2],{
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	  console.log('in listener', request);
 	
-	  var topBar = createTopbar();
-	
 	  //in order to add tags around the changes, need to access the text in a different way :(
 	  var allElements = document.body.getElementsByTagName("*");
 	
@@ -147,9 +145,11 @@ webpackJsonp([2],{
 	
 	  //first test of compromise
 	  originalHTML.forEach(function (string) {
-	    console.log(string, (0, _compromise2.default)(string).data());
+	    console.log('should be pronouns', (0, _compromise2.default)(string).match('#Pronoun'));
 	    //console.log(string, nlp.text(string).tags())
 	  });
+	
+	  var topBar = createTopbar();
 	
 	  //would still be nice to not have to go over elements with no innerHTML
 	
@@ -14237,6 +14237,37 @@ webpackJsonp([2],{
 	  value: true
 	});
 	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(32);
+	
+	var _Topbar = __webpack_require__(276);
+	
+	var _Topbar2 = _interopRequireDefault(_Topbar);
+	
+	var _content = __webpack_require__(277);
+	
+	var _content2 = _interopRequireDefault(_content);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  (0, _reactDom.render)(_react2.default.createElement(_Topbar2.default, null), document.getElementById('degender-bar'));
+	};
+
+/***/ },
+
+/***/ 276:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(1);
@@ -14327,13 +14358,13 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 276:
+/***/ 277:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(277);
+	var content = __webpack_require__(278);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(222)(content, {});
@@ -14354,7 +14385,7 @@ webpackJsonp([2],{
 
 /***/ },
 
-/***/ 277:
+/***/ 278:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(221)();
@@ -14366,37 +14397,6 @@ webpackJsonp([2],{
 	
 	// exports
 
-
-/***/ },
-
-/***/ 278:
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDom = __webpack_require__(32);
-	
-	var _Topbar = __webpack_require__(275);
-	
-	var _Topbar2 = _interopRequireDefault(_Topbar);
-	
-	var _content = __webpack_require__(276);
-	
-	var _content2 = _interopRequireDefault(_content);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function () {
-	  (0, _reactDom.render)(_react2.default.createElement(_Topbar2.default, null), document.getElementById('degender-bar'));
-	};
 
 /***/ }
 
