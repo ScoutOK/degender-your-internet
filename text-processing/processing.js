@@ -115,10 +115,25 @@ const createTopbar = () => {
 
 }
 
+const revertPage = () => {
+  for (let i =0; i < allElements.length; i++) {
+    allElements[i].innerHTML = originalHTML[i];
+  }
+  document.body.childNodes[2].style.marginTop = '0px';
+  topBar.className = 'hide'
+}
+
+const addListens = () => {
+  document.getElementById("revert").addEventListener("click", revertPage);
+}
+
 console.log('the degender content script is totes active')
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   console.log('in listener', request)
 
+  let bodyInsides = document.getElementsByTagName('body').innerHtml;
+  const degenderWrapper = `<div id='degender-wrapper'>${bodyInsides}</div>`
+  document.getElementsByTagName('body').innerHtml = degenderWrapper;
 
   //in order to add tags around the changes, need to access the text in a different way :(
   let allElements = document.body.getElementsByTagName("*");
@@ -175,45 +190,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     console.log(pageStats)
     //let offsetHeight = document.body.childNodes[0].offsetHeight;
     //document.body.childNodes[1].style.marginTop = offsetHeight + 'px';
-  }
-
-  const revertPage = () => {
-    for (let i =0; i < allElements.length; i++) {
-      allElements[i].innerHTML = originalHTML[i];
-    }
-    document.body.childNodes[2].style.marginTop = '0px';
-    topBar.className = 'hide'
-  }
-
-  const addListens = () => {
-    document.getElementById("revert").addEventListener("click", revertPage);
-    // document.getElementById("highPro").addEventListener("click", (evt) => {
-    //   if (evt.target.className === 'active'){
-    //     evt.target.className = ''
-    //     decolor('pronoun')
-    //   } else {
-    //     color('pronoun')
-    //     evt.target.className = 'active'
-    //   }
-    // });
-    // document.getElementById("highAdj").addEventListener("click", (evt) => {
-    //   if (evt.target.className === 'active'){
-    //     evt.target.className = ''
-    //     decolor('adj')
-    //   } else {
-    //     color('adj')
-    //     evt.target.className = 'active'
-    //   }
-    // });
-    // document.getElementById("highNoun").addEventListener("click", (evt) => {
-    //   if (evt.target.className === 'active') {
-    //     evt.target.className = ''
-    //     decolor('noun')
-    //   } else {
-    //     color('noun')
-    //     evt.target.className = 'active'
-    //   }
-    // });
   }
 
   switch (request.message) {
