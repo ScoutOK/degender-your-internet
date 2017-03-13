@@ -1,45 +1,6 @@
+'use strict'
+
 const nlp = require('compromise');
-
-console.log('the degender content script is totes active')
-
-
-//build a div to go at the top of the page
-let topBar = document.createElement("div");
-
-topBar.setAttribute('id', 'degender-bar');
-topBar.className = 'hide'
-
-document.body.insertBefore(topBar, document.body.firstChild);
-
-
-//object to contain info about page for analytics
-let pageStats = {
-  pronouns: {},
-  nouns: {},
-  adjectives: {}
-}
-
-//in order to add tags around the changes, need to access the text in a different way :(
-let allElements = document.body.getElementsByTagName("*");
-
-const copyHTML = ()=> {
-  let HTMLarr = [];
-  for (let i =0; i < allElements.length; i++) {
-    HTMLarr.push(allElements[i].innerHTML)
-  }
-  return HTMLarr
-}
-
-let originalHTML = copyHTML();
-
-//first test of compromise
-originalHTML.forEach(string => {
-  console.log(string, nlp(string).data())
-  //console.log(string, nlp.text(string).tags())
-})
-
-//would still be nice to not have to go over elements with no innerHTML
-
 
 const pronouns = {
   he: "they",
@@ -128,97 +89,134 @@ const adj = {
   arrogant: "overconfident",
 }
 
-const convert = () => {
-  //core logic of converter
-  for (let i = 0; i < allElements.length; i++) {
-    let eleArr = allElements[i].innerHTML.split(' ');
-    for (let j=0; j < eleArr.length; j++) {
-      //see if bit ends with punctuation
-      let end = ''
-      if (!/([a-zA-Z])/.test(eleArr[j][eleArr[j].length - 1])) {
-        end = eleArr[j][eleArr[j].length - 1]
-        eleArr[j] = eleArr[j].substr(0, eleArr[j].length - 1)
-      }
-      if (pronouns[eleArr[j]]) {
-        if (pageStats.pronouns[eleArr[j]]) pageStats.pronouns[eleArr[j]]++
-        else pageStats.pronouns[eleArr[j]] = 1
-        eleArr[j] = '<span class=\'converted pronoun\'>' + pronouns[eleArr[j]] +'</span>' + end
-      } else if (nouns[eleArr[j]]) {
-        if (pageStats.nouns[eleArr[j]]) pageStats.nouns[eleArr[j]]++
-        else pageStats.nouns[eleArr[j]] = 1
-        eleArr[j] = '<span class=\'converted noun\'>' + nouns[eleArr[j]] + '</span>' + end
-      } else if (adj[eleArr[j]]) {
-        if (pageStats.adjectives[eleArr[j]]) pageStats.adjectives[eleArr[j]]++
-        else pageStats.adjectives[eleArr[j]] = 1
-        eleArr[j] = '<span class=\'converted adj\'>' + adj[eleArr[j]] + '</span>' + end
-      } else {
-        eleArr[j] = eleArr[j] + end
-      }
-    }
-    allElements[i].innerHTML = eleArr.join(' ')
-  }
-  //to help with styling
-  console.log(pageStats)
-  let offsetHeight = document.body.childNodes[0].offsetHeight;
-  document.body.childNodes[2].style.marginTop = offsetHeight + 'px';
+//object to contain info about page for analytics
+const pageStats = {
+  pronouns: {},
+  nouns: {},
+  adjectives: {}
 }
 
-const revertPage = () => {
-  for (let i =0; i < allElements.length; i++) {
-    allElements[i].innerHTML = originalHTML[i];
-  }
-  document.body.childNodes[2].style.marginTop = '0px';
-  topBar.className = 'hide'
-}
-
-const color = (speech) => {
-  let changed = document.getElementsByClassName('converted ' + speech)
-  for (let i = 0; i < changed.length; i++) {
-    changed[i].className = changed[i].className + ' active-converted'
-  }
-}
-
-const decolor = (speech) => {
-  let changed = document.getElementsByClassName('converted ' + speech)
-  for (let i = 0; i < changed.length; i++) {
-    changed[i].className = 'converted ' + speech
-  }
-}
-
-const addListens = () => {
-  document.getElementById("revert").addEventListener("click", revertPage);
-  document.getElementById("highPro").addEventListener("click", (evt) => {
-    if (evt.target.className === 'active'){
-      evt.target.className = ''
-      decolor('pronoun')
-    } else {
-      color('pronoun')
-      evt.target.className = 'active'
-    }
-  });
-  document.getElementById("highAdj").addEventListener("click", (evt) => {
-    if (evt.target.className === 'active'){
-      evt.target.className = ''
-      decolor('adj')
-    } else {
-      color('adj')
-      evt.target.className = 'active'
-    }
-  });
-  document.getElementById("highNoun").addEventListener("click", (evt) => {
-    if (evt.target.className === 'active') {
-      evt.target.className = ''
-      decolor('noun')
-    } else {
-      color('noun')
-      evt.target.className = 'active'
-    }
-  });
-}
-
-
+console.log('the degender content script is totes active')
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-  console.log('in listener', request)
+    console.log('in listener', request)
+
+  //build a div to go at the top of the page
+  let topBar = document.createElement("div");
+
+  topBar.setAttribute('id', 'degender-bar');
+  //topBar.className = 'hide'
+
+  document.body.insertBefore(topBar, document.body.firstChild);
+
+  //in order to add tags around the changes, need to access the text in a different way :(
+  let allElements = document.body.getElementsByTagName("*");
+
+  const copyHTML = ()=> {
+    let HTMLarr = [];
+    for (let i =0; i < allElements.length; i++) {
+      HTMLarr.push(allElements[i].innerHTML)
+    }
+    return HTMLarr
+  }
+
+  let originalHTML = copyHTML();
+
+  //first test of compromise
+  originalHTML.forEach(string => {
+    console.log(string, nlp(string).data())
+    //console.log(string, nlp.text(string).tags())
+  })
+
+  //would still be nice to not have to go over elements with no innerHTML
+
+  const convert = () => {
+    //core logic of converter
+    for (let i = 0; i < allElements.length; i++) {
+      let eleArr = allElements[i].innerHTML.split(' ');
+      for (let j=0; j < eleArr.length; j++) {
+        //see if bit ends with punctuation
+        let end = ''
+        if (!/([a-zA-Z])/.test(eleArr[j][eleArr[j].length - 1])) {
+          end = eleArr[j][eleArr[j].length - 1]
+          eleArr[j] = eleArr[j].substr(0, eleArr[j].length - 1)
+        }
+        if (pronouns[eleArr[j]]) {
+          if (pageStats.pronouns[eleArr[j]]) pageStats.pronouns[eleArr[j]]++
+          else pageStats.pronouns[eleArr[j]] = 1
+          eleArr[j] = '<span class=\'converted pronoun\'>' + pronouns[eleArr[j]] +'</span>' + end
+        } else if (nouns[eleArr[j]]) {
+          if (pageStats.nouns[eleArr[j]]) pageStats.nouns[eleArr[j]]++
+          else pageStats.nouns[eleArr[j]] = 1
+          eleArr[j] = '<span class=\'converted noun\'>' + nouns[eleArr[j]] + '</span>' + end
+        } else if (adj[eleArr[j]]) {
+          if (pageStats.adjectives[eleArr[j]]) pageStats.adjectives[eleArr[j]]++
+          else pageStats.adjectives[eleArr[j]] = 1
+          eleArr[j] = '<span class=\'converted adj\'>' + adj[eleArr[j]] + '</span>' + end
+        } else {
+          eleArr[j] = eleArr[j] + end
+        }
+      }
+      allElements[i].innerHTML = eleArr.join(' ')
+    }
+    //to help with styling
+    console.log(pageStats)
+    let offsetHeight = document.body.childNodes[0].offsetHeight;
+    document.body.childNodes[2].style.marginTop = offsetHeight + 'px';
+  }
+
+  const revertPage = () => {
+    for (let i =0; i < allElements.length; i++) {
+      allElements[i].innerHTML = originalHTML[i];
+    }
+    document.body.childNodes[2].style.marginTop = '0px';
+    topBar.className = 'hide'
+  }
+
+  const color = (speech) => {
+    let changed = document.getElementsByClassName('converted ' + speech)
+    for (let i = 0; i < changed.length; i++) {
+      changed[i].className = changed[i].className + ' active-converted'
+    }
+  }
+
+  const decolor = (speech) => {
+    let changed = document.getElementsByClassName('converted ' + speech)
+    for (let i = 0; i < changed.length; i++) {
+      changed[i].className = 'converted ' + speech
+    }
+  }
+
+  const addListens = () => {
+    document.getElementById("revert").addEventListener("click", revertPage);
+    document.getElementById("highPro").addEventListener("click", (evt) => {
+      if (evt.target.className === 'active'){
+        evt.target.className = ''
+        decolor('pronoun')
+      } else {
+        color('pronoun')
+        evt.target.className = 'active'
+      }
+    });
+    document.getElementById("highAdj").addEventListener("click", (evt) => {
+      if (evt.target.className === 'active'){
+        evt.target.className = ''
+        decolor('adj')
+      } else {
+        color('adj')
+        evt.target.className = 'active'
+      }
+    });
+    document.getElementById("highNoun").addEventListener("click", (evt) => {
+      if (evt.target.className === 'active') {
+        evt.target.className = ''
+        decolor('noun')
+      } else {
+        color('noun')
+        evt.target.className = 'active'
+      }
+    });
+  }
+
   switch (request.message) {
     case 'convert':
       if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {

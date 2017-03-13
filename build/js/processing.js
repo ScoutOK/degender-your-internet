@@ -7,45 +7,6 @@ webpackJsonp([3,4],{
 	
 	var nlp = __webpack_require__(235);
 	
-	console.log('the degender content script is totes active');
-	
-	//build a div to go at the top of the page
-	var topBar = document.createElement("div");
-	
-	topBar.setAttribute('id', 'degender-bar');
-	topBar.className = 'hide';
-	
-	document.body.insertBefore(topBar, document.body.firstChild);
-	
-	//object to contain info about page for analytics
-	var pageStats = {
-	  pronouns: {},
-	  nouns: {},
-	  adjectives: {}
-	};
-	
-	//in order to add tags around the changes, need to access the text in a different way :(
-	var allElements = document.body.getElementsByTagName("*");
-	
-	var copyHTML = function copyHTML() {
-	  var HTMLarr = [];
-	  for (var i = 0; i < allElements.length; i++) {
-	    HTMLarr.push(allElements[i].innerHTML);
-	  }
-	  return HTMLarr;
-	};
-	
-	var originalHTML = copyHTML();
-	
-	//first test of compromise
-	originalHTML.forEach(function (string) {
-	  console.log(string, nlp(string).data());
-	  //console.log(string, nlp.text(string).tags())
-	});
-	
-	//would still be nice to not have to go over elements with no innerHTML
-	
-	
 	var pronouns = {
 	  he: "they",
 	  him: "them",
@@ -133,93 +94,131 @@ webpackJsonp([3,4],{
 	  arrogant: "overconfident"
 	};
 	
-	var convert = function convert() {
-	  //core logic of converter
-	  for (var i = 0; i < allElements.length; i++) {
-	    var eleArr = allElements[i].innerHTML.split(' ');
-	    for (var j = 0; j < eleArr.length; j++) {
-	      //see if bit ends with punctuation
-	      var end = '';
-	      if (!/([a-zA-Z])/.test(eleArr[j][eleArr[j].length - 1])) {
-	        end = eleArr[j][eleArr[j].length - 1];
-	        eleArr[j] = eleArr[j].substr(0, eleArr[j].length - 1);
-	      }
-	      if (pronouns[eleArr[j]]) {
-	        if (pageStats.pronouns[eleArr[j]]) pageStats.pronouns[eleArr[j]]++;else pageStats.pronouns[eleArr[j]] = 1;
-	        eleArr[j] = '<span class=\'converted pronoun\'>' + pronouns[eleArr[j]] + '</span>' + end;
-	      } else if (nouns[eleArr[j]]) {
-	        if (pageStats.nouns[eleArr[j]]) pageStats.nouns[eleArr[j]]++;else pageStats.nouns[eleArr[j]] = 1;
-	        eleArr[j] = '<span class=\'converted noun\'>' + nouns[eleArr[j]] + '</span>' + end;
-	      } else if (adj[eleArr[j]]) {
-	        if (pageStats.adjectives[eleArr[j]]) pageStats.adjectives[eleArr[j]]++;else pageStats.adjectives[eleArr[j]] = 1;
-	        eleArr[j] = '<span class=\'converted adj\'>' + adj[eleArr[j]] + '</span>' + end;
-	      } else {
-	        eleArr[j] = eleArr[j] + end;
-	      }
-	    }
-	    allElements[i].innerHTML = eleArr.join(' ');
-	  }
-	  //to help with styling
-	  console.log(pageStats);
-	  var offsetHeight = document.body.childNodes[0].offsetHeight;
-	  document.body.childNodes[2].style.marginTop = offsetHeight + 'px';
+	//object to contain info about page for analytics
+	var pageStats = {
+	  pronouns: {},
+	  nouns: {},
+	  adjectives: {}
 	};
 	
-	var revertPage = function revertPage() {
-	  for (var i = 0; i < allElements.length; i++) {
-	    allElements[i].innerHTML = originalHTML[i];
-	  }
-	  document.body.childNodes[2].style.marginTop = '0px';
-	  topBar.className = 'hide';
-	};
-	
-	var color = function color(speech) {
-	  var changed = document.getElementsByClassName('converted ' + speech);
-	  for (var i = 0; i < changed.length; i++) {
-	    changed[i].className = changed[i].className + ' active-converted';
-	  }
-	};
-	
-	var decolor = function decolor(speech) {
-	  var changed = document.getElementsByClassName('converted ' + speech);
-	  for (var i = 0; i < changed.length; i++) {
-	    changed[i].className = 'converted ' + speech;
-	  }
-	};
-	
-	var addListens = function addListens() {
-	  document.getElementById("revert").addEventListener("click", revertPage);
-	  document.getElementById("highPro").addEventListener("click", function (evt) {
-	    if (evt.target.className === 'active') {
-	      evt.target.className = '';
-	      decolor('pronoun');
-	    } else {
-	      color('pronoun');
-	      evt.target.className = 'active';
-	    }
-	  });
-	  document.getElementById("highAdj").addEventListener("click", function (evt) {
-	    if (evt.target.className === 'active') {
-	      evt.target.className = '';
-	      decolor('adj');
-	    } else {
-	      color('adj');
-	      evt.target.className = 'active';
-	    }
-	  });
-	  document.getElementById("highNoun").addEventListener("click", function (evt) {
-	    if (evt.target.className === 'active') {
-	      evt.target.className = '';
-	      decolor('noun');
-	    } else {
-	      color('noun');
-	      evt.target.className = 'active';
-	    }
-	  });
-	};
-	
+	console.log('the degender content script is totes active');
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	  console.log('in listener', request);
+	
+	  //build a div to go at the top of the page
+	  var topBar = document.createElement("div");
+	
+	  topBar.setAttribute('id', 'degender-bar');
+	  //topBar.className = 'hide'
+	
+	  document.body.insertBefore(topBar, document.body.firstChild);
+	
+	  //in order to add tags around the changes, need to access the text in a different way :(
+	  var allElements = document.body.getElementsByTagName("*");
+	
+	  var copyHTML = function copyHTML() {
+	    var HTMLarr = [];
+	    for (var i = 0; i < allElements.length; i++) {
+	      HTMLarr.push(allElements[i].innerHTML);
+	    }
+	    return HTMLarr;
+	  };
+	
+	  var originalHTML = copyHTML();
+	
+	  //first test of compromise
+	  originalHTML.forEach(function (string) {
+	    console.log(string, nlp(string).data());
+	    //console.log(string, nlp.text(string).tags())
+	  });
+	
+	  //would still be nice to not have to go over elements with no innerHTML
+	
+	  var convert = function convert() {
+	    //core logic of converter
+	    for (var i = 0; i < allElements.length; i++) {
+	      var eleArr = allElements[i].innerHTML.split(' ');
+	      for (var j = 0; j < eleArr.length; j++) {
+	        //see if bit ends with punctuation
+	        var end = '';
+	        if (!/([a-zA-Z])/.test(eleArr[j][eleArr[j].length - 1])) {
+	          end = eleArr[j][eleArr[j].length - 1];
+	          eleArr[j] = eleArr[j].substr(0, eleArr[j].length - 1);
+	        }
+	        if (pronouns[eleArr[j]]) {
+	          if (pageStats.pronouns[eleArr[j]]) pageStats.pronouns[eleArr[j]]++;else pageStats.pronouns[eleArr[j]] = 1;
+	          eleArr[j] = '<span class=\'converted pronoun\'>' + pronouns[eleArr[j]] + '</span>' + end;
+	        } else if (nouns[eleArr[j]]) {
+	          if (pageStats.nouns[eleArr[j]]) pageStats.nouns[eleArr[j]]++;else pageStats.nouns[eleArr[j]] = 1;
+	          eleArr[j] = '<span class=\'converted noun\'>' + nouns[eleArr[j]] + '</span>' + end;
+	        } else if (adj[eleArr[j]]) {
+	          if (pageStats.adjectives[eleArr[j]]) pageStats.adjectives[eleArr[j]]++;else pageStats.adjectives[eleArr[j]] = 1;
+	          eleArr[j] = '<span class=\'converted adj\'>' + adj[eleArr[j]] + '</span>' + end;
+	        } else {
+	          eleArr[j] = eleArr[j] + end;
+	        }
+	      }
+	      allElements[i].innerHTML = eleArr.join(' ');
+	    }
+	    //to help with styling
+	    console.log(pageStats);
+	    var offsetHeight = document.body.childNodes[0].offsetHeight;
+	    document.body.childNodes[2].style.marginTop = offsetHeight + 'px';
+	  };
+	
+	  var revertPage = function revertPage() {
+	    for (var i = 0; i < allElements.length; i++) {
+	      allElements[i].innerHTML = originalHTML[i];
+	    }
+	    document.body.childNodes[2].style.marginTop = '0px';
+	    topBar.className = 'hide';
+	  };
+	
+	  var color = function color(speech) {
+	    var changed = document.getElementsByClassName('converted ' + speech);
+	    for (var i = 0; i < changed.length; i++) {
+	      changed[i].className = changed[i].className + ' active-converted';
+	    }
+	  };
+	
+	  var decolor = function decolor(speech) {
+	    var changed = document.getElementsByClassName('converted ' + speech);
+	    for (var i = 0; i < changed.length; i++) {
+	      changed[i].className = 'converted ' + speech;
+	    }
+	  };
+	
+	  var addListens = function addListens() {
+	    document.getElementById("revert").addEventListener("click", revertPage);
+	    document.getElementById("highPro").addEventListener("click", function (evt) {
+	      if (evt.target.className === 'active') {
+	        evt.target.className = '';
+	        decolor('pronoun');
+	      } else {
+	        color('pronoun');
+	        evt.target.className = 'active';
+	      }
+	    });
+	    document.getElementById("highAdj").addEventListener("click", function (evt) {
+	      if (evt.target.className === 'active') {
+	        evt.target.className = '';
+	        decolor('adj');
+	      } else {
+	        color('adj');
+	        evt.target.className = 'active';
+	      }
+	    });
+	    document.getElementById("highNoun").addEventListener("click", function (evt) {
+	      if (evt.target.className === 'active') {
+	        evt.target.className = '';
+	        decolor('noun');
+	      } else {
+	        color('noun');
+	        evt.target.className = 'active';
+	      }
+	    });
+	  };
+	
 	  switch (request.message) {
 	    case 'convert':
 	      if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
