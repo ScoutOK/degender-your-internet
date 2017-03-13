@@ -14296,7 +14296,6 @@ webpackJsonp([2],{
 	    _this.state = {
 	      converted: false
 	    };
-	    _this.highlightPro = _this.highlightPro.bind(_this);
 	    return _this;
 	  }
 	

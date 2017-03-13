@@ -8,7 +8,6 @@ export default class Topbar extends Component {
     this.state ={
       converted: false
     };
-    this.highlightPro = this.highlightPro.bind(this)
   }
   color = (speech) => {
     let changed = document.getElementsByClassName(`converted ${speech}`)
