@@ -142,12 +142,13 @@ webpackJsonp([2],{
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	  console.log('in listener', request);
 	
-	  var bodyInsides = document.getElementsByTagName('body').innerHtml;
+	  //add wrapper around current body content
+	  var bodyInsides = document.body.innerHTML;
 	  var degenderWrapper = '<div id=\'degender-wrapper\'>' + bodyInsides + '</div>';
-	  document.getElementsByTagName('body').innerHtml = degenderWrapper;
+	  document.body.innerHTML = degenderWrapper;
 	
 	  //in order to add tags around the changes, need to access the text in a different way :(
-	  var allElements = document.body.getElementsByTagName("*");
+	  var allElements = document.getElementById('degender-wrapper').getElementsByTagName("*");
 	
 	  var copyHTML = function copyHTML() {
 	    var HTMLarr = [];
@@ -160,10 +161,10 @@ webpackJsonp([2],{
 	  var originalHTML = copyHTML();
 	
 	  //first test of compromise
-	  originalHTML.forEach(function (string) {
-	    console.log('should be pronouns', (0, _compromise2.default)(string).match('#Pronoun'));
-	    //console.log(string, nlp.text(string).tags())
-	  });
+	  // originalHTML.forEach(string => {
+	  //   console.log('should be pronouns', nlp(string).match('#Pronoun'))
+	  //   //console.log(string, nlp.text(string).tags())
+	  // })
 	
 	  //would still be nice to not have to go over elements with no innerHTML
 	
@@ -206,9 +207,11 @@ webpackJsonp([2],{
 	        alert('It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. If you would like to help develop Degender Your Internet for other languages, please contact me');
 	        break;
 	      }
-	      //topBar.className = ''
+	
 	      convert(); //something about this function is RUINING my onClicks
 	      var _topBar = createTopbar();
+	      //to set margin at top of original content
+	      document.getElementById('degender-wrapper').style.marginTop = document.getElementById('degender-bar').offsetHeight + 'px';
 	      addListens();
 	      sendResponse({ pageStatus: 'converted' });
 	      break;

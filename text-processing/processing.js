@@ -131,12 +131,13 @@ console.log('the degender content script is totes active')
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   console.log('in listener', request)
 
-  let bodyInsides = document.getElementsByTagName('body').innerHtml;
+  //add wrapper around current body content
+  const bodyInsides = document.body.innerHTML;
   const degenderWrapper = `<div id='degender-wrapper'>${bodyInsides}</div>`
-  document.getElementsByTagName('body').innerHtml = degenderWrapper;
+  document.body.innerHTML = degenderWrapper;
 
   //in order to add tags around the changes, need to access the text in a different way :(
-  let allElements = document.body.getElementsByTagName("*");
+  let allElements = document.getElementById('degender-wrapper').getElementsByTagName("*");
 
   const copyHTML = ()=> {
     let HTMLarr = [];
@@ -149,10 +150,10 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   let originalHTML = copyHTML();
 
   //first test of compromise
-  originalHTML.forEach(string => {
-    console.log('should be pronouns', nlp(string).match('#Pronoun'))
-    //console.log(string, nlp.text(string).tags())
-  })
+  // originalHTML.forEach(string => {
+  //   console.log('should be pronouns', nlp(string).match('#Pronoun'))
+  //   //console.log(string, nlp.text(string).tags())
+  // })
 
   //would still be nice to not have to go over elements with no innerHTML
 
@@ -198,9 +199,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         alert('It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. If you would like to help develop Degender Your Internet for other languages, please contact me')
         break
       }
-      //topBar.className = ''
+
       convert();//something about this function is RUINING my onClicks
       const topBar = createTopbar();
+      //to set margin at top of original content
+      document.getElementById('degender-wrapper').style.marginTop = `${document.getElementById('degender-bar').offsetHeight}px`;
       addListens();
       sendResponse({pageStatus: 'converted'});
       break
