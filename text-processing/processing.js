@@ -1,14 +1,7 @@
 'use strict'
 
 import nlp from 'compromise';
-import React from 'react'
-import { render } from 'react-dom'
-import Topbar from '../content/components/Topbar'
-
-// import { Provider } from 'react-redux'
-// import store from './store'
-
-import styles from '../content/content.css'
+import renderTopbar from '../content/Main.jsx'
 
 //boolean to control react rendering VERY IMPORTANT
 let renderBar = false;
@@ -107,10 +100,7 @@ const pageStats = {
   adjectives: {}
 }
 
-console.log('the degender content script is totes active')
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-    console.log('in listener', request)
-
+const createTopbar = () => {
   //build a div to go at the top of the page
   let topBar = document.createElement("div");
 
@@ -120,10 +110,16 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   document.body.insertBefore(topBar, document.body.firstChild);
 
   //render the topbar
-  render (
-    <Topbar />,
-    document.getElementById('degender-bar')
-  )
+  renderTopbar();
+  return topBar
+
+}
+
+console.log('the degender content script is totes active')
+chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
+  console.log('in listener', request)
+
+  const topBar = createTopbar();
 
   //in order to add tags around the changes, need to access the text in a different way :(
   let allElements = document.body.getElementsByTagName("*");

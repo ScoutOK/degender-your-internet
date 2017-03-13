@@ -9,27 +9,14 @@ webpackJsonp([2],{
 	
 	var _compromise2 = _interopRequireDefault(_compromise);
 	
-	var _react = __webpack_require__(1);
+	var _Main = __webpack_require__(278);
 	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDom = __webpack_require__(32);
-	
-	var _Topbar = __webpack_require__(275);
-	
-	var _Topbar2 = _interopRequireDefault(_Topbar);
-	
-	var _content = __webpack_require__(276);
-	
-	var _content2 = _interopRequireDefault(_content);
+	var _Main2 = _interopRequireDefault(_Main);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	//boolean to control react rendering VERY IMPORTANT
 	var renderBar = false;
-	
-	// import { Provider } from 'react-redux'
-	// import store from './store'
 	
 	var pronouns = {
 	  he: "they",
@@ -125,10 +112,7 @@ webpackJsonp([2],{
 	  adjectives: {}
 	};
 	
-	console.log('the degender content script is totes active');
-	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-	  console.log('in listener', request);
-	
+	var createTopbar = function createTopbar() {
 	  //build a div to go at the top of the page
 	  var topBar = document.createElement("div");
 	
@@ -138,7 +122,15 @@ webpackJsonp([2],{
 	  document.body.insertBefore(topBar, document.body.firstChild);
 	
 	  //render the topbar
-	  (0, _reactDom.render)(_react2.default.createElement(_Topbar2.default, null), document.getElementById('degender-bar'));
+	  (0, _Main2.default)();
+	  return topBar;
+	};
+	
+	console.log('the degender content script is totes active');
+	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+	  console.log('in listener', request);
+	
+	  var topBar = createTopbar();
 	
 	  //in order to add tags around the changes, need to access the text in a different way :(
 	  var allElements = document.body.getElementsByTagName("*");
@@ -14374,6 +14366,37 @@ webpackJsonp([2],{
 	
 	// exports
 
+
+/***/ },
+
+/***/ 278:
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(32);
+	
+	var _Topbar = __webpack_require__(275);
+	
+	var _Topbar2 = _interopRequireDefault(_Topbar);
+	
+	var _content = __webpack_require__(276);
+	
+	var _content2 = _interopRequireDefault(_content);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  (0, _reactDom.render)(_react2.default.createElement(_Topbar2.default, null), document.getElementById('degender-bar'));
+	};
 
 /***/ }
 
