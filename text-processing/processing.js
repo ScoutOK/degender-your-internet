@@ -116,11 +116,11 @@ const createTopbar = () => {
 }
 
 const revertPage = (original) => {
-  document.body = original;
+  document.getElementById('degender-wrapper').innerHTML = original;
 }
 
-const addListens = () => {
-  document.getElementById("revert").addEventListener("click", revertPage);
+const addListens = (allText) => {
+  document.getElementById("revert").addEventListener("click", () => revertPage(allText));
 }
 
 const copyHTML = (elements)=> {
@@ -144,7 +144,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   document.body.innerHTML = degenderWrapper;
 
   //in order to add tags around the changes, need to access the text in a different way :(
-  let allText = document.getElementById('degender-wrapper').innerHTML;
+  const allText = document.getElementById('degender-wrapper').innerHTML;
 
   //first test of compromise
   
@@ -186,11 +186,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
       convert();//something about this function is RUINING my onClicks
       const topBar = createTopbar();
       //to set margin at top of original content
-      addListens();
+      addListens(allText);
       sendResponse({pageStatus: 'converted'});
       break
     case 'revert':
-      revertPage(bodyInsides);
+      revertPage(allText);
       sendResponse({pageStatus: 'original'});
       break
     default:

@@ -127,11 +127,13 @@ webpackJsonp([2],{
 	};
 	
 	var revertPage = function revertPage(original) {
-	  document.body = original;
+	  document.getElementById('degender-wrapper').innerHTML = original;
 	};
 	
-	var addListens = function addListens() {
-	  document.getElementById("revert").addEventListener("click", revertPage);
+	var addListens = function addListens(allText) {
+	  document.getElementById("revert").addEventListener("click", function () {
+	    return revertPage(allText);
+	  });
 	};
 	
 	var copyHTML = function copyHTML(elements) {
@@ -197,11 +199,11 @@ webpackJsonp([2],{
 	      convert(); //something about this function is RUINING my onClicks
 	      var topBar = createTopbar();
 	      //to set margin at top of original content
-	      addListens();
+	      addListens(allText);
 	      sendResponse({ pageStatus: 'converted' });
 	      break;
 	    case 'revert':
-	      revertPage(bodyInsides);
+	      revertPage(allText);
 	      sendResponse({ pageStatus: 'original' });
 	      break;
 	    default:
