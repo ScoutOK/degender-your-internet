@@ -70,7 +70,7 @@ webpackJsonp([2],{
 	  Sister: "sibling"
 	};
 	
-	var adj = {
+	var adjectives = {
 	  feisty: "lively",
 	  frisky: "spirited",
 	  irritable: "grouchy",
@@ -126,16 +126,20 @@ webpackJsonp([2],{
 	  return topBar;
 	};
 	
-	var revertPage = function revertPage() {
-	  for (var i = 0; i < allElements.length; i++) {
-	    allElements[i].innerHTML = originalHTML[i];
-	  }
-	  document.body.childNodes[2].style.marginTop = '0px';
-	  topBar.className = 'hide';
+	var revertPage = function revertPage(original) {
+	  document.body = original;
 	};
 	
 	var addListens = function addListens() {
 	  document.getElementById("revert").addEventListener("click", revertPage);
+	};
+	
+	var copyHTML = function copyHTML(elements) {
+	  var HTMLarr = [];
+	  for (var i = 0; i < elements.length; i++) {
+	    HTMLarr.push(elements[i].innerHTML);
+	  }
+	  return HTMLarr;
 	};
 	
 	console.log('the degender content script is totes active');
@@ -144,61 +148,43 @@ webpackJsonp([2],{
 	
 	  //add wrapper around current body content
 	  var bodyInsides = document.body.innerHTML;
+	  //possibly need to do a clone at this point
+	  var originalBody = document.body.cloneNode(true);
+	  console.log('~*~*~*~*~*~*~*~OriginalBody', originalBody);
 	  var degenderWrapper = '<div id=\'degender-wrapper\'>' + bodyInsides + '</div>';
 	  document.body.innerHTML = degenderWrapper;
 	
 	  //in order to add tags around the changes, need to access the text in a different way :(
-	  var allElements = document.getElementById('degender-wrapper').getElementsByTagName("*");
-	
-	  var copyHTML = function copyHTML() {
-	    var HTMLarr = [];
-	    for (var i = 0; i < allElements.length; i++) {
-	      HTMLarr.push(allElements[i].innerHTML);
-	    }
-	    return HTMLarr;
-	  };
-	
-	  var originalHTML = copyHTML();
+	  var allText = document.getElementById('degender-wrapper').innerHTML;
 	
 	  //first test of compromise
-	  originalHTML.forEach(function (string) {
-	    console.log('should be pronouns', (0, _compromise2.default)(string).match('#Pronoun'));
-	    //console.log(string, nlp.text(string).tags())
-	  });
+	
 	
 	  //would still be nice to not have to go over elements with no innerHTML
 	
 	  var convert = function convert() {
-	    console.log(allElements);
 	    //core logic of converter
-	    for (var i = 0; i < allElements.length; i++) {
-	      var eleArr = allElements[i].innerHTML.split(' ');
-	      for (var j = 0; j < eleArr.length; j++) {
-	        //see if bit ends with punctuation
-	        var end = '';
-	        if (!/([a-zA-Z])/.test(eleArr[j][eleArr[j].length - 1])) {
-	          end = eleArr[j][eleArr[j].length - 1];
-	          eleArr[j] = eleArr[j].substr(0, eleArr[j].length - 1);
-	        }
-	        if (pronouns[eleArr[j]]) {
-	          if (pageStats.pronouns[eleArr[j]]) pageStats.pronouns[eleArr[j]]++;else pageStats.pronouns[eleArr[j]] = 1;
-	          eleArr[j] = '<span class=\'converted pronoun\'>' + pronouns[eleArr[j]] + '</span>' + end;
-	        } else if (nouns[eleArr[j]]) {
-	          if (pageStats.nouns[eleArr[j]]) pageStats.nouns[eleArr[j]]++;else pageStats.nouns[eleArr[j]] = 1;
-	          eleArr[j] = '<span class=\'converted noun\'>' + nouns[eleArr[j]] + '</span>' + end;
-	        } else if (adj[eleArr[j]]) {
-	          if (pageStats.adjectives[eleArr[j]]) pageStats.adjectives[eleArr[j]]++;else pageStats.adjectives[eleArr[j]] = 1;
-	          eleArr[j] = '<span class=\'converted adj\'>' + adj[eleArr[j]] + '</span>' + end;
-	        } else {
-	          eleArr[j] = eleArr[j] + end;
-	        }
+	    var fancyText = (0, _compromise2.default)(allText);
+	
+	    fancyText.match('#Pronoun').list.forEach(function (ele) {
+	      if (pronouns[ele.terms[0]._text]) {
+	        ele.terms[0]._text = pronouns[ele.terms[0]._text];
 	      }
-	      allElements[i].innerHTML = eleArr.join(' ');
-	    }
-	    //to help with styling
-	    console.log(pageStats);
-	    //let offsetHeight = document.body.childNodes[0].offsetHeight;
-	    //document.body.childNodes[1].style.marginTop = offsetHeight + 'px';
+	    });
+	
+	    fancyText.match('#Noun').list.forEach(function (ele) {
+	      if (nouns[ele.terms[0]._text]) {
+	        ele.terms[0]._text = nouns[ele.terms[0]._text];
+	      }
+	    });
+	
+	    fancyText.match('#Adjective').list.forEach(function (ele) {
+	      if (adjectives[ele.terms[0]._text]) {
+	        ele.terms[0]._text = adjectives[ele.terms[0]._text];
+	      }
+	    });
+	
+	    document.getElementById('degender-wrapper').innerHTML = fancyText.all().out();
 	  };
 	
 	  switch (request.message) {
@@ -209,14 +195,13 @@ webpackJsonp([2],{
 	      }
 	
 	      convert(); //something about this function is RUINING my onClicks
-	      var _topBar = createTopbar();
+	      var topBar = createTopbar();
 	      //to set margin at top of original content
-	      document.getElementById('degender-wrapper').style.marginTop = document.getElementById('degender-bar').offsetHeight + 'px';
 	      addListens();
 	      sendResponse({ pageStatus: 'converted' });
 	      break;
 	    case 'revert':
-	      revertPage();
+	      revertPage(bodyInsides);
 	      sendResponse({ pageStatus: 'original' });
 	      break;
 	    default:
@@ -14381,7 +14366,7 @@ webpackJsonp([2],{
 	
 	
 	// module
-	exports.push([module.id, "#degender-bar {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 500;\n  box-sizing: border-box;\n}\n\n#degender-bar h1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n#degender-bar.hide {\n  display: none;\n}\n\n#degender-bar .buttons {\n  display: flex;\n  justify-content: space-between;\n}\n\n#degender-bar button {\n  cursor: pointer;\n  background: #555;\n  border-radius: 4px;\n  color: #fff;\n  text-shadow: none;\n  border: 0!important;\n  font-size: 12pt;\n  font-weight: 400;\n  text-transform: uppercase;\n  padding: 5px 15px;\n  box-shadow: none;\n  line-height: 1rem;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:hover {\n  background: #333;\n  border: 0;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button.active {\n  background: #ccc;\n  color: #333;\n}\n\n.active-converted {\n  background: #bc93cd;\n  border-radius: 4px;\n  padding: 0 .25rem;\n}\n\n#degender-wrapper {\n  position: relative;\n}\n", ""]);
+	exports.push([module.id, "#degender-bar {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n  position: relative;\n  top: 0;\n  left: 0;\n  z-index: 500;\n  box-sizing: border-box;\n}\n\n#degender-bar h1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n#degender-bar.hide {\n  display: none;\n}\n\n#degender-bar .buttons {\n  display: flex;\n  justify-content: space-between;\n}\n\n#degender-bar button {\n  cursor: pointer;\n  background: #555;\n  border-radius: 4px;\n  color: #fff;\n  text-shadow: none;\n  border: 0!important;\n  font-size: 12pt;\n  font-weight: 400;\n  text-transform: uppercase;\n  padding: 5px 15px;\n  box-shadow: none;\n  line-height: 1rem;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:hover {\n  background: #333;\n  border: 0;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button.active {\n  background: #ccc;\n  color: #333;\n}\n\n.active-converted {\n  background: #bc93cd;\n  border-radius: 4px;\n  padding: 0 .25rem;\n}\n\n#degender-wrapper {\n  position: relative;\n}\n", ""]);
 	
 	// exports
 
