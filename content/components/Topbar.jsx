@@ -16,7 +16,7 @@ export default class Topbar extends Component {
     //see if there are any appropriate words
     if (changed.length < 1){
       //maybe do something here
-      alert(`degender your internet did not find any gendered words of that type on this page`)
+      alert(`degender your internet did not find any gendered ${speech}s on this page`)
       return
     }
     //check to see if active-converted class has already been appended
@@ -38,7 +38,7 @@ export default class Topbar extends Component {
         <div className='buttons'>
           <button id="revert">Revert</button>
           <button id="highPro" onClick={() => this.color('pronoun')}>Altered Pronouns</button>
-          <button id='highAdj' onClick={() => this.color('adj')}>Altered Adjectives</button>
+          <button id='highAdj' onClick={() => this.color('adjective')}>Altered Adjectives</button>
           <button id='highNoun' onClick={() => this.color('noun')}>Altered Nouns</button>
           <button id='analyze'>Analyze Page</button>
         </div>

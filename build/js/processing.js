@@ -170,19 +170,19 @@ webpackJsonp([2],{
 	
 	    fancyText.match('#Pronoun').list.forEach(function (ele) {
 	      if (pronouns[ele.terms[0]._text]) {
-	        ele.terms[0]._text = pronouns[ele.terms[0]._text];
+	        ele.terms[0]._text = '<span class=\'converted pronoun\'>' + pronouns[ele.terms[0]._text] + '</span>';
 	      }
 	    });
 	
 	    fancyText.match('#Noun').list.forEach(function (ele) {
 	      if (nouns[ele.terms[0]._text]) {
-	        ele.terms[0]._text = nouns[ele.terms[0]._text];
+	        ele.terms[0]._text = '<span class=\'converted noun\'>' + nouns[ele.terms[0]._text] + '</span>';
 	      }
 	    });
 	
 	    fancyText.match('#Adjective').list.forEach(function (ele) {
 	      if (adjectives[ele.terms[0]._text]) {
-	        ele.terms[0]._text = adjectives[ele.terms[0]._text];
+	        ele.terms[0]._text = '<span class=\'converted adjective\'>' + adjectives[ele.terms[0]._text] + '</span>';
 	      }
 	    });
 	
@@ -193,6 +193,7 @@ webpackJsonp([2],{
 	    case 'convert':
 	      if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
 	        alert('It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. If you would like to help develop Degender Your Internet for other languages, please contact me');
+	        //const topBar = createTopbar();
 	        break;
 	      }
 	
@@ -14260,7 +14261,7 @@ webpackJsonp([2],{
 	      //see if there are any appropriate words
 	      if (changed.length < 1) {
 	        //maybe do something here
-	        alert('degender your internet did not find any gendered words of that type on this page');
+	        alert('degender your internet did not find any gendered ' + speech + 's on this page');
 	        return;
 	      }
 	      //check to see if active-converted class has already been appended
@@ -14305,7 +14306,7 @@ webpackJsonp([2],{
 	          _react2.default.createElement(
 	            'button',
 	            { id: 'highAdj', onClick: function onClick() {
-	                return _this2.color('adj');
+	                return _this2.color('adjective');
 	              } },
 	            'Altered Adjectives'
 	          ),
