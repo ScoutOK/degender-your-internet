@@ -38,7 +38,7 @@ export default class Topbar extends Component {
         <div className='buttons'>
           <button id="revert">Revert</button>
           <button id="highPro" onClick={() => this.color('pronoun')}>Altered Pronouns</button>
-          <button id='highAdj' onClick={() => this.color('adj')}>Altered Adjectives</button>
+          <button id='highAdj' onClick={() => this.color('adjective')}>Altered Adjectives</button>
           <button id='highNoun' onClick={() => this.color('noun')}>Altered Nouns</button>
           <button id='analyze'>Analyze Page</button>
         </div>

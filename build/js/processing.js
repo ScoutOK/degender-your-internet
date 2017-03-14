@@ -170,19 +170,19 @@ webpackJsonp([2],{
 	
 	    fancyText.match('#Pronoun').list.forEach(function (ele) {
 	      if (pronouns[ele.terms[0]._text]) {
-	        ele.terms[0]._text = pronouns[ele.terms[0]._text];
+	        ele.terms[0]._text = '<span class=\'converted pronoun\'>' + pronouns[ele.terms[0]._text] + '</span>';
 	      }
 	    });
 	
 	    fancyText.match('#Noun').list.forEach(function (ele) {
 	      if (nouns[ele.terms[0]._text]) {
-	        ele.terms[0]._text = nouns[ele.terms[0]._text];
+	        ele.terms[0]._text = '<span class=\'converted noun\'>' + nouns[ele.terms[0]._text] + '</span>';
 	      }
 	    });
 	
 	    fancyText.match('#Adjective').list.forEach(function (ele) {
 	      if (adjectives[ele.terms[0]._text]) {
-	        ele.terms[0]._text = adjectives[ele.terms[0]._text];
+	        ele.terms[0]._text = '<span class=\'converted adjective\'>' + adjectives[ele.terms[0]._text] + '</span>';
 	      }
 	    });
 	
@@ -14305,7 +14305,7 @@ webpackJsonp([2],{
 	          _react2.default.createElement(
 	            'button',
 	            { id: 'highAdj', onClick: function onClick() {
-	                return _this2.color('adj');
+	                return _this2.color('adjective');
 	              } },
 	            'Altered Adjectives'
 	          ),
