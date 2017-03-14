@@ -179,7 +179,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   switch (request.message) {
     case 'convert':
       if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
-        alert('It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. If you would like to help develop Degender Your Internet for other languages, please contact me')
+        alert('It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. If you would like to help develop Degender Your Internet for other languages, please contact me');
+        //const topBar = createTopbar();
         break
       }
 

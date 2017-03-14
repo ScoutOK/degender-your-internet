@@ -16,7 +16,7 @@ export default class Topbar extends Component {
     //see if there are any appropriate words
     if (changed.length < 1){
       //maybe do something here
-      alert(`degender your internet did not find any gendered words of that type on this page`)
+      alert(`degender your internet did not find any gendered ${speech}s on this page`)
       return
     }
     //check to see if active-converted class has already been appended

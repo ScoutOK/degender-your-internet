@@ -193,6 +193,7 @@ webpackJsonp([2],{
 	    case 'convert':
 	      if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
 	        alert('It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. If you would like to help develop Degender Your Internet for other languages, please contact me');
+	        //const topBar = createTopbar();
 	        break;
 	      }
 	
@@ -14260,7 +14261,7 @@ webpackJsonp([2],{
 	      //see if there are any appropriate words
 	      if (changed.length < 1) {
 	        //maybe do something here
-	        alert('degender your internet did not find any gendered words of that type on this page');
+	        alert('degender your internet did not find any gendered ' + speech + 's on this page');
 	        return;
 	      }
 	      //check to see if active-converted class has already been appended
