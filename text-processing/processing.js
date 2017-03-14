@@ -58,7 +58,7 @@ const nouns = {
   Sister: "sibling"
 }
 
-const adj = {
+const adjectives = {
   feisty: "lively",
   frisky: "spirited",
   irritable: "grouchy",
@@ -115,17 +115,21 @@ const createTopbar = () => {
 
 }
 
-const revertPage = () => {
-  for (let i =0; i < allElements.length; i++) {
-    allElements[i].innerHTML = originalHTML[i];
-  }
-  document.body.childNodes[2].style.marginTop = '0px';
-  topBar.className = 'hide'
+const revertPage = (original) => {
+  document.getElementById('degender-wrapper').innerHTML = original;
 }
 
-const addListens = () => {
-  document.getElementById("revert").addEventListener("click", revertPage);
+const addListens = (allText) => {
+  document.getElementById("revert").addEventListener("click", () => revertPage(allText));
 }
+
+const copyHTML = (elements)=> {
+    let HTMLarr = [];
+    for (let i =0; i < elements.length; i++) {
+      HTMLarr.push(elements[i].innerHTML)
+    }
+    return HTMLarr
+  }
 
 console.log('the degender content script is totes active')
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
@@ -133,65 +137,44 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
   //add wrapper around current body content
   const bodyInsides = document.body.innerHTML;
+  //possibly need to do a clone at this point
+  const originalBody = document.body.cloneNode(true);
+  console.log('~*~*~*~*~*~*~*~OriginalBody', originalBody)
   const degenderWrapper = `<div id='degender-wrapper'>${bodyInsides}</div>`
   document.body.innerHTML = degenderWrapper;
 
   //in order to add tags around the changes, need to access the text in a different way :(
-  let allElements = document.getElementById('degender-wrapper').getElementsByTagName("*");
-
-  const copyHTML = ()=> {
-    let HTMLarr = [];
-    for (let i =0; i < allElements.length; i++) {
-      HTMLarr.push(allElements[i].innerHTML)
-    }
-    return HTMLarr
-  }
-
-  let originalHTML = copyHTML();
+  const allText = document.getElementById('degender-wrapper').innerHTML;
 
   //first test of compromise
-  // originalHTML.forEach(string => {
-  //   console.log('should be pronouns', nlp(string).match('#Pronoun'))
-  //   //console.log(string, nlp.text(string).tags())
-  // })
+  
 
   //would still be nice to not have to go over elements with no innerHTML
 
   const convert = () => {
-    console.log(allElements);
     //core logic of converter
-    for (let i = 0; i < allElements.length; i++) {
-      let eleArr = allElements[i].innerHTML.split(' ');
-      for (let j=0; j < eleArr.length; j++) {
-        //see if bit ends with punctuation
-        let end = ''
-        if (!/([a-zA-Z])/.test(eleArr[j][eleArr[j].length - 1])) {
-          end = eleArr[j][eleArr[j].length - 1]
-          eleArr[j] = eleArr[j].substr(0, eleArr[j].length - 1)
-        }
-        if (pronouns[eleArr[j]]) {
-          if (pageStats.pronouns[eleArr[j]]) pageStats.pronouns[eleArr[j]]++
-          else pageStats.pronouns[eleArr[j]] = 1
-          eleArr[j] = '<span class=\'converted pronoun\'>' + pronouns[eleArr[j]] +'</span>' + end
-        } else if (nouns[eleArr[j]]) {
-          if (pageStats.nouns[eleArr[j]]) pageStats.nouns[eleArr[j]]++
-          else pageStats.nouns[eleArr[j]] = 1
-          eleArr[j] = '<span class=\'converted noun\'>' + nouns[eleArr[j]] + '</span>' + end
-        } else if (adj[eleArr[j]]) {
-          if (pageStats.adjectives[eleArr[j]]) pageStats.adjectives[eleArr[j]]++
-          else pageStats.adjectives[eleArr[j]] = 1
-          eleArr[j] = '<span class=\'converted adj\'>' + adj[eleArr[j]] + '</span>' + end
-        } else {
-          eleArr[j] = eleArr[j] + end
-        }
+    const fancyText = nlp(allText);
+
+    fancyText.match('#Pronoun').list.forEach(ele => {
+      if (pronouns[ele.terms[0]._text]) {
+        ele.terms[0]._text = pronouns[ele.terms[0]._text]
       }
-      allElements[i].innerHTML = eleArr.join(' ')
-    }
-    //to help with styling
-    console.log(pageStats)
-    //let offsetHeight = document.body.childNodes[0].offsetHeight;
-    //document.body.childNodes[1].style.marginTop = offsetHeight + 'px';
-  }
+    })
+
+    fancyText.match('#Noun').list.forEach(ele => {
+      if (nouns[ele.terms[0]._text]) {
+        ele.terms[0]._text = nouns[ele.terms[0]._text]
+      }
+    })
+
+    fancyText.match('#Adjective').list.forEach(ele => {
+      if (adjectives[ele.terms[0]._text]) {
+        ele.terms[0]._text = adjectives[ele.terms[0]._text]
+      }
+    })
+
+    document.getElementById('degender-wrapper').innerHTML = fancyText.all().out();
+   }
 
   switch (request.message) {
     case 'convert':
@@ -203,12 +186,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
       convert();//something about this function is RUINING my onClicks
       const topBar = createTopbar();
       //to set margin at top of original content
-      document.getElementById('degender-wrapper').style.marginTop = `${document.getElementById('degender-bar').offsetHeight}px`;
-      addListens();
+      addListens(allText);
       sendResponse({pageStatus: 'converted'});
       break
     case 'revert':
-      revertPage();
+      revertPage(allText);
       sendResponse({pageStatus: 'original'});
       break
     default:

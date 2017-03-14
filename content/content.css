@@ -3,7 +3,7 @@
   width: 100%;
   padding: 1rem;
   color: #333;
-  position: fixed;
+  position: relative;
   top: 0;
   left: 0;
   z-index: 500;
