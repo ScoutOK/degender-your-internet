@@ -36123,7 +36123,7 @@ webpackJsonp([3,4],[
 	    key: 'analyze',
 	    value: function analyze() {
 	      console.log('in analyze function');
-	      chrome.runtime.sendMessage({ message: "analyze" }, function (response) {
+	      chrome.runtime.sendMessage({ message: "analyze", data: 'test' }, function (response) {
 	        console.log(response.farewell);
 	      });
 	    }

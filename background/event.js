@@ -39,6 +39,8 @@ chrome.runtime.onMessage.addListener(
         })
         .catch(console.error);
 
+      console.log(request.data);
+
       sendResponse({farewell: "we made it this far"});
       const analyticsURL = chrome.extension.getURL('analytics.html');
       

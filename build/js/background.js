@@ -40,6 +40,8 @@ webpackJsonp([1,4],[
 	      });
 	    }).catch(console.error);
 	
+	    console.log(request.data);
+	
 	    sendResponse({ farewell: "we made it this far" });
 	    var analyticsURL = chrome.extension.getURL('analytics.html');
 	  }
