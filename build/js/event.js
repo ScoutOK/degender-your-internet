@@ -5,8 +5,8 @@ chrome.runtime.onMessage.addListener(
                 "from the extension");
     if (request.message == "analyze"){
       sendResponse({farewell: "we made it this far"});
-      chrome.tabs.create(string 'http://www.google.com', function(){
-        console.log('well i tried')
+      chrome.tabs.create({url: 'http://www.google.com'}, function(){
+        console.log('well i tried');
       })
     }
 
