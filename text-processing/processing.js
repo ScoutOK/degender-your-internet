@@ -156,12 +156,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     const fancyText = nlp(allText);
 
     fancyText.match('#Pronoun').list.forEach(ele => {
+      console.log(ele.terms[0]._text);
       if (pronouns[ele.terms[0]._text]) {
         ele.terms[0]._text = `<span class='converted pronoun'>${pronouns[ele.terms[0]._text]}</span>`
       }
     })
 
     fancyText.match('#Noun').list.forEach(ele => {
+      console.log(ele.terms[0]._text);
       if (nouns[ele.terms[0]._text]) {
         ele.terms[0]._text = `<span class='converted noun'>${nouns[ele.terms[0]._text]}</span>`
       }

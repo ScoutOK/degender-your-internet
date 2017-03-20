@@ -6,9 +6,10 @@ export default class Topbar extends Component {
   constructor () {
     super();
     this.state ={
-      converted: false
+      converted: true
     };
     this.color = this.color.bind(this);
+    this.switchConvert = this.switchConvert.bind(this);
   }
 
   color (speech) {
@@ -31,12 +32,20 @@ export default class Topbar extends Component {
     }
   }
 
+  switchConvert () {
+    if (this.state.converted) {
+      this.setState({converted: false})
+    } else {
+      this.setState({converted: true})
+    }
+  }
+
   render() {
     return  (
       <div>
         <h1>This page has been degendered</h1>
         <div className='buttons'>
-          <button id="revert">Revert</button>
+          <button id="revert" onClick={this.switchConvert}>{this.state.converted ? 'Revert' : 'Degender'}</button>
           <button id="highPro" onClick={() => this.color('pronoun')}>Altered Pronouns</button>
           <button id='highAdj' onClick={() => this.color('adjective')}>Altered Adjectives</button>
           <button id='highNoun' onClick={() => this.color('noun')}>Altered Nouns</button>
