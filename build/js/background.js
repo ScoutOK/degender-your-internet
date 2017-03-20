@@ -13,23 +13,28 @@ webpackJsonp([1],{
 	  adjectives: {}
 	};
 	
+	var syncTabQuery = Promise.promisify(chrome.tabs.query);
+	
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	  console.log(sender.tab ? "from a content script:" + sender.tab.url : "from the extension");
 	  if (request.message == "analyze") {
 	    var tabIdx = void 0;
-	    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-	      console.log('current tab index', tabs[0].index);
+	    syncTabQuery({ currentWindow: true, active: true }).then(function (tabs) {
 	      tabIdx = tabs[0].index + 1;
+	      chrome.tabs.create({
+	        url: analyticsURL,
+	        index: tabIdx
+	      }, function () {
+	        console.log('well i tried');
+	      });
 	    });
-	    console.log('the analysis tab id', tabIdx);
+	    // chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+	    //   console.log('current tab index', tabs[0].index)
+	    //   tabIdx = tabs[0].index + 1;
+	    // });
+	    //console.log('the analysis tab id', tabIdx);
 	    sendResponse({ farewell: "we made it this far" });
 	    var analyticsURL = chrome.extension.getURL('analytics.html');
-	    chrome.tabs.create({
-	      url: analyticsURL,
-	      index: tabIdx
-	    }, function () {
-	      console.log('well i tried');
-	    });
 	  }
 	});
 

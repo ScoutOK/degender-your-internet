@@ -42,9 +42,6 @@ export default class Topbar extends Component {
 
   analyze () {
     console.log('in analyze function')
-    chrome.tabs.getCurrent((tab)=>{
-      console.log('current index', tab.index)
-    })
     chrome.runtime.sendMessage({message: "analyze"}, function(response) {
       console.log(response.farewell);
     });

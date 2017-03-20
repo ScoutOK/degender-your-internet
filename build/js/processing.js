@@ -35938,9 +35938,6 @@ webpackJsonp([3],[
 	    key: 'analyze',
 	    value: function analyze() {
 	      console.log('in analyze function');
-	      chrome.tabs.getCurrent(function (tab) {
-	        console.log('current index', tab.index);
-	      });
 	      chrome.runtime.sendMessage({ message: "analyze" }, function (response) {
 	        console.log(response.farewell);
 	      });
