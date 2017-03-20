@@ -169,12 +169,14 @@ webpackJsonp([2],{
 	    var fancyText = (0, _compromise2.default)(allText);
 	
 	    fancyText.match('#Pronoun').list.forEach(function (ele) {
+	      console.log(ele.terms[0]._text);
 	      if (pronouns[ele.terms[0]._text]) {
 	        ele.terms[0]._text = '<span class=\'converted pronoun\'>' + pronouns[ele.terms[0]._text] + '</span>';
 	      }
 	    });
 	
 	    fancyText.match('#Noun').list.forEach(function (ele) {
+	      console.log(ele.terms[0]._text);
 	      if (nouns[ele.terms[0]._text]) {
 	        ele.terms[0]._text = '<span class=\'converted noun\'>' + nouns[ele.terms[0]._text] + '</span>';
 	      }
@@ -14248,9 +14250,10 @@ webpackJsonp([2],{
 	    var _this = _possibleConstructorReturn(this, (Topbar.__proto__ || Object.getPrototypeOf(Topbar)).call(this));
 	
 	    _this.state = {
-	      converted: false
+	      converted: true
 	    };
 	    _this.color = _this.color.bind(_this);
+	    _this.switchConvert = _this.switchConvert.bind(_this);
 	    return _this;
 	  }
 	
@@ -14276,6 +14279,15 @@ webpackJsonp([2],{
 	      }
 	    }
 	  }, {
+	    key: 'switchConvert',
+	    value: function switchConvert() {
+	      if (this.state.converted) {
+	        this.setState({ converted: false });
+	      } else {
+	        this.setState({ converted: true });
+	      }
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -14293,8 +14305,8 @@ webpackJsonp([2],{
 	          { className: 'buttons' },
 	          _react2.default.createElement(
 	            'button',
-	            { id: 'revert' },
-	            'Revert'
+	            { id: 'revert', onClick: this.switchConvert },
+	            this.state.converted ? 'Revert' : 'Degender'
 	          ),
 	          _react2.default.createElement(
 	            'button',
