@@ -1,4 +1,4 @@
-const Promise = require('bluebird');
+// const Promise = require('bluebird');
 
 let pageData = {
   pronouns: {},
@@ -6,7 +6,7 @@ let pageData = {
   adjectives: {}
 }
 
-const syncTabQuery = Promise.promisify(chrome.tabs.query)
+// const syncTabQuery = Promise.promisify(chrome.tabs.query())
 
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
@@ -15,7 +15,19 @@ chrome.runtime.onMessage.addListener(
                 "from the extension");
     if (request.message == "analyze"){
       let tabIdx
-      syncTabQuery({currentWindow: true, active: true})
+      const tabProm = () => {
+        return new Promise((resolve, reject) => {
+          chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
+            if (Array.isArray(tabs)) {
+              resolve(tabs);
+            } else {
+              reject('not in a tab')
+            }
+          });
+        })
+      }
+
+      tabProm()
         .then((tabs)=>{
           tabIdx = tabs[0].index + 1;
           chrome.tabs.create({
@@ -24,7 +36,8 @@ chrome.runtime.onMessage.addListener(
           }, function(){
             console.log('well i tried');
           })
-        });
+        })
+        .catch(console.error);
       // chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
       //   console.log('current tab index', tabs[0].index)
       //   tabIdx = tabs[0].index + 1;
