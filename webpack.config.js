@@ -6,7 +6,8 @@ module.exports = {
   entry: {
     analytics: './analytics/main.jsx',
     popup: './popup/main.jsx',
-    processing: './text-processing/processing.js'
+    processing: './text-processing/processing.js',
+    background: './background/event.js'
   },
   output: {
     path: __dirname,

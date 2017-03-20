@@ -133,13 +133,13 @@ const copyHTML = (elements)=> {
 
 console.log('the degender content script is totes active')
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
-  console.log('in listener', request)
+  //console.log('in listener', request)
 
   //add wrapper around current body content
   const bodyInsides = document.body.innerHTML;
   //possibly need to do a clone at this point
   const originalBody = document.body.cloneNode(true);
-  console.log('~*~*~*~*~*~*~*~OriginalBody', originalBody)
+  //console.log('~*~*~*~*~*~*~*~OriginalBody', originalBody)
   const degenderWrapper = `<div id='degender-wrapper'>${bodyInsides}</div>`
   document.body.innerHTML = degenderWrapper;
 
@@ -156,14 +156,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     const fancyText = nlp(allText);
 
     fancyText.match('#Pronoun').list.forEach(ele => {
-      console.log(ele.terms[0]._text);
+      //console.log(ele.terms[0]._text);
       if (pronouns[ele.terms[0]._text]) {
         ele.terms[0]._text = `<span class='converted pronoun'>${pronouns[ele.terms[0]._text]}</span>`
       }
     })
 
     fancyText.match('#Noun').list.forEach(ele => {
-      console.log(ele.terms[0]._text);
+      //console.log(ele.terms[0]._text);
       if (nouns[ele.terms[0]._text]) {
         ele.terms[0]._text = `<span class='converted noun'>${nouns[ele.terms[0]._text]}</span>`
       }
