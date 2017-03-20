@@ -42,9 +42,7 @@ export default class Topbar extends Component {
 
   analyze () {
     console.log('in analyze function')
-    chrome.runtime.sendMessage({message: "analyze", data: 'test'}, function(response) {
-      console.log(response.farewell);
-    });
+    chrome.runtime.sendMessage({message: "analyze", data: 'test'});
   }
 
   render() {

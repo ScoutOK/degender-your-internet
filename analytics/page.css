@@ -5,4 +5,5 @@
 nav {
   display: flex;
   justify-content: space-between;
+  background: linear-gradient(170deg, #89c8c9, #ef8594);
 }
