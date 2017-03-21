@@ -25,7 +25,7 @@ chrome.runtime.onMessage.addListener(
     switch (request.message) {
     case 'analyze':
       //save the message data
-      pageData = request.data;
+      pageData = request.pageData;
       let tabIdx
       //find the url for the analytics page
       const analyticsURL = chrome.extension.getURL('analytics.html');
@@ -46,10 +46,5 @@ chrome.runtime.onMessage.addListener(
     default:
       sendResponse({error: '???????'})
   }
-    if (request.message == "analyze"){
-      
-      
-    }
-
       
   });

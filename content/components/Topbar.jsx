@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 
 
 export default class Topbar extends Component {
-  constructor () {
+  constructor (data) {
     super();
     this.state ={
       converted: true
     };
     this.color = this.color.bind(this);
     this.switchConvert = this.switchConvert.bind(this);
+    this.analyze = this.analyze.bind(this)
   }
 
   color (speech) {
@@ -41,11 +42,18 @@ export default class Topbar extends Component {
   }
 
   analyze () {
+    const responseObj = {
+      title: document.title,
+      url: document.URL,
+      data: this.props.data
+    }
     console.log('in analyze function')
-    chrome.runtime.sendMessage({message: "analyze", data: 'test'});
+    chrome.runtime.sendMessage({message: "analyze", pageData: responseObj});
   }
 
   render() {
+    console.log('anything here?', this.props)
+    console.log('or here?', this.state)
     return  (
       <div>
         <h1>This page has been degendered</h1>

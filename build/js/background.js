@@ -29,7 +29,7 @@ webpackJsonp([1,4],[
 	  switch (request.message) {
 	    case 'analyze':
 	      //save the message data
-	      pageData = request.data;
+	      pageData = request.pageData;
 	      var tabIdx = void 0;
 	      //find the url for the analytics page
 	      var analyticsURL = chrome.extension.getURL('analytics.html');
@@ -47,7 +47,6 @@ webpackJsonp([1,4],[
 	    default:
 	      sendResponse({ error: '???????' });
 	  }
-	  if (request.message == "analyze") {}
 	});
 
 /***/ }

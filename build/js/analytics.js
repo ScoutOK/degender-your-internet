@@ -20,14 +20,15 @@ webpackJsonp([0,4],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	console.log('PLEASE!');
+	var pageData = {};
 	
 	//inform the background that we are ready and get data
 	chrome.runtime.sendMessage({ message: "pageReady" }, function (response) {
 	  console.log(response);
+	  pageData = response;
 	});
 	
-	(0, _reactDom.render)(_react2.default.createElement(_Analytics2.default, null), document.getElementById('analytics'));
+	(0, _reactDom.render)(_react2.default.createElement(_Analytics2.default, { data: pageData.data, title: pageData.title, url: pageData.url }), document.getElementById('analytics'));
 
 /***/ },
 /* 1 */
@@ -21473,8 +21474,6 @@ webpackJsonp([0,4],[
 	  value: true
 	});
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -21483,81 +21482,72 @@ webpackJsonp([0,4],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Analytics = function (_Component) {
-	  _inherits(Analytics, _Component);
-	
-	  function Analytics() {
-	    _classCallCheck(this, Analytics);
-	
-	    return _possibleConstructorReturn(this, (Analytics.__proto__ || Object.getPrototypeOf(Analytics)).apply(this, arguments));
-	  }
-	
-	  _createClass(Analytics, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
+	exports.default = function (props) {
+	  console.log('da props', props);
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'nav',
+	      null,
+	      _react2.default.createElement(
+	        'h1',
+	        null,
+	        'Degender Analytics'
+	      ),
+	      _react2.default.createElement(
+	        'h2',
+	        null,
+	        props.title
+	      ),
+	      _react2.default.createElement(
+	        'a',
+	        { href: props.url },
+	        _react2.default.createElement(
+	          'span',
+	          null,
+	          props.url
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'ul',
 	        null,
 	        _react2.default.createElement(
-	          'nav',
+	          'li',
 	          null,
-	          _react2.default.createElement(
-	            'h1',
-	            null,
-	            'Degender Analytics'
-	          ),
-	          _react2.default.createElement(
-	            'ul',
-	            null,
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              'Link 1'
-	            ),
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              'Link 2'
-	            ),
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              'Link 3'
-	            ),
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              'Link 4'
-	            )
-	          )
+	          'Link 1'
 	        ),
 	        _react2.default.createElement(
-	          'main',
+	          'li',
 	          null,
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            'Content will go here if I even get this far, maybe tabs? There is a great big world of possibility!'
-	          )
+	          'Link 2'
 	        ),
-	        _react2.default.createElement('footer', null)
-	      );
-	    }
-	  }]);
-	
-	  return Analytics;
-	}(_react.Component);
+	        _react2.default.createElement(
+	          'li',
+	          null,
+	          'Link 3'
+	        ),
+	        _react2.default.createElement(
+	          'li',
+	          null,
+	          'Link 4'
+	        )
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'main',
+	      null,
+	      _react2.default.createElement(
+	        'p',
+	        null,
+	        'Content will go here if I even get this far, maybe tabs? There is a great big world of possibility!'
+	      )
+	    ),
+	    _react2.default.createElement('footer', null)
+	  );
+	};
 	
 	//export default connect()(Analytics)
-	
-	
-	exports.default = Analytics;
 
 /***/ },
 /* 179 */
@@ -23351,7 +23341,7 @@ webpackJsonp([0,4],[
 	
 	
 	// module
-	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nnav {\n  display: flex;\n  justify-content: space-between;\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n}\n", ""]);
+	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nnav {\n  display: flex;\n  justify-content: space-between;\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n}\n\nh1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}", ""]);
 	
 	// exports
 

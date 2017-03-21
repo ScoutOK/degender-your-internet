@@ -4,14 +4,15 @@ import Analytics from './components/Analytics'
 
 import styles from './page.css'
 
-console.log('PLEASE!')
+let pageData = {}
 
 //inform the background that we are ready and get data
 chrome.runtime.sendMessage({message: "pageReady"}, function(response) {
   console.log(response);
+  pageData = response;
 }); 
 
 render (
-  <Analytics />,
+  <Analytics data={pageData.data} title={pageData.title} url={pageData.url}/>,
   document.getElementById('analytics')
 )
