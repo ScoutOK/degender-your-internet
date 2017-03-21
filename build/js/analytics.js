@@ -21502,10 +21502,24 @@ webpackJsonp([0,4],[
 	
 	var _reactRedux = __webpack_require__(179);
 	
+	var _categories = __webpack_require__(282);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Analytics = function Analytics(props) {
 	  console.log('da props', props);
+	  var totalProNum = 0;
+	  var mascProNum = 0;
+	  var femProNum = 0;
+	  for (key in props.pronouns) {
+	    totalProNum += props.pronouns[key];
+	    if (_categories.femPronouns.indexOf(props.pronouns[key]) > -1) {
+	      femProNum += props.pronouns[key];
+	    }
+	    if (_categories.mascPronouns.indexOf(props.pronouns[key]) > -1) {
+	      mascProNum += props.pronouns[key];
+	    }
+	  }
 	  return _react2.default.createElement(
 	    'div',
 	    null,
@@ -21563,6 +21577,17 @@ webpackJsonp([0,4],[
 	        'p',
 	        null,
 	        'READY FOR GRAPHS'
+	      ),
+	      _react2.default.createElement(
+	        'span',
+	        null,
+	        'There were ',
+	        femProNum,
+	        ' feminine and ',
+	        mascProNum,
+	        ' masculine out of ',
+	        totalProNum,
+	        ' total gendered pronouns'
 	      )
 	    ),
 	    _react2.default.createElement('footer', null)
@@ -24802,6 +24827,38 @@ webpackJsonp([0,4],[
 	    data: data
 	  };
 	};
+
+/***/ },
+/* 282 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var pronouns = {
+	  he: "they",
+	  him: "them",
+	  his: "their",
+	  himself: "themself",
+	  she: "they",
+	  her: "them",
+	  hers: "theirs",
+	  herself: "themself",
+	  He: "They",
+	  Him: "Them",
+	  His: "Their",
+	  Himself: "Themself",
+	  She: "They",
+	  Her: "Them",
+	  Hers: "Theirs",
+	  Herself: "Themself"
+	};
+	
+	var mascPronouns = exports.mascPronouns = ['he', 'him', 'his', 'himself'];
+	
+	var femPronouns = exports.femPronouns = ['she', 'her', 'herself', 'hers'];
 
 /***/ }
 ]);
