@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 
 
-export default (props) => {
+const Analytics = (props) => {
   console.log('da props',props);
   return  (
   <div>
@@ -18,7 +18,7 @@ export default (props) => {
       </ul>
     </nav>
     <main>
-      <p>GRAPHS</p>
+      <p>READY FOR GRAPHS</p>
     </main>
     <footer>
     </footer>
@@ -26,5 +26,10 @@ export default (props) => {
   )
 }
 
+const mapStateToProps = ({title, url, data}) => ({
+  title,
+  url,
+  data
+})
 
-//export default connect()(Analytics)
+export default connect(mapStateToProps)(Analytics)
