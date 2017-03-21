@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux'
 
 
-export default (props) => {
+const Analytics = (props) => {
   console.log('da props',props);
   return  (
   <div>
@@ -26,5 +26,10 @@ export default (props) => {
   )
 }
 
+const mapStateToProps = (state) => ({
+  title,
+  url,
+  data
+})
 
-//export default connect()(Analytics)
+export default connect()(Analytics)
