@@ -32,4 +32,4 @@ const mapStateToProps = (state) => ({
   data
 })
 
-export default connect()(Analytics)
+export default connect(mapStateToProps)(Analytics)

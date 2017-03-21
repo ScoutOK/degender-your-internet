@@ -21577,7 +21577,7 @@ webpackJsonp([0,4],[
 	  };
 	};
 	
-	exports.default = (0, _reactRedux.connect)()(Analytics);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Analytics);
 
 /***/ },
 /* 179 */
