@@ -23376,7 +23376,7 @@ webpackJsonp([0,4],[
 	
 	var _url2 = _interopRequireDefault(_url);
 	
-	var _data = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \".data\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _data = __webpack_require__(281);
 	
 	var _data2 = _interopRequireDefault(_data);
 	
