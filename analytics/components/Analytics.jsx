@@ -18,7 +18,7 @@ const Analytics = (props) => {
       </ul>
     </nav>
     <main>
-      <p>GRAPHS</p>
+      <p>READY FOR GRAPHS</p>
     </main>
     <footer>
     </footer>
@@ -26,7 +26,7 @@ const Analytics = (props) => {
   )
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({title, url, data}) => ({
   title,
   url,
   data

@@ -21562,14 +21562,17 @@ webpackJsonp([0,4],[
 	      _react2.default.createElement(
 	        'p',
 	        null,
-	        'GRAPHS'
+	        'READY FOR GRAPHS'
 	      )
 	    ),
 	    _react2.default.createElement('footer', null)
 	  );
 	};
 	
-	var mapStateToProps = function mapStateToProps(state) {
+	var mapStateToProps = function mapStateToProps(_ref) {
+	  var title = _ref.title,
+	      url = _ref.url,
+	      data = _ref.data;
 	  return {
 	    title: title,
 	    url: url,
