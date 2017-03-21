@@ -6,7 +6,7 @@ let pageData = {
   adjectives: {}
 }
 
-// const syncTabQuery = Promise.promisify(chrome.tabs.query())
+// make the tab query into a promise to chain off of
 const tabProm = () => {
   return new Promise((resolve, reject) => {
     chrome.tabs.query({currentWindow: true, active: true}, function (tabs){
@@ -19,30 +19,32 @@ const tabProm = () => {
   })
 }
 
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
-    console.log(sender.tab ?
-                "from a content script:" + sender.tab.url :
-                "from the extension");
-    if (request.message == "analyze"){
+    switch (request.message) {
+    case 'analyze':
+      //save the message data
+      pageData = request.pageData;
       let tabIdx
-    
+      //find the url for the analytics page
+      const analyticsURL = chrome.extension.getURL('analytics.html');
+      //use query data to create a new tab next to the current one
       tabProm()
         .then((tabs)=>{
           tabIdx = tabs[0].index + 1;
           chrome.tabs.create({
             url: analyticsURL,
             index: tabIdx
-          }, function(){
-            console.log('well i tried');
           })
         })
         .catch(console.error);
 
-      sendResponse({farewell: "we made it this far"});
-      const analyticsURL = chrome.extension.getURL('analytics.html');
       
-    }
-
+    case 'pageReady':
+      sendResponse(pageData)
+    default:
+      sendResponse({error: '???????'})
+  }
       
   });

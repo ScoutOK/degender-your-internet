@@ -5,4 +5,14 @@
 nav {
   display: flex;
   justify-content: space-between;
+  background: linear-gradient(170deg, #89c8c9, #ef8594);
+  width: 100%;
+  padding: 1rem;
+  color: #333;
+}
+
+h1 {
+  font-family: "Telefon Black", Sans-Serif;
+  padding: 0;
+  margin-top: 0;
 }

@@ -1,7 +1,9 @@
 'use strict'
 
 import nlp from 'compromise';
-import renderTopbar from '../content/Main.jsx'
+
+import renderTopbar from '../content/Main.jsx';
+
 
 //boolean to control react rendering VERY IMPORTANT
 let renderBar = false;
@@ -100,7 +102,7 @@ const pageStats = {
   adjectives: {}
 }
 
-const createTopbar = () => {
+const createTopbar = (data) => {
   //build a div to go at the top of the page
   let topBar = document.createElement("div");
 
@@ -110,7 +112,7 @@ const createTopbar = () => {
   document.body.insertBefore(topBar, document.body.firstChild);
 
   //render the topbar
-  renderTopbar();
+  renderTopbar(data);
   return topBar
 
 }
@@ -156,22 +158,32 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
     const fancyText = nlp(allText);
 
     fancyText.match('#Pronoun').list.forEach(ele => {
-      //console.log(ele.terms[0]._text);
+      const currPronoun = ele.terms[0]._text;
+      console.log('pronoun', currPronoun);
       if (pronouns[ele.terms[0]._text]) {
         ele.terms[0]._text = `<span class='converted pronoun'>${pronouns[ele.terms[0]._text]}</span>`
+        if (pageStats.pronouns[currPronoun]) pageStats.pronouns[currPronoun]++
+        else pageStats.pronouns[currPronoun] = 1
       }
     })
 
     fancyText.match('#Noun').list.forEach(ele => {
-      //console.log(ele.terms[0]._text);
+      const currNoun = ele.terms[0]._text;
+      console.log('noun', currNoun)
       if (nouns[ele.terms[0]._text]) {
         ele.terms[0]._text = `<span class='converted noun'>${nouns[ele.terms[0]._text]}</span>`
+        if (pageStats.nouns[currNoun]) pageStats.nouns[currNoun]++
+        else pageStats.nouns[currNoun] = 1
       }
     })
 
     fancyText.match('#Adjective').list.forEach(ele => {
+      const currAdj = ele.terms[0]._text;
+      console.log('adjective', currAdj)
       if (adjectives[ele.terms[0]._text]) {
         ele.terms[0]._text = `<span class='converted adjective'>${adjectives[ele.terms[0]._text]}</span>`
+        if (pageStats.adjectives[currAdj]) pageStats.adjectives[currAdj]++
+        else pageStats.adjectives[currAdj] = 1
       }
     })
 
@@ -187,7 +199,8 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
       }
 
       convert();//something about this function is RUINING my onClicks
-      const topBar = createTopbar();
+      console.log(pageStats)
+      const topBar = createTopbar(pageStats);
       //to set margin at top of original content
       addListens(allText);
       sendResponse({pageStatus: 'converted'});

@@ -111,7 +111,7 @@ webpackJsonp([3,4],[
 	  adjectives: {}
 	};
 	
-	var createTopbar = function createTopbar() {
+	var createTopbar = function createTopbar(data) {
 	  //build a div to go at the top of the page
 	  var topBar = document.createElement("div");
 	
@@ -121,7 +121,7 @@ webpackJsonp([3,4],[
 	  document.body.insertBefore(topBar, document.body.firstChild);
 	
 	  //render the topbar
-	  (0, _Main2.default)();
+	  (0, _Main2.default)(data);
 	  return topBar;
 	};
 	
@@ -168,22 +168,29 @@ webpackJsonp([3,4],[
 	    var fancyText = (0, _compromise2.default)(allText);
 	
 	    fancyText.match('#Pronoun').list.forEach(function (ele) {
-	      //console.log(ele.terms[0]._text);
+	      var currPronoun = ele.terms[0]._text;
+	      console.log('pronoun', currPronoun);
 	      if (pronouns[ele.terms[0]._text]) {
 	        ele.terms[0]._text = '<span class=\'converted pronoun\'>' + pronouns[ele.terms[0]._text] + '</span>';
+	        if (pageStats.pronouns[currPronoun]) pageStats.pronouns[currPronoun]++;else pageStats.pronouns[currPronoun] = 1;
 	      }
 	    });
 	
 	    fancyText.match('#Noun').list.forEach(function (ele) {
-	      //console.log(ele.terms[0]._text);
+	      var currNoun = ele.terms[0]._text;
+	      console.log('noun', currNoun);
 	      if (nouns[ele.terms[0]._text]) {
 	        ele.terms[0]._text = '<span class=\'converted noun\'>' + nouns[ele.terms[0]._text] + '</span>';
+	        if (pageStats.nouns[currNoun]) pageStats.nouns[currNoun]++;else pageStats.nouns[currNoun] = 1;
 	      }
 	    });
 	
 	    fancyText.match('#Adjective').list.forEach(function (ele) {
+	      var currAdj = ele.terms[0]._text;
+	      console.log('adjective', currAdj);
 	      if (adjectives[ele.terms[0]._text]) {
 	        ele.terms[0]._text = '<span class=\'converted adjective\'>' + adjectives[ele.terms[0]._text] + '</span>';
+	        if (pageStats.adjectives[currAdj]) pageStats.adjectives[currAdj]++;else pageStats.adjectives[currAdj] = 1;
 	      }
 	    });
 	
@@ -199,7 +206,8 @@ webpackJsonp([3,4],[
 	      }
 	
 	      convert(); //something about this function is RUINING my onClicks
-	      var topBar = createTopbar();
+	      console.log(pageStats);
+	      var topBar = createTopbar(pageStats);
 	      //to set margin at top of original content
 	      addListens(allText);
 	      sendResponse({ pageStatus: 'converted' });
@@ -36042,8 +36050,8 @@ webpackJsonp([3,4],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = function () {
-	  (0, _reactDom.render)(_react2.default.createElement(_Topbar2.default, null), document.getElementById('degender-bar'));
+	exports.default = function (data) {
+	  (0, _reactDom.render)(_react2.default.createElement(_Topbar2.default, { data: data }), document.getElementById('degender-bar'));
 	};
 
 /***/ },
@@ -36076,7 +36084,7 @@ webpackJsonp([3,4],[
 	var Topbar = function (_Component) {
 	  _inherits(Topbar, _Component);
 	
-	  function Topbar() {
+	  function Topbar(data) {
 	    _classCallCheck(this, Topbar);
 	
 	    var _this = _possibleConstructorReturn(this, (Topbar.__proto__ || Object.getPrototypeOf(Topbar)).call(this));
@@ -36086,6 +36094,7 @@ webpackJsonp([3,4],[
 	    };
 	    _this.color = _this.color.bind(_this);
 	    _this.switchConvert = _this.switchConvert.bind(_this);
+	    _this.analyze = _this.analyze.bind(_this);
 	    return _this;
 	  }
 	
@@ -36122,16 +36131,21 @@ webpackJsonp([3,4],[
 	  }, {
 	    key: 'analyze',
 	    value: function analyze() {
+	      var responseObj = {
+	        title: document.title,
+	        url: document.URL,
+	        data: this.props.data
+	      };
 	      console.log('in analyze function');
-	      chrome.runtime.sendMessage({ message: "analyze" }, function (response) {
-	        console.log(response.farewell);
-	      });
+	      chrome.runtime.sendMessage({ message: "analyze", pageData: responseObj });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 	
+	      console.log('anything here?', this.props);
+	      console.log('or here?', this.state);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
