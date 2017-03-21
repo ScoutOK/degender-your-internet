@@ -21540,7 +21540,7 @@ webpackJsonp([0,4],[
 	      _react2.default.createElement(
 	        'p',
 	        null,
-	        'Content will go here if I even get this far, maybe tabs? There is a great big world of possibility!'
+	        'GRAPHS'
 	      )
 	    ),
 	    _react2.default.createElement('footer', null)

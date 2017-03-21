@@ -18,7 +18,7 @@ export default (props) => {
       </ul>
     </nav>
     <main>
-      <p>Content will go here if I even get this far, maybe tabs? There is a great big world of possibility!</p>
+      <p>GRAPHS</p>
     </main>
     <footer>
     </footer>
