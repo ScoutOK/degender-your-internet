@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {VictoryPie} from 'victory';
+import {connect} from 'react-redux';
+
+import {sumPronouns, nomPronouns, refPronouns} from '../categories'
 
 class Pronouns extends Component {
   constructor () {
@@ -29,7 +32,7 @@ class Pronouns extends Component {
               innerRadius={100}
               cornerRadius={5}
               padAngle={1}
-              theme={theme}
+              theme={this.props.theme}
               style={{ labels: {fontSize: 14, padding: 10}}}
               data={[
                 {x: `feminine ${Math.round(100*this.state.pronouns.fem/this.state.pronouns.total)}%`, y: this.state.pronouns.fem}, {x: `masculine ${Math.round(100*this.state.pronouns.masc/this.state.pronouns.total)}%`, y: this.state.pronouns.masc}
@@ -44,7 +47,7 @@ class Pronouns extends Component {
                 innerRadius={100}
                 cornerRadius={5}
                 padAngle={1}
-                theme={theme}
+                theme={this.props.theme}
                 style={{ labels: {fontSize: 14, padding: 10}}}
                 data={[
                   {x: `feminine ${Math.round(100*this.state.nomPron.fem/this.state.nomPron.total)}%`, y: this.state.nomPron.fem}, {x: `masculine ${Math.round(100*this.state.nomPron.masc/this.state.nomPron.total)}%`, y: this.state.nomPron.masc}
@@ -59,7 +62,7 @@ class Pronouns extends Component {
                 innerRadius={100}
                 cornerRadius={5}
                 padAngle={1}
-                theme={theme}
+                theme={this.props.theme}
                 style={{ labels: {fontSize: 14, padding: 10}}}
                 data={[
                   {x: `feminine ${Math.round(100*this.state.refPron.fem/this.state.refPron.total)}%`, y: this.state.refPron.fem}, {x: `masculine ${Math.round(100*this.state.refPron.masc/this.state.refPron.total)}%`, y: this.state.refPron.masc}

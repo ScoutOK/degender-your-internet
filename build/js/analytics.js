@@ -21504,8 +21504,6 @@ webpackJsonp([0,4],[
 	
 	var _reactRedux = __webpack_require__(179);
 	
-	var _victory = __webpack_require__(209);
-	
 	var _Pronouns = __webpack_require__(569);
 	
 	var _Pronouns2 = _interopRequireDefault(_Pronouns);
@@ -21549,16 +21547,6 @@ webpackJsonp([0,4],[
 	  }
 	
 	  _createClass(Analytics, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      var pronNum = sumPronouns(nextProps.data.pronouns);
-	      this.setState({ pronouns: pronNum });
-	      var nomPron = nomPronouns(nextProps.data.pronouns);
-	      this.setState({ nomPron: nomPron });
-	      var refPron = refPronouns(nextProps.data.pronouns);
-	      this.setState({ refPron: refPron });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -53330,6 +53318,10 @@ webpackJsonp([0,4],[
 	
 	var _victory = __webpack_require__(209);
 	
+	var _reactRedux = __webpack_require__(179);
+	
+	var _categories = __webpack_require__(596);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -53357,11 +53349,11 @@ webpackJsonp([0,4],[
 	  _createClass(Pronouns, [{
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
-	      var pronNum = sumPronouns(nextProps.data.pronouns);
+	      var pronNum = (0, _categories.sumPronouns)(nextProps.data.pronouns);
 	      this.setState({ pronouns: pronNum });
-	      var nomPron = nomPronouns(nextProps.data.pronouns);
+	      var nomPron = (0, _categories.nomPronouns)(nextProps.data.pronouns);
 	      this.setState({ nomPron: nomPron });
-	      var refPron = refPronouns(nextProps.data.pronouns);
+	      var refPron = (0, _categories.refPronouns)(nextProps.data.pronouns);
 	      this.setState({ refPron: refPron });
 	    }
 	  }, {
@@ -53382,7 +53374,7 @@ webpackJsonp([0,4],[
 	            innerRadius: 100,
 	            cornerRadius: 5,
 	            padAngle: 1,
-	            theme: theme,
+	            theme: this.props.theme,
 	            style: { labels: { fontSize: 14, padding: 10 } },
 	            data: [{ x: 'feminine ' + Math.round(100 * this.state.pronouns.fem / this.state.pronouns.total) + '%', y: this.state.pronouns.fem }, { x: 'masculine ' + Math.round(100 * this.state.pronouns.masc / this.state.pronouns.total) + '%', y: this.state.pronouns.masc }]
 	          }),
@@ -53413,7 +53405,7 @@ webpackJsonp([0,4],[
 	              innerRadius: 100,
 	              cornerRadius: 5,
 	              padAngle: 1,
-	              theme: theme,
+	              theme: this.props.theme,
 	              style: { labels: { fontSize: 14, padding: 10 } },
 	              data: [{ x: 'feminine ' + Math.round(100 * this.state.nomPron.fem / this.state.nomPron.total) + '%', y: this.state.nomPron.fem }, { x: 'masculine ' + Math.round(100 * this.state.nomPron.masc / this.state.nomPron.total) + '%', y: this.state.nomPron.masc }]
 	            }),
@@ -53444,7 +53436,7 @@ webpackJsonp([0,4],[
 	                innerRadius: 100,
 	                cornerRadius: 5,
 	                padAngle: 1,
-	                theme: theme,
+	                theme: this.props.theme,
 	                style: { labels: { fontSize: 14, padding: 10 } },
 	                data: [{ x: 'feminine ' + Math.round(100 * this.state.refPron.fem / this.state.refPron.total) + '%', y: this.state.refPron.fem }, { x: 'masculine ' + Math.round(100 * this.state.refPron.masc / this.state.refPron.total) + '%', y: this.state.refPron.masc }]
 	              }),
@@ -53480,7 +53472,7 @@ webpackJsonp([0,4],[
 	  };
 	};
 	
-	exports.default = connect(mapStateToProps)(Pronouns);
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Pronouns);
 
 /***/ },
 /* 570 */
@@ -55129,6 +55121,63 @@ webpackJsonp([0,4],[
 	thunk.withExtraArgument = createThunkMiddleware;
 	
 	exports['default'] = thunk;
+
+/***/ },
+/* 588 */,
+/* 589 */,
+/* 590 */,
+/* 591 */,
+/* 592 */,
+/* 593 */,
+/* 594 */,
+/* 595 */,
+/* 596 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var mascPronouns = ['he', 'him', 'his', 'himself'];
+	
+	var femPronouns = ['she', 'her', 'herself', 'hers'];
+	
+	var sumPronouns = exports.sumPronouns = function sumPronouns(obj) {
+	  var total = 0,
+	      masc = 0,
+	      fem = 0;
+	  for (var key in obj) {
+	    if (femPronouns.indexOf(key) > -1) fem += obj[key];
+	    if (mascPronouns.indexOf(key) > -1) masc += obj[key];
+	  }
+	  total = fem + masc;
+	  return { total: total, masc: masc, fem: fem };
+	};
+	
+	var nomPronouns = exports.nomPronouns = function nomPronouns(obj) {
+	  var total = 0,
+	      masc = 0,
+	      fem = 0;
+	  if (obj) {
+	    fem = obj.she || 0;
+	    masc = obj.he || 0;
+	  }
+	  total = fem + masc;
+	  return { total: total, masc: masc, fem: fem };
+	};
+	
+	var refPronouns = exports.refPronouns = function refPronouns(obj) {
+	  var total = 0,
+	      masc = 0,
+	      fem = 0;
+	  if (obj) {
+	    fem = obj.herself || 0;
+	    masc = obj.himself || 0;
+	  }
+	  total = fem + masc;
+	  return { total: total, masc: masc, fem: fem };
+	};
 
 /***/ }
 ]);

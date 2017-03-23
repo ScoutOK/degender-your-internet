@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import {VictoryPie} from 'victory';
 
 //word visuals
 import Pronouns from './Pronouns'
@@ -22,15 +21,6 @@ class Analytics extends Component {
       nomPron: {},
       refPron: {}
     }
-  }
-
-  componentWillReceiveProps (nextProps) {
-    const pronNum = sumPronouns(nextProps.data.pronouns);
-    this.setState({pronouns: pronNum});
-    const nomPron = nomPronouns(nextProps.data.pronouns);
-    this.setState({nomPron});
-    const refPron = refPronouns(nextProps.data.pronouns);
-    this.setState({refPron})
   }
 
   render () {
