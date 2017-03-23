@@ -199,13 +199,10 @@ webpackJsonp([3,4],[
 	  switch (request.message) {
 	    case 'convert':
 	      if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
-	        alert('It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. If you would like to help develop Degender Your Internet for other languages, please contact me');
-	        //const topBar = createTopbar();
-	        break;
+	        alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
 	      }
 	
 	      document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides); //something about this function is RUINING my onClicks
-	      //console.log(pageStats)
 	      var topBar = createTopbar(pageStats);
 	      //to set margin at top of original content
 	      //see if you can pass stuff to TopBar to make this addListens unnecessary
