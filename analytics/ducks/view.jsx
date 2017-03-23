@@ -1,7 +1,7 @@
 const CHANGE_VIEW = 'CHANGE_VIEW'
 
 //reducer
-export default function reducer (state='', action) {
+export default function reducer (state='pronouns', action) {
   switch (action.type) {
     case CHANGE_VIEW:
       return action.pos
