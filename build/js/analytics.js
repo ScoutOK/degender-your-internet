@@ -21512,6 +21512,8 @@ webpackJsonp([0,4],[
 	
 	var _chartTheme2 = _interopRequireDefault(_chartTheme);
 	
+	var _view = __webpack_require__(644);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21519,6 +21521,12 @@ webpackJsonp([0,4],[
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	//helper functions
+	
+	
+	//reducers
+	
 	
 	var Analytics = function (_Component) {
 	  _inherits(Analytics, _Component);
@@ -21542,7 +21550,6 @@ webpackJsonp([0,4],[
 	      var pronNum = (0, _categories.sumPronouns)(nextProps.data.pronouns);
 	      this.setState({ pronouns: pronNum });
 	      var nomPron = (0, _categories.nomPronouns)(nextProps.data.pronouns);
-	      console.log('the nominative case', nomPron);
 	      this.setState({ nomPron: nomPron });
 	      var refPron = (0, _categories.refPronouns)(nextProps.data.pronouns);
 	      this.setState({ refPron: refPron });
@@ -21550,7 +21557,7 @@ webpackJsonp([0,4],[
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      console.log('da props', this.props);
+	      var _this2 = this;
 	
 	      return _react2.default.createElement(
 	        'div',
@@ -21583,17 +21590,35 @@ webpackJsonp([0,4],[
 	            _react2.default.createElement(
 	              'li',
 	              null,
-	              'Pronouns'
+	              _react2.default.createElement(
+	                'a',
+	                { onClick: function onClick() {
+	                    return _this2.props.changeView('pronouns');
+	                  } },
+	                'Pronouns'
+	              )
 	            ),
 	            _react2.default.createElement(
 	              'li',
 	              null,
-	              'Nouns'
+	              _react2.default.createElement(
+	                'a',
+	                { onClick: function onClick() {
+	                    return _this2.props.changeView('nouns');
+	                  } },
+	                'Nouns'
+	              )
 	            ),
 	            _react2.default.createElement(
 	              'li',
 	              null,
-	              'Adjectives'
+	              _react2.default.createElement(
+	                'a',
+	                { onClick: function onClick() {
+	                    return _this2.props.changeView('adjectives');
+	                  } },
+	                'Adjectives'
+	              )
 	            )
 	          )
 	        ),
@@ -21645,7 +21670,7 @@ webpackJsonp([0,4],[
 	                padAngle: 1,
 	                theme: _chartTheme2.default,
 	                style: { labels: { fontSize: 14, padding: 10 } },
-	                data: [{ x: "feminine", y: this.state.nomPron.fem }, { x: "masculine", y: this.state.nomPron.masc }]
+	                data: [{ x: 'feminine ' + Math.round(100 * this.state.nomPron.fem / this.state.nomPron.total) + '%', y: this.state.nomPron.fem }, { x: 'masculine ' + Math.round(100 * this.state.nomPron.masc / this.state.nomPron.total) + '%', y: this.state.nomPron.masc }]
 	              }),
 	              _react2.default.createElement(
 	                'span',
@@ -21667,24 +21692,32 @@ webpackJsonp([0,4],[
 	                null,
 	                'Reflexive Pronouns'
 	              ),
-	              _react2.default.createElement(_victory.VictoryPie, { name: 'refPronouns',
-	                innerRadius: 100,
-	                cornerRadius: 5,
-	                padAngle: 1,
-	                theme: _chartTheme2.default,
-	                style: { labels: { fontSize: 14, padding: 10 } },
-	                data: [{ x: "feminine", y: this.state.refPron.fem }, { x: "masculine", y: this.state.refPron.masc }]
-	              }),
-	              _react2.default.createElement(
+	              this.state.refPron.total ? _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_victory.VictoryPie, { name: 'refPronouns',
+	                  innerRadius: 100,
+	                  cornerRadius: 5,
+	                  padAngle: 1,
+	                  theme: _chartTheme2.default,
+	                  style: { labels: { fontSize: 14, padding: 10 } },
+	                  data: [{ x: 'feminine ' + Math.round(100 * this.state.refPron.fem / this.state.refPron.total) + '%', y: this.state.refPron.fem }, { x: 'masculine ' + Math.round(100 * this.state.refPron.masc / this.state.refPron.total) + '%', y: this.state.refPron.masc }]
+	                }),
+	                _react2.default.createElement(
+	                  'span',
+	                  null,
+	                  'There were ',
+	                  this.state.refPron.fem,
+	                  ' feminine and ',
+	                  this.state.refPron.masc,
+	                  ' masculine out of ',
+	                  this.state.refPron.total,
+	                  ' total gendered nominative case (subject) pronouns'
+	                )
+	              ) : _react2.default.createElement(
 	                'span',
 	                null,
-	                'There were ',
-	                this.state.refPron.fem,
-	                ' feminine and ',
-	                this.state.refPron.masc,
-	                ' masculine out of ',
-	                this.state.refPron.total,
-	                ' total gendered nominative case (subject) pronouns'
+	                'There were no reflexive pronouns in the provided example'
 	              )
 	            )
 	          )
@@ -21700,15 +21733,25 @@ webpackJsonp([0,4],[
 	var mapStateToProps = function mapStateToProps(_ref) {
 	  var title = _ref.title,
 	      url = _ref.url,
-	      data = _ref.data;
+	      data = _ref.data,
+	      view = _ref.view;
 	  return {
 	    title: title,
 	    url: url,
-	    data: data
+	    data: data,
+	    view: view
 	  };
 	};
 	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Analytics);
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    changeView: function changeView(view) {
+	      dispatch((0, _view.changeView)(view));
+	    }
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Analytics);
 
 /***/ },
 /* 179 */
@@ -23511,12 +23554,17 @@ webpackJsonp([0,4],[
 	
 	var _data2 = _interopRequireDefault(_data);
 	
+	var _view = __webpack_require__(644);
+	
+	var _view2 = _interopRequireDefault(_view);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var rootReducer = (0, _redux.combineReducers)({
 	  title: _title2.default,
 	  url: _url2.default,
-	  data: _data2.default
+	  data: _data2.default,
+	  view: _view2.default
 	});
 	
 	exports.default = rootReducer;
@@ -55074,6 +55122,39 @@ webpackJsonp([0,4],[
 	      labels: centeredLabelStyles
 	    }
 	  }, baseProps)
+	};
+
+/***/ },
+/* 644 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = reducer;
+	var CHANGE_VIEW = 'CHANGE_VIEW';
+	
+	//reducer
+	function reducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case CHANGE_VIEW:
+	      return action.pos;
+	    default:
+	      return state;
+	  }
+	}
+	
+	//action creators
+	var changeView = exports.changeView = function changeView(pos) {
+	  return {
+	    type: CHANGE_VIEW,
+	    pos: pos
+	  };
 	};
 
 /***/ }

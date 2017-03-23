@@ -3,8 +3,12 @@ import {connect} from 'react-redux';
 
 import {VictoryPie} from 'victory';
 
+//helper functions
 import {sumPronouns, nomPronouns, refPronouns} from '../categories'
 import theme from '../chartTheme'
+
+//reducers
+import {changeView} from '../ducks/view'
 
 class Analytics extends Component {
 
@@ -21,15 +25,12 @@ class Analytics extends Component {
     const pronNum = sumPronouns(nextProps.data.pronouns);
     this.setState({pronouns: pronNum});
     const nomPron = nomPronouns(nextProps.data.pronouns);
-    console.log('the nominative case', nomPron)
     this.setState({nomPron});
     const refPron = refPronouns(nextProps.data.pronouns);
     this.setState({refPron})
   }
 
   render () {
-    console.log('da props',this.props);
-
     return  (
     <div>
       <nav>
@@ -37,9 +38,9 @@ class Analytics extends Component {
         <h2>{this.props.title}</h2>
         <a href={this.props.url}><span className='page-url'>{this.props.url}</span></a>
         <ul>
-          <li>Pronouns</li>
-          <li>Nouns</li>
-          <li>Adjectives</li>
+          <li><a onClick={()=>this.props.changeView('pronouns')}>Pronouns</a></li>
+          <li><a onClick={()=>this.props.changeView('nouns')}>Nouns</a></li>
+          <li><a onClick={()=>this.props.changeView('adjectives')}>Adjectives</a></li>
         </ul>
       </nav>
       <main>
@@ -67,24 +68,27 @@ class Analytics extends Component {
               theme={theme}
               style={{ labels: {fontSize: 14, padding: 10}}}
               data={[
-                {x: "feminine", y: this.state.nomPron.fem}, {x: "masculine", y: this.state.nomPron.masc}
+                {x: `feminine ${Math.round(100*this.state.nomPron.fem/this.state.nomPron.total)}%`, y: this.state.nomPron.fem}, {x: `masculine ${Math.round(100*this.state.nomPron.masc/this.state.nomPron.total)}%`, y: this.state.nomPron.masc}
               ]}
             />
             <span>There were {this.state.nomPron.fem} feminine and {this.state.nomPron.masc} masculine out of {this.state.nomPron.total} total gendered nominative case (subject) pronouns</span>
           </div>
           <div className='small-pie'>
             <h3>Reflexive Pronouns</h3>
-            <VictoryPie name="refPronouns"
+            {this.state.refPron.total ? <div>
+              <VictoryPie name="refPronouns"
               innerRadius={100}
               cornerRadius={5}
               padAngle={1}
               theme={theme}
               style={{ labels: {fontSize: 14, padding: 10}}}
               data={[
-                {x: "feminine", y: this.state.refPron.fem}, {x: "masculine", y: this.state.refPron.masc}
+                {x: `feminine ${Math.round(100*this.state.refPron.fem/this.state.refPron.total)}%`, y: this.state.refPron.fem}, {x: `masculine ${Math.round(100*this.state.refPron.masc/this.state.refPron.total)}%`, y: this.state.refPron.masc}
               ]}
             />
             <span>There were {this.state.refPron.fem} feminine and {this.state.refPron.masc} masculine out of {this.state.refPron.total} total gendered nominative case (subject) pronouns</span>
+            </div>
+            : <span>There were no reflexive pronouns in the provided example</span>}
           </div>
         </div>
       </main>
@@ -96,10 +100,17 @@ class Analytics extends Component {
   
 }
 
-const mapStateToProps = ({title, url, data}) => ({
+const mapStateToProps = ({title, url, data, view}) => ({
   title,
   url,
-  data
+  data,
+  view
 })
 
-export default connect(mapStateToProps)(Analytics)
+const mapDispatchToProps = (dispatch) => ({
+  changeView: (view) => {
+    dispatch(changeView(view))
+  }
+})
+ 
+export default connect(mapStateToProps, mapDispatchToProps)(Analytics)
