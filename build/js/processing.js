@@ -135,67 +135,57 @@ webpackJsonp([3,4],[
 	  });
 	};
 	
-	var copyHTML = function copyHTML(elements) {
-	  var HTMLarr = [];
-	  for (var i = 0; i < elements.length; i++) {
-	    HTMLarr.push(elements[i].innerHTML);
+	var switchWords = function switchWords(string) {
+	  var arr = string.split(' ');
+	  return arr.map(function (word) {
+	    if (pronouns[word]) return '<span class=\'converted pronoun\'>' + pronouns[word] + '</span>';else if (nouns[word]) return '<span class=\'converted noun\'>' + nouns[word] + '</span>';else if (adjectives[word]) return '<span class=\'converted adjective\'>' + adjectives[word] + '</span>';else return word;
+	  }).join(' ');
+	};
+	
+	var convert = function convert(text) {
+	  //core logic of converter
+	  var carrotedArr = [];
+	  var lookingFor = '<';
+	  //Step 1: convert string into array with '<' and '>' in their own separate pieces
+	  while (text.indexOf('<') > -1 || text.indexOf('>') > -1) {
+	    var indx = text.indexOf(lookingFor);
+	    carrotedArr.push(text.slice(0, indx));
+	    carrotedArr.push(lookingFor);
+	    text = text.slice(indx + 1);
+	    if (lookingFor === '<') lookingFor = '>';else lookingFor = '<';
 	  }
-	  return HTMLarr;
+	  carrotedArr.push(text);
+	
+	  var lastVisited = '>';
+	
+	  //Step 2: Go through and process, but only pieces between > and <
+	  var convertedArr = carrotedArr.map(function (str) {
+	    if (str === '<') {
+	      lastVisited = '<';
+	      return str;
+	    }
+	    if (str === '>') {
+	      lastVisited = '>';
+	      return str;
+	    }
+	    if (lastVisited === '>') return switchWords(str);
+	    return str;
+	  });
+	
+	  return convertedArr.join('');
 	};
 	
 	console.log('the degender content script is totes active');
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-	  //console.log('in listener', request)
 	
 	  //add wrapper around current body content
 	  var bodyInsides = document.body.innerHTML;
-	  //possibly need to do a clone at this point
 	  var originalBody = document.body.cloneNode(true);
-	  //console.log('~*~*~*~*~*~*~*~OriginalBody', originalBody)
 	  var degenderWrapper = '<div id=\'degender-wrapper\'>' + bodyInsides + '</div>';
 	  document.body.innerHTML = degenderWrapper;
 	
-	  //in order to add tags around the changes, need to access the text in a different way :(
+	  // //in order to add tags around the changes, need to access the text in a different way :(
 	  var allText = document.getElementById('degender-wrapper').innerHTML;
-	
-	  //first test of compromise
-	
-	
-	  //would still be nice to not have to go over elements with no innerHTML
-	
-	  var convert = function convert() {
-	    //core logic of converter
-	    var fancyText = (0, _compromise2.default)(allText);
-	
-	    fancyText.match('#Pronoun').list.forEach(function (ele) {
-	      var currPronoun = ele.terms[0]._text;
-	      console.log('pronoun', currPronoun);
-	      if (pronouns[ele.terms[0]._text]) {
-	        ele.terms[0]._text = '<span class=\'converted pronoun\'>' + pronouns[ele.terms[0]._text] + '</span>';
-	        if (pageStats.pronouns[currPronoun]) pageStats.pronouns[currPronoun]++;else pageStats.pronouns[currPronoun] = 1;
-	      }
-	    });
-	
-	    fancyText.match('#Noun').list.forEach(function (ele) {
-	      var currNoun = ele.terms[0]._text;
-	      console.log('noun', currNoun);
-	      if (nouns[ele.terms[0]._text]) {
-	        ele.terms[0]._text = '<span class=\'converted noun\'>' + nouns[ele.terms[0]._text] + '</span>';
-	        if (pageStats.nouns[currNoun]) pageStats.nouns[currNoun]++;else pageStats.nouns[currNoun] = 1;
-	      }
-	    });
-	
-	    fancyText.match('#Adjective').list.forEach(function (ele) {
-	      var currAdj = ele.terms[0]._text;
-	      console.log('adjective', currAdj);
-	      if (adjectives[ele.terms[0]._text]) {
-	        ele.terms[0]._text = '<span class=\'converted adjective\'>' + adjectives[ele.terms[0]._text] + '</span>';
-	        if (pageStats.adjectives[currAdj]) pageStats.adjectives[currAdj]++;else pageStats.adjectives[currAdj] = 1;
-	      }
-	    });
-	
-	    document.getElementById('degender-wrapper').innerHTML = fancyText.all().out();
-	  };
 	
 	  switch (request.message) {
 	    case 'convert':
@@ -205,10 +195,11 @@ webpackJsonp([3,4],[
 	        break;
 	      }
 	
-	      convert(); //something about this function is RUINING my onClicks
-	      console.log(pageStats);
+	      document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides); //something about this function is RUINING my onClicks
+	      //console.log(pageStats)
 	      var topBar = createTopbar(pageStats);
 	      //to set margin at top of original content
+	      //see if you can pass stuff to TopBar to make this addListens unnecessary
 	      addListens(allText);
 	      sendResponse({ pageStatus: 'converted' });
 	      break;
