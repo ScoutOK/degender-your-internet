@@ -5,8 +5,8 @@ const assign = (obj) => {
 
 // Colors
 const colors = [
-  "#252525",
-  "#525252",
+  "#740D3D",
+  "#268A8C",
   "#737373",
   "#969696",
   "#bdbdbd",
@@ -15,6 +15,7 @@ const colors = [
 ];
 
 const charcoal = "#252525";
+const raspbery = '#740D3D';
 
 // Typography
 const sansSerif = "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif";
@@ -46,7 +47,7 @@ const strokeLinecap = "round";
 const strokeLinejoin = "round";
 
 // Create and export the theme
-export default const theme = {
+export default {
   area: assign({
     style: {
       data: {

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {VictoryPie} from 'victory';
 
-import {sumPronouns, nomPronouns} from '../categories'
+import {sumPronouns, nomPronouns, refPronouns} from '../categories'
 import theme from '../chartTheme'
 
 class Analytics extends Component {
@@ -12,7 +12,8 @@ class Analytics extends Component {
     super();
     this.state = {
       pronouns: {},
-      nomPron: {}
+      nomPron: {},
+      refPron: {}
     }
   }
 
@@ -22,6 +23,8 @@ class Analytics extends Component {
     const nomPron = nomPronouns(nextProps.data.pronouns);
     console.log('the nominative case', nomPron)
     this.setState({nomPron});
+    const refPron = refPronouns(nextProps.data.pronouns);
+    this.setState({refPron})
   }
 
   render () {
@@ -40,38 +43,48 @@ class Analytics extends Component {
         </ul>
       </nav>
       <main>
+        <div className='big-pie'>
+          <h3>All Pronouns</h3>
+          <VictoryPie name="allPronouns"
+            innerRadius={100}
+            cornerRadius={5}
+            padAngle={1}
+            theme={theme}
+            style={{ labels: {fontSize: 14, padding: 10}}}
+            data={[
+              {x: `feminine ${Math.round(100*this.state.pronouns.fem/this.state.pronouns.total)}%`, y: this.state.pronouns.fem}, {x: `masculine ${Math.round(100*this.state.pronouns.masc/this.state.pronouns.total)}%`, y: this.state.pronouns.masc}
+            ]}
+          />
+          <span>There were {this.state.pronouns.fem} feminine and {this.state.pronouns.masc} masculine out of {this.state.pronouns.total} total gendered pronouns</span>
+        </div>
         <div className='pie-row'>
-          <div className='pie-container'>
-            <VictoryPie name="pie"
+          <div className='small-pie'>
+            <h3>Nominative Case Pronouns</h3>
+            <VictoryPie name="nomPronouns"
               innerRadius={100}
               cornerRadius={5}
               padAngle={1}
               theme={theme}
               style={{ labels: {fontSize: 14, padding: 10}}}
               data={[
-                {x: `feminine ${Math.round(100*this.state.pronouns.fem/this.state.pronouns.total)}%`, y: this.state.pronouns.fem}, {x: `masculine ${Math.round(100*this.state.pronouns.masc/this.state.pronouns.total)}%`, y: this.state.pronouns.masc}
-              ]}
-            />
-            <span>There were {this.state.pronouns.fem} feminine and {this.state.pronouns.masc} masculine out of {this.state.pronouns.total} total gendered pronouns</span>
-          </div>
-          <div className='double-pie'>
-            <VictoryPie name="pie"
-              innerRadius={100}
-              cornerRadius={5}
-              padAngle={1}
-              style={{ labels: {fontSize: 14, padding: 10}}}
-              data={[
                 {x: "feminine", y: this.state.nomPron.fem}, {x: "masculine", y: this.state.nomPron.masc}
               ]}
             />
             <span>There were {this.state.nomPron.fem} feminine and {this.state.nomPron.masc} masculine out of {this.state.nomPron.total} total gendered nominative case (subject) pronouns</span>
-            {/*<VictoryPie name="pie"
-              standalone={true}
+          </div>
+          <div className='small-pie'>
+            <h3>Reflexive Pronouns</h3>
+            <VictoryPie name="refPronouns"
+              innerRadius={100}
+              cornerRadius={5}
+              padAngle={1}
+              theme={theme}
               style={{ labels: {fontSize: 14, padding: 10}}}
               data={[
-                {x: "feminine", y: this.state.femPro}, {x: "masculine", y: this.state.mascPro}
+                {x: "feminine", y: this.state.refPron.fem}, {x: "masculine", y: this.state.refPron.masc}
               ]}
-            />*/}
+            />
+            <span>There were {this.state.refPron.fem} feminine and {this.state.refPron.masc} masculine out of {this.state.refPron.total} total gendered nominative case (subject) pronouns</span>
           </div>
         </div>
       </main>

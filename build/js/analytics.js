@@ -21508,7 +21508,7 @@ webpackJsonp([0,4],[
 	
 	var _categories = __webpack_require__(282);
 	
-	var _chartTheme = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../chartTheme\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _chartTheme = __webpack_require__(643);
 	
 	var _chartTheme2 = _interopRequireDefault(_chartTheme);
 	
@@ -21530,7 +21530,8 @@ webpackJsonp([0,4],[
 	
 	    _this.state = {
 	      pronouns: {},
-	      nomPron: {}
+	      nomPron: {},
+	      refPron: {}
 	    };
 	    return _this;
 	  }
@@ -21543,6 +21544,8 @@ webpackJsonp([0,4],[
 	      var nomPron = (0, _categories.nomPronouns)(nextProps.data.pronouns);
 	      console.log('the nominative case', nomPron);
 	      this.setState({ nomPron: nomPron });
+	      var refPron = (0, _categories.refPronouns)(nextProps.data.pronouns);
+	      this.setState({ refPron: refPron });
 	    }
 	  }, {
 	    key: 'render',
@@ -21599,37 +21602,48 @@ webpackJsonp([0,4],[
 	          null,
 	          _react2.default.createElement(
 	            'div',
+	            { className: 'big-pie' },
+	            _react2.default.createElement(
+	              'h3',
+	              null,
+	              'All Pronouns'
+	            ),
+	            _react2.default.createElement(_victory.VictoryPie, { name: 'allPronouns',
+	              innerRadius: 100,
+	              cornerRadius: 5,
+	              padAngle: 1,
+	              theme: _chartTheme2.default,
+	              style: { labels: { fontSize: 14, padding: 10 } },
+	              data: [{ x: 'feminine ' + Math.round(100 * this.state.pronouns.fem / this.state.pronouns.total) + '%', y: this.state.pronouns.fem }, { x: 'masculine ' + Math.round(100 * this.state.pronouns.masc / this.state.pronouns.total) + '%', y: this.state.pronouns.masc }]
+	            }),
+	            _react2.default.createElement(
+	              'span',
+	              null,
+	              'There were ',
+	              this.state.pronouns.fem,
+	              ' feminine and ',
+	              this.state.pronouns.masc,
+	              ' masculine out of ',
+	              this.state.pronouns.total,
+	              ' total gendered pronouns'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'div',
 	            { className: 'pie-row' },
 	            _react2.default.createElement(
 	              'div',
-	              { className: 'pie-container' },
-	              _react2.default.createElement(_victory.VictoryPie, { name: 'pie',
+	              { className: 'small-pie' },
+	              _react2.default.createElement(
+	                'h3',
+	                null,
+	                'Nominative Case Pronouns'
+	              ),
+	              _react2.default.createElement(_victory.VictoryPie, { name: 'nomPronouns',
 	                innerRadius: 100,
 	                cornerRadius: 5,
 	                padAngle: 1,
 	                theme: _chartTheme2.default,
-	                style: { labels: { fontSize: 14, padding: 10 } },
-	                data: [{ x: 'feminine ' + Math.round(100 * this.state.pronouns.fem / this.state.pronouns.total) + '%', y: this.state.pronouns.fem }, { x: 'masculine ' + Math.round(100 * this.state.pronouns.masc / this.state.pronouns.total) + '%', y: this.state.pronouns.masc }]
-	              }),
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                'There were ',
-	                this.state.pronouns.fem,
-	                ' feminine and ',
-	                this.state.pronouns.masc,
-	                ' masculine out of ',
-	                this.state.pronouns.total,
-	                ' total gendered pronouns'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'double-pie' },
-	              _react2.default.createElement(_victory.VictoryPie, { name: 'pie',
-	                innerRadius: 100,
-	                cornerRadius: 5,
-	                padAngle: 1,
 	                style: { labels: { fontSize: 14, padding: 10 } },
 	                data: [{ x: "feminine", y: this.state.nomPron.fem }, { x: "masculine", y: this.state.nomPron.masc }]
 	              }),
@@ -21642,6 +21656,34 @@ webpackJsonp([0,4],[
 	                this.state.nomPron.masc,
 	                ' masculine out of ',
 	                this.state.nomPron.total,
+	                ' total gendered nominative case (subject) pronouns'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'small-pie' },
+	              _react2.default.createElement(
+	                'h3',
+	                null,
+	                'Reflexive Pronouns'
+	              ),
+	              _react2.default.createElement(_victory.VictoryPie, { name: 'refPronouns',
+	                innerRadius: 100,
+	                cornerRadius: 5,
+	                padAngle: 1,
+	                theme: _chartTheme2.default,
+	                style: { labels: { fontSize: 14, padding: 10 } },
+	                data: [{ x: "feminine", y: this.state.refPron.fem }, { x: "masculine", y: this.state.refPron.masc }]
+	              }),
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                'There were ',
+	                this.state.refPron.fem,
+	                ' feminine and ',
+	                this.state.refPron.masc,
+	                ' masculine out of ',
+	                this.state.refPron.total,
 	                ' total gendered nominative case (subject) pronouns'
 	              )
 	            )
@@ -24420,7 +24462,7 @@ webpackJsonp([0,4],[
 	
 	
 	// module
-	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  font-size: 1em;\n  font-family: \"Telefon Black\", Sans-Serif;\n  margin: 0;\n}\n\nnav {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1em 1em 0;;\n  color: #333;\n}\n\nnav ul {\n  display: flex;\n  list-style: none;\n  width: 100%;\n  padding: 0;\n  margin: 0;\n}\n\nnav ul li {\n  padding: 1.5em;\n  font-weight: bold;\n  font-size: 1em;\n  border: black 1px solid;\n}\n\nnav .page-url {\n  font-size: .75em;\n}\n\nh1 {\n  font-size: 1.5em;\n  padding: 0;\n  margin-top: 0;\n}\n\nh2 {\n  font-size: 1.125em;\n  margin-bottom: .25em;\n}\n\nmain {\n  max-width: 1500px;\n  margin: auto;\n}\n\n.pie-row {\n  display: flex;\n}\n\n.pie-container {\n  width: 66%;\n}\n\n.double-pie {\n  width: 33%;\n}", ""]);
+	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  font-size: 1em;\n  font-family: \"Telefon Black\", Sans-Serif;\n  margin: 0;\n}\n\nnav {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1em 1em 0;;\n  color: #333;\n}\n\nnav ul {\n  display: flex;\n  list-style: none;\n  width: 100%;\n  padding: 0;\n  margin: 0;\n}\n\nnav ul li {\n  padding: 1.5em;\n  font-weight: bold;\n  font-size: 1em;\n  border: black 1px solid;\n}\n\nnav .page-url {\n  font-size: .75em;\n}\n\nh1 {\n  font-size: 1.5em;\n  padding: 0;\n  margin-top: 0;\n}\n\nh2 {\n  font-size: 1.125em;\n  margin-bottom: .25em;\n}\n\nmain {\n  max-width: 1500px;\n  margin: auto;\n}\n\n.big-pie {\n  margin: auto;\n  width: 50%;\n}\n\n.big-pie svg {\n  overflow-x: visible\n}\n\n.pie-row {\n  display: flex;\n}", ""]);
 	
 	// exports
 
@@ -24921,6 +24963,18 @@ webpackJsonp([0,4],[
 	  if (obj) {
 	    fem = obj.she || 0;
 	    masc = obj.he || 0;
+	  }
+	  total = fem + masc;
+	  return { total: total, masc: masc, fem: fem };
+	};
+	
+	var refPronouns = exports.refPronouns = function refPronouns(obj) {
+	  var total = 0,
+	      masc = 0,
+	      fem = 0;
+	  if (obj) {
+	    fem = obj.herself || 0;
+	    masc = obj.himself || 0;
 	  }
 	  total = fem + masc;
 	  return { total: total, masc: masc, fem: fem };
@@ -54828,6 +54882,199 @@ webpackJsonp([0,4],[
 	value(function(datum){return datum._y;});
 	return layoutFunction(data);
 	}};
+
+/***/ },
+/* 643 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var assign = function assign(obj) {
+	  return Object.assign({}, obj);
+	};
+	
+	// Colors
+	var colors = ["#740D3D", "#268A8C", "#737373", "#969696", "#bdbdbd", "#d9d9d9", "#f0f0f0"];
+	
+	var charcoal = "#252525";
+	var raspbery = '#740D3D';
+	
+	// Typography
+	var sansSerif = "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif";
+	var letterSpacing = "normal";
+	var fontSize = 14;
+	
+	// Layout
+	var baseProps = {
+	  width: 450,
+	  height: 300,
+	  padding: 50,
+	  colorScale: colors
+	};
+	
+	// Labels
+	var baseLabelStyles = {
+	  fontFamily: sansSerif,
+	  fontSize: fontSize,
+	  letterSpacing: letterSpacing,
+	  padding: 10,
+	  fill: charcoal,
+	  stroke: "transparent"
+	};
+	
+	var centeredLabelStyles = assign({ textAnchor: "middle" }, baseLabelStyles);
+	
+	// Strokes
+	var strokeLinecap = "round";
+	var strokeLinejoin = "round";
+	
+	// Create and export the theme
+	exports.default = {
+	  area: assign({
+	    style: {
+	      data: {
+	        fill: charcoal
+	      },
+	      labels: centeredLabelStyles
+	    }
+	  }, baseProps),
+	  axis: assign({
+	    style: {
+	      axis: {
+	        fill: "transparent",
+	        stroke: charcoal,
+	        strokeWidth: 1,
+	        strokeLinecap: strokeLinecap,
+	        strokeLinejoin: strokeLinejoin
+	      },
+	      axisLabel: assign({}, centeredLabelStyles, {
+	        padding: 25
+	      }),
+	      grid: {
+	        fill: "transparent",
+	        stroke: "transparent"
+	      },
+	      ticks: {
+	        fill: "transparent",
+	        size: 1,
+	        stroke: "transparent"
+	      },
+	      tickLabels: baseLabelStyles
+	    }
+	  }, baseProps),
+	  bar: assign({
+	    style: {
+	      data: {
+	        fill: charcoal,
+	        padding: 10,
+	        stroke: "transparent",
+	        strokeWidth: 0,
+	        width: 8
+	      },
+	      labels: baseLabelStyles
+	    }
+	  }, baseProps),
+	  candlestick: assign({
+	    style: {
+	      data: {
+	        stroke: charcoal,
+	        strokeWidth: 1
+	      },
+	      labels: centeredLabelStyles
+	    },
+	    candleColors: {
+	      positive: "#ffffff",
+	      negative: charcoal
+	    }
+	  }, baseProps),
+	  chart: baseProps,
+	  errorbar: assign({
+	    style: {
+	      data: {
+	        fill: "transparent",
+	        stroke: charcoal,
+	        strokeWidth: 2
+	      },
+	      labels: centeredLabelStyles
+	    }
+	  }, baseProps),
+	  group: assign({
+	    colorScale: colors
+	  }, baseProps),
+	  line: assign({
+	    style: {
+	      data: {
+	        fill: "transparent",
+	        stroke: charcoal,
+	        strokeWidth: 2
+	      },
+	      labels: assign({}, baseLabelStyles, {
+	        textAnchor: "start"
+	      })
+	    }
+	  }, baseProps),
+	  pie: {
+	    style: {
+	      data: {
+	        padding: 10,
+	        stroke: "transparent",
+	        strokeWidth: 1
+	      },
+	      labels: assign({}, baseLabelStyles, {
+	        padding: 20
+	      })
+	    },
+	    colorScale: colors,
+	    width: 400,
+	    height: 400,
+	    padding: 50
+	  },
+	  scatter: assign({
+	    style: {
+	      data: {
+	        fill: charcoal,
+	        stroke: "transparent",
+	        strokeWidth: 0
+	      },
+	      labels: centeredLabelStyles
+	    }
+	  }, baseProps),
+	  stack: assign({
+	    colorScale: colors
+	  }, baseProps),
+	  tooltip: assign({
+	    style: {
+	      data: {
+	        fill: "transparent",
+	        stroke: "transparent",
+	        strokeWidth: 0
+	      },
+	      labels: centeredLabelStyles,
+	      flyout: {
+	        stroke: charcoal,
+	        strokeWidth: 1,
+	        fill: "#f0f0f0"
+	      }
+	    },
+	    flyoutProps: {
+	      cornerRadius: 10,
+	      pointerLength: 10
+	    }
+	  }, baseProps),
+	  voronoi: assign({
+	    style: {
+	      data: {
+	        fill: "transparent",
+	        stroke: "transparent",
+	        strokeWidth: 0
+	      },
+	      labels: centeredLabelStyles
+	    }
+	  }, baseProps)
+	};
 
 /***/ }
 ]);

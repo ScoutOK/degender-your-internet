@@ -50,14 +50,15 @@ main {
   margin: auto;
 }
 
+.big-pie {
+  margin: auto;
+  width: 50%;
+}
+
+.big-pie svg {
+  overflow-x: visible
+}
+
 .pie-row {
   display: flex;
-}
-
-.pie-container {
-  width: 66%;
-}
-
-.double-pie {
-  width: 33%;
 }

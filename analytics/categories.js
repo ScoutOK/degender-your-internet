@@ -21,3 +21,13 @@ export const nomPronouns = (obj) => {
   total = fem + masc;
   return {total, masc, fem};
 }
+
+export const refPronouns = (obj) => {
+  let total = 0, masc = 0, fem = 0;
+  if (obj) {
+    fem = obj.herself || 0;
+    masc = obj.himself || 0;
+  }
+  total = fem + masc;
+  return {total, masc, fem};
+}
