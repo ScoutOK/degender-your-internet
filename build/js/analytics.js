@@ -21496,6 +21496,8 @@ webpackJsonp([0,4],[
 	  value: true
 	});
 	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -21506,93 +21508,125 @@ webpackJsonp([0,4],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var Analytics = function Analytics(props) {
-	  console.log('da props', props);
-	  var totalProNum = 0;
-	  var mascProNum = 0;
-	  var femProNum = 0;
-	  for (key in props.pronouns) {
-	    totalProNum += props.pronouns[key];
-	    if (_categories.femPronouns.indexOf(props.pronouns[key]) > -1) {
-	      femProNum += props.pronouns[key];
-	    }
-	    if (_categories.mascPronouns.indexOf(props.pronouns[key]) > -1) {
-	      mascProNum += props.pronouns[key];
-	    }
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Analytics = function (_Component) {
+	  _inherits(Analytics, _Component);
+	
+	  function Analytics() {
+	    _classCallCheck(this, Analytics);
+	
+	    var _this = _possibleConstructorReturn(this, (Analytics.__proto__ || Object.getPrototypeOf(Analytics)).call(this));
+	
+	    _this.state = {
+	      proNum: 0,
+	      femPro: 0,
+	      mascPro: 0
+	    };
+	    return _this;
 	  }
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'nav',
-	      null,
-	      _react2.default.createElement(
-	        'h1',
-	        null,
-	        'Degender Analytics'
-	      ),
-	      _react2.default.createElement(
-	        'h2',
-	        null,
-	        props.title
-	      ),
-	      _react2.default.createElement(
-	        'a',
-	        { href: props.url },
-	        _react2.default.createElement(
-	          'span',
-	          null,
-	          props.url
-	        )
-	      ),
-	      _react2.default.createElement(
-	        'ul',
+	
+	  _createClass(Analytics, [{
+	    key: 'render',
+	    value: function render() {
+	      console.log('da props', this.props);
+	      // let totalProNum = 0;
+	      // let mascProNum = 0;
+	      // let femProNum = 0;
+	      // for (key in this.props.pronouns) {
+	      //   totalProNum += this.props.pronouns[key];
+	      //   if (femPronouns.indexOf(this.props.pronouns[key]) > -1) {
+	      //     femProNum += this.props.pronouns[key];
+	      //   }
+	      //   if (mascPronouns.indexOf(this.props.pronouns[key]) > -1) {
+	      //     mascProNum += this.props.pronouns[key];
+	      //   }
+	      // }
+	      // this.setState({proNum: totalProNum});
+	      // this.setState({femPro: femProNum});
+	      // this.setState({mascPro: mascProNum});
+	
+	      return _react2.default.createElement(
+	        'div',
 	        null,
 	        _react2.default.createElement(
-	          'li',
+	          'nav',
 	          null,
-	          'Link 1'
+	          _react2.default.createElement(
+	            'h1',
+	            null,
+	            'Degender Analytics'
+	          ),
+	          _react2.default.createElement(
+	            'h2',
+	            null,
+	            this.props.title
+	          ),
+	          _react2.default.createElement(
+	            'a',
+	            { href: this.props.url },
+	            _react2.default.createElement(
+	              'span',
+	              null,
+	              this.props.url
+	            )
+	          ),
+	          _react2.default.createElement(
+	            'ul',
+	            null,
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Link 1'
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Link 2'
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Link 3'
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Link 4'
+	            )
+	          )
 	        ),
 	        _react2.default.createElement(
-	          'li',
+	          'main',
 	          null,
-	          'Link 2'
+	          _react2.default.createElement(
+	            'p',
+	            null,
+	            'READY FOR GRAPHS'
+	          ),
+	          _react2.default.createElement(
+	            'span',
+	            null,
+	            'There were ',
+	            this.state.femPro,
+	            ' feminine and ',
+	            this.state.mascPro,
+	            ' masculine out of ',
+	            this.state.proNum,
+	            ' total gendered pronouns'
+	          )
 	        ),
-	        _react2.default.createElement(
-	          'li',
-	          null,
-	          'Link 3'
-	        ),
-	        _react2.default.createElement(
-	          'li',
-	          null,
-	          'Link 4'
-	        )
-	      )
-	    ),
-	    _react2.default.createElement(
-	      'main',
-	      null,
-	      _react2.default.createElement(
-	        'p',
-	        null,
-	        'READY FOR GRAPHS'
-	      ),
-	      _react2.default.createElement(
-	        'span',
-	        null,
-	        'There were ',
-	        femProNum,
-	        ' feminine and ',
-	        mascProNum,
-	        ' masculine out of ',
-	        totalProNum,
-	        ' total gendered pronouns'
-	      )
-	    ),
-	    _react2.default.createElement('footer', null)
-	  );
-	};
+	        _react2.default.createElement('footer', null)
+	      );
+	    }
+	  }]);
+	
+	  return Analytics;
+	}(_react.Component);
 	
 	var mapStateToProps = function mapStateToProps(_ref) {
 	  var title = _ref.title,
