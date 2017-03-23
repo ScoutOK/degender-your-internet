@@ -1,22 +1,3 @@
-const pronouns = {
-  he: "they",
-  him: "them",
-  his: "their",
-  himself: "themself",
-  she: "they",
-  her: "them",
-  hers: "theirs",
-  herself: "themself",
-  He: "They",
-  Him: "Them",
-  His: "Their",
-  Himself: "Themself",
-  She: "They",
-  Her: "Them",
-  Hers: "Theirs",
-  Herself: "Themself",
-}
-
 const mascPronouns = ['he','him','his','himself']
 
 const femPronouns = ['she','her','herself', 'hers']
@@ -34,8 +15,8 @@ export const sumPronouns = (obj) => {
 export const nomPronouns = (obj) => {
   let total = 0, masc = 0, fem = 0;
   if (obj) {
-    fem = obj.she;
-    masc = obj.he;
+    fem = obj.she || 0;
+    masc = obj.he || 0;
   }
   total = fem + masc;
   return {total, masc, fem};

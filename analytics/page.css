@@ -47,6 +47,7 @@ h2 {
 
 main {
   max-width: 1500px;
+  margin: auto;
 }
 
 .pie-row {

@@ -21508,6 +21508,10 @@ webpackJsonp([0,4],[
 	
 	var _categories = __webpack_require__(282);
 	
+	var _chartTheme = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../chartTheme\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	
+	var _chartTheme2 = _interopRequireDefault(_chartTheme);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -21515,194 +21519,6 @@ webpackJsonp([0,4],[
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	// // Colors
-	// const colors = [
-	//   "#252525",
-	//   "#525252",
-	//   "#737373",
-	//   "#969696",
-	//   "#bdbdbd",
-	//   "#d9d9d9",
-	//   "#f0f0f0"
-	// ];
-	
-	// const charcoal = "#252525";
-	
-	// // Typography
-	// const sansSerif = "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif";
-	// const letterSpacing = "normal";
-	// const fontSize = 14;
-	
-	// // Layout
-	// const baseProps = {
-	//   width: 450,
-	//   height: 300,
-	//   padding: 50,
-	//   colorScale: colors
-	// };
-	
-	// // Labels
-	// const baseLabelStyles = {
-	//   fontFamily: sansSerif,
-	//   fontSize,
-	//   letterSpacing,
-	//   padding: 10,
-	//   fill: charcoal,
-	//   stroke: "transparent"
-	// };
-	
-	// const centeredLabelStyles = assign({ textAnchor: "middle" }, baseLabelStyles);
-	
-	// // Strokes
-	// const strokeLinecap = "round";
-	// const strokeLinejoin = "round";
-	
-	// // Create the theme
-	// const theme = {
-	//   area: assign({
-	//     style: {
-	//       data: {
-	//         fill: charcoal
-	//       },
-	//       labels: centeredLabelStyles
-	//     }
-	//   }, baseProps),
-	//   axis: assign({
-	//     style: {
-	//       axis: {
-	//         fill: "transparent",
-	//         stroke: charcoal,
-	//         strokeWidth: 1,
-	//         strokeLinecap,
-	//         strokeLinejoin
-	//       },
-	//       axisLabel: assign({}, centeredLabelStyles, {
-	//         padding: 25
-	//       }),
-	//       grid: {
-	//         fill: "transparent",
-	//         stroke: "transparent"
-	//       },
-	//       ticks: {
-	//         fill: "transparent",
-	//         size: 1,
-	//         stroke: "transparent"
-	//       },
-	//       tickLabels: baseLabelStyles
-	//     }
-	//   }, baseProps),
-	//   bar: assign({
-	//     style: {
-	//       data: {
-	//         fill: charcoal,
-	//         padding: 10,
-	//         stroke: "transparent",
-	//         strokeWidth: 0,
-	//         width: 8
-	//       },
-	//       labels: baseLabelStyles
-	//     }
-	//   }, baseProps),
-	//   candlestick: assign({
-	//     style: {
-	//       data: {
-	//         stroke: charcoal,
-	//         strokeWidth: 1
-	//       },
-	//       labels: centeredLabelStyles
-	//     },
-	//     candleColors: {
-	//       positive: "#ffffff",
-	//       negative: charcoal
-	//     }
-	//   }, baseProps),
-	//   chart: baseProps,
-	//   errorbar: assign({
-	//     style: {
-	//       data: {
-	//         fill: "transparent",
-	//         stroke: charcoal,
-	//         strokeWidth: 2
-	//       },
-	//       labels: centeredLabelStyles
-	//     }
-	//   }, baseProps),
-	//   group: assign({
-	//     colorScale: colors
-	//   }, baseProps),
-	//   line: assign({
-	//     style: {
-	//       data: {
-	//         fill: "transparent",
-	//         stroke: charcoal,
-	//         strokeWidth: 2
-	//       },
-	//       labels: assign({}, baseLabelStyles, {
-	//         textAnchor: "start"
-	//       })
-	//     }
-	//   }, baseProps),
-	//   pie: {
-	//     style: {
-	//       data: {
-	//         padding: 10,
-	//         stroke: "transparent",
-	//         strokeWidth: 1
-	//       },
-	//       labels: assign({}, baseLabelStyles, {
-	//         padding: 20
-	//       })
-	//     },
-	//     colorScale: colors,
-	//     width: 400,
-	//     height: 400,
-	//     padding: 50
-	//   },
-	//   scatter: assign({
-	//     style: {
-	//       data: {
-	//         fill: charcoal,
-	//         stroke: "transparent",
-	//         strokeWidth: 0
-	//       },
-	//       labels: centeredLabelStyles
-	//     }
-	//   }, baseProps),
-	//   stack: assign({
-	//     colorScale: colors
-	//   }, baseProps),
-	//   tooltip: assign({
-	//     style: {
-	//       data: {
-	//         fill: "transparent",
-	//         stroke: "transparent",
-	//         strokeWidth: 0
-	//       },
-	//       labels: centeredLabelStyles,
-	//       flyout: {
-	//         stroke: charcoal,
-	//         strokeWidth: 1,
-	//         fill: "#f0f0f0"
-	//       }
-	//     },
-	//     flyoutProps: {
-	//       cornerRadius: 10,
-	//       pointerLength: 10
-	//     }
-	//   }, baseProps),
-	//   voronoi: assign({
-	//     style: {
-	//       data: {
-	//         fill: "transparent",
-	//         stroke: "transparent",
-	//         strokeWidth: 0
-	//       },
-	//       labels: centeredLabelStyles
-	//     }
-	//   }, baseProps)
-	// };
-	
 	
 	var Analytics = function (_Component) {
 	  _inherits(Analytics, _Component);
@@ -21791,6 +21607,7 @@ webpackJsonp([0,4],[
 	                innerRadius: 100,
 	                cornerRadius: 5,
 	                padAngle: 1,
+	                theme: _chartTheme2.default,
 	                style: { labels: { fontSize: 14, padding: 10 } },
 	                data: [{ x: 'feminine ' + Math.round(100 * this.state.pronouns.fem / this.state.pronouns.total) + '%', y: this.state.pronouns.fem }, { x: 'masculine ' + Math.round(100 * this.state.pronouns.masc / this.state.pronouns.total) + '%', y: this.state.pronouns.masc }]
 	              }),
@@ -24603,7 +24420,7 @@ webpackJsonp([0,4],[
 	
 	
 	// module
-	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  font-size: 1em;\n  font-family: \"Telefon Black\", Sans-Serif;\n  margin: 0;\n}\n\nnav {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1em 1em 0;;\n  color: #333;\n}\n\nnav ul {\n  display: flex;\n  list-style: none;\n  width: 100%;\n  padding: 0;\n  margin: 0;\n}\n\nnav ul li {\n  padding: 1.5em;\n  font-weight: bold;\n  font-size: 1em;\n  border: black 1px solid;\n}\n\nnav .page-url {\n  font-size: .75em;\n}\n\nh1 {\n  font-size: 1.5em;\n  padding: 0;\n  margin-top: 0;\n}\n\nh2 {\n  font-size: 1.125em;\n  margin-bottom: .25em;\n}\n\nmain {\n  max-width: 1500px;\n}\n\n.pie-row {\n  display: flex;\n}\n\n.pie-container {\n  width: 66%;\n}\n\n.double-pie {\n  width: 33%;\n}", ""]);
+	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  font-size: 1em;\n  font-family: \"Telefon Black\", Sans-Serif;\n  margin: 0;\n}\n\nnav {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1em 1em 0;;\n  color: #333;\n}\n\nnav ul {\n  display: flex;\n  list-style: none;\n  width: 100%;\n  padding: 0;\n  margin: 0;\n}\n\nnav ul li {\n  padding: 1.5em;\n  font-weight: bold;\n  font-size: 1em;\n  border: black 1px solid;\n}\n\nnav .page-url {\n  font-size: .75em;\n}\n\nh1 {\n  font-size: 1.5em;\n  padding: 0;\n  margin-top: 0;\n}\n\nh2 {\n  font-size: 1.125em;\n  margin-bottom: .25em;\n}\n\nmain {\n  max-width: 1500px;\n  margin: auto;\n}\n\n.pie-row {\n  display: flex;\n}\n\n.pie-container {\n  width: 66%;\n}\n\n.double-pie {\n  width: 33%;\n}", ""]);
 	
 	// exports
 
@@ -25076,30 +24893,11 @@ webpackJsonp([0,4],[
 /* 282 */
 /***/ function(module, exports) {
 
-	"use strict";
+	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	var pronouns = {
-	  he: "they",
-	  him: "them",
-	  his: "their",
-	  himself: "themself",
-	  she: "they",
-	  her: "them",
-	  hers: "theirs",
-	  herself: "themself",
-	  He: "They",
-	  Him: "Them",
-	  His: "Their",
-	  Himself: "Themself",
-	  She: "They",
-	  Her: "Them",
-	  Hers: "Theirs",
-	  Herself: "Themself"
-	};
-	
 	var mascPronouns = ['he', 'him', 'his', 'himself'];
 	
 	var femPronouns = ['she', 'her', 'herself', 'hers'];
@@ -25121,8 +24919,8 @@ webpackJsonp([0,4],[
 	      masc = 0,
 	      fem = 0;
 	  if (obj) {
-	    fem = obj.she;
-	    masc = obj.he;
+	    fem = obj.she || 0;
+	    masc = obj.he || 0;
 	  }
 	  total = fem + masc;
 	  return { total: total, masc: masc, fem: fem };
