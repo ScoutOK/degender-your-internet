@@ -138,7 +138,16 @@ webpackJsonp([3,4],[
 	var switchWords = function switchWords(string) {
 	  var arr = string.split(' ');
 	  return arr.map(function (word) {
-	    if (pronouns[word]) return '<span class=\'converted pronoun\'>' + pronouns[word] + '</span>';else if (nouns[word]) return '<span class=\'converted noun\'>' + nouns[word] + '</span>';else if (adjectives[word]) return '<span class=\'converted adjective\'>' + adjectives[word] + '</span>';else return word;
+	    if (pronouns[word]) {
+	      if (pageStats.pronouns[word.toLowerCase()]) pageStats.pronouns[word.toLowerCase()]++;else pageStats.pronouns[word.toLowerCase()] = 1;
+	      return '<span class=\'converted pronoun\'>' + pronouns[word] + '</span>';
+	    } else if (nouns[word]) {
+	      if (pageStats.nouns[word.toLowerCase()]) pageStats.nouns[word.toLowerCase()]++;else pageStats.nouns[word.toLowerCase()] = 1;
+	      return '<span class=\'converted noun\'>' + nouns[word] + '</span>';
+	    } else if (adjectives[word]) {
+	      if (pageStats.adjectives[word.toLowerCase()]) pageStats.adjectives[word.toLowerCase()]++;else pageStats.adjectives[word.toLowerCase()] = 1;
+	      return '<span class=\'converted adjective\'>' + adjectives[word] + '</span>';
+	    } else return word;
 	  }).join(' ');
 	};
 	
