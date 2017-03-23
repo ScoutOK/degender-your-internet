@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {VictoryPie} from 'victory';
 
-import {mascPronouns, femPronouns, sumPronouns} from '../categories'
+import {sumPronouns, nomPronouns} from '../categories'
 
 
 
@@ -12,18 +12,17 @@ class Analytics extends Component {
   constructor () {
     super();
     this.state = {
-      allPro: 0,
-      femPro: 0,
-      mascPro: 0,
+      pronouns: {},
+      nomPron: {}
     }
   }
 
   componentWillReceiveProps (nextProps) {
     const pronNum = sumPronouns(nextProps.data.pronouns);
-    console.log(pronNum);
-    this.setState({allPro: pronNum.total})
-    this.setState({femPro: pronNum.fem})
-    this.setState({mascPro: pronNum.masc})
+    this.setState({pronouns: pronNum});
+    const nomPron = nomPronouns(nextProps.data.pronouns);
+    console.log('the nominative case', nomPron)
+    this.setState({nomPron});
   }
 
   render () {
@@ -43,20 +42,35 @@ class Analytics extends Component {
         </ul>
       </nav>
       <main>
-        <p>READY FOR GRAPHS</p>
-        <svg viewBox="0 0 450 350">
-          <g>
+        <div className='pie-row'>
+          <div className='pie-container'>
             <VictoryPie name="pie"
-              width={250}
               standalone={true}
-              style={{ labels: {fontSize: 25, padding: 10}}}
+              style={{ labels: {fontSize: 14, padding: 10}}}
+              data={[
+                {x: "feminine", y: this.state.pronouns.fem}, {x: "masculine", y: this.state.pronouns.masc}
+              ]}
+            />
+            <span>There were {this.state.pronouns.fem} feminine and {this.state.pronouns.masc} masculine out of {this.state.pronouns.total} total gendered pronouns</span>
+          </div>
+          <div className='double-pie'>
+            <VictoryPie name="pie"
+              standalone={true}
+              style={{ labels: {fontSize: 14, padding: 10}}}
+              data={[
+                {x: "feminine", y: this.state.nomPron.fem}, {x: "masculine", y: this.state.nomPron.masc}
+              ]}
+            />
+            <span>There were {this.state.nomPron.fem} feminine and {this.state.nomPron.masc} masculine out of {this.state.nomPron.total} total gendered nominative case (subject) pronouns</span>
+            {/*<VictoryPie name="pie"
+              standalone={true}
+              style={{ labels: {fontSize: 14, padding: 10}}}
               data={[
                 {x: "feminine", y: this.state.femPro}, {x: "masculine", y: this.state.mascPro}
               ]}
-            />
-          </g>
-        </svg>
-        <span>There were {this.state.femPro} feminine and {this.state.mascPro} masculine out of {this.state.allPro} total gendered pronouns</span>
+            />*/}
+          </div>
+        </div>
       </main>
       <footer>
       </footer>

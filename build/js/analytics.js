@@ -21525,9 +21525,8 @@ webpackJsonp([0,4],[
 	    var _this = _possibleConstructorReturn(this, (Analytics.__proto__ || Object.getPrototypeOf(Analytics)).call(this));
 	
 	    _this.state = {
-	      allPro: 0,
-	      femPro: 0,
-	      mascPro: 0
+	      pronouns: {},
+	      nomPron: {}
 	    };
 	    return _this;
 	  }
@@ -21536,10 +21535,10 @@ webpackJsonp([0,4],[
 	    key: 'componentWillReceiveProps',
 	    value: function componentWillReceiveProps(nextProps) {
 	      var pronNum = (0, _categories.sumPronouns)(nextProps.data.pronouns);
-	      console.log(pronNum);
-	      this.setState({ allPro: pronNum.total });
-	      this.setState({ femPro: pronNum.fem });
-	      this.setState({ mascPro: pronNum.masc });
+	      this.setState({ pronouns: pronNum });
+	      var nomPron = (0, _categories.nomPronouns)(nextProps.data.pronouns);
+	      console.log('the nominative case', nomPron);
+	      this.setState({ nomPron: nomPron });
 	    }
 	  }, {
 	    key: 'render',
@@ -21600,34 +21599,48 @@ webpackJsonp([0,4],[
 	          'main',
 	          null,
 	          _react2.default.createElement(
-	            'p',
-	            null,
-	            'READY FOR GRAPHS'
-	          ),
-	          _react2.default.createElement(
-	            'svg',
-	            { viewBox: '0 0 450 350' },
+	            'div',
+	            { className: 'pie-row' },
 	            _react2.default.createElement(
-	              'g',
-	              null,
+	              'div',
+	              { className: 'pie-container' },
 	              _react2.default.createElement(_victory.VictoryPie, { name: 'pie',
-	                width: 250,
 	                standalone: true,
-	                style: { labels: { fontSize: 25, padding: 10 } },
-	                data: [{ x: "feminine", y: this.state.femPro }, { x: "masculine", y: this.state.mascPro }]
-	              })
+	                style: { labels: { fontSize: 14, padding: 10 } },
+	                data: [{ x: "feminine", y: this.state.pronouns.fem }, { x: "masculine", y: this.state.pronouns.masc }]
+	              }),
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                'There were ',
+	                this.state.pronouns.fem,
+	                ' feminine and ',
+	                this.state.pronouns.masc,
+	                ' masculine out of ',
+	                this.state.pronouns.total,
+	                ' total gendered pronouns'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'div',
+	              { className: 'double-pie' },
+	              _react2.default.createElement(_victory.VictoryPie, { name: 'pie',
+	                standalone: true,
+	                style: { labels: { fontSize: 14, padding: 10 } },
+	                data: [{ x: "feminine", y: this.state.nomPron.fem }, { x: "masculine", y: this.state.nomPron.masc }]
+	              }),
+	              _react2.default.createElement(
+	                'span',
+	                null,
+	                'There were ',
+	                this.state.nomPron.fem,
+	                ' feminine and ',
+	                this.state.nomPron.masc,
+	                ' masculine out of ',
+	                this.state.nomPron.total,
+	                ' total gendered nominative case (subject) pronouns'
+	              )
 	            )
-	          ),
-	          _react2.default.createElement(
-	            'span',
-	            null,
-	            'There were ',
-	            this.state.femPro,
-	            ' feminine and ',
-	            this.state.mascPro,
-	            ' masculine out of ',
-	            this.state.allPro,
-	            ' total gendered pronouns'
 	          )
 	        ),
 	        _react2.default.createElement('footer', null)
@@ -24403,7 +24416,7 @@ webpackJsonp([0,4],[
 	
 	
 	// module
-	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nnav {\n  display: flex;\n  justify-content: space-between;\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n}\n\nh1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}", ""]);
+	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nnav {\n  display: flex;\n  justify-content: space-between;\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n}\n\nh1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n.pie-row {\n  display: flex;\n}\n\n.pie-container {\n  width: 66%;\n}\n\n.double-pie {\n  width: 33%;\n}", ""]);
 	
 	// exports
 
@@ -24900,19 +24913,31 @@ webpackJsonp([0,4],[
 	  Herself: "Themself"
 	};
 	
-	var mascPronouns = exports.mascPronouns = ['he', 'him', 'his', 'himself'];
+	var mascPronouns = ['he', 'him', 'his', 'himself'];
 	
-	var femPronouns = exports.femPronouns = ['she', 'her', 'herself', 'hers'];
+	var femPronouns = ['she', 'her', 'herself', 'hers'];
 	
 	var sumPronouns = exports.sumPronouns = function sumPronouns(obj) {
 	  var total = 0,
 	      masc = 0,
 	      fem = 0;
 	  for (var key in obj) {
-	    total += obj[key];
 	    if (femPronouns.indexOf(key) > -1) fem += obj[key];
 	    if (mascPronouns.indexOf(key) > -1) masc += obj[key];
 	  }
+	  total = fem + masc;
+	  return { total: total, masc: masc, fem: fem };
+	};
+	
+	var nomPronouns = exports.nomPronouns = function nomPronouns(obj) {
+	  var total = 0,
+	      masc = 0,
+	      fem = 0;
+	  if (obj) {
+	    fem = obj.she;
+	    masc = obj.he;
+	  }
+	  total = fem + masc;
 	  return { total: total, masc: masc, fem: fem };
 	};
 
