@@ -45,17 +45,21 @@ class Analytics extends Component {
         <div className='pie-row'>
           <div className='pie-container'>
             <VictoryPie name="pie"
-              standalone={true}
+              innerRadius={100}
+              cornerRadius={5}
+              padAngle={1}
               style={{ labels: {fontSize: 14, padding: 10}}}
               data={[
-                {x: "feminine", y: this.state.pronouns.fem}, {x: "masculine", y: this.state.pronouns.masc}
+                {x: `feminine ${Math.round(100*this.state.pronouns.fem/this.state.pronouns.total)}%`, y: this.state.pronouns.fem}, {x: `masculine ${Math.round(100*this.state.pronouns.masc/this.state.pronouns.total)}%`, y: this.state.pronouns.masc}
               ]}
             />
             <span>There were {this.state.pronouns.fem} feminine and {this.state.pronouns.masc} masculine out of {this.state.pronouns.total} total gendered pronouns</span>
           </div>
           <div className='double-pie'>
             <VictoryPie name="pie"
-              standalone={true}
+              innerRadius={100}
+              cornerRadius={5}
+              padAngle={1}
               style={{ labels: {fontSize: 14, padding: 10}}}
               data={[
                 {x: "feminine", y: this.state.nomPron.fem}, {x: "masculine", y: this.state.nomPron.masc}

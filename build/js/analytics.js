@@ -21605,9 +21605,11 @@ webpackJsonp([0,4],[
 	              'div',
 	              { className: 'pie-container' },
 	              _react2.default.createElement(_victory.VictoryPie, { name: 'pie',
-	                standalone: true,
+	                innerRadius: 100,
+	                cornerRadius: 5,
+	                padAngle: 1,
 	                style: { labels: { fontSize: 14, padding: 10 } },
-	                data: [{ x: "feminine", y: this.state.pronouns.fem }, { x: "masculine", y: this.state.pronouns.masc }]
+	                data: [{ x: 'feminine ' + Math.round(100 * this.state.pronouns.fem / this.state.pronouns.total) + '%', y: this.state.pronouns.fem }, { x: 'masculine ' + Math.round(100 * this.state.pronouns.masc / this.state.pronouns.total) + '%', y: this.state.pronouns.masc }]
 	              }),
 	              _react2.default.createElement(
 	                'span',
@@ -21625,7 +21627,9 @@ webpackJsonp([0,4],[
 	              'div',
 	              { className: 'double-pie' },
 	              _react2.default.createElement(_victory.VictoryPie, { name: 'pie',
-	                standalone: true,
+	                innerRadius: 100,
+	                cornerRadius: 5,
+	                padAngle: 1,
 	                style: { labels: { fontSize: 14, padding: 10 } },
 	                data: [{ x: "feminine", y: this.state.nomPron.fem }, { x: "masculine", y: this.state.nomPron.masc }]
 	              }),
