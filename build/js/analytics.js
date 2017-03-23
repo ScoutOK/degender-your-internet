@@ -21523,7 +21523,7 @@ webpackJsonp([0,4],[
 	    var _this = _possibleConstructorReturn(this, (Analytics.__proto__ || Object.getPrototypeOf(Analytics)).call(this));
 	
 	    _this.state = {
-	      proNum: 0,
+	      allPro: 0,
 	      femPro: 0,
 	      mascPro: 0
 	    };
@@ -21531,24 +21531,18 @@ webpackJsonp([0,4],[
 	  }
 	
 	  _createClass(Analytics, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      var pronNum = (0, _categories.sumPronouns)(nextProps.data.pronouns);
+	      console.log(pronNum);
+	      this.setState({ allPro: pronNum.total });
+	      this.setState({ femPro: pronNum.fem });
+	      this.setState({ mascPro: pronNum.masc });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      console.log('da props', this.props);
-	      // let totalProNum = 0;
-	      // let mascProNum = 0;
-	      // let femProNum = 0;
-	      // for (key in this.props.pronouns) {
-	      //   totalProNum += this.props.pronouns[key];
-	      //   if (femPronouns.indexOf(this.props.pronouns[key]) > -1) {
-	      //     femProNum += this.props.pronouns[key];
-	      //   }
-	      //   if (mascPronouns.indexOf(this.props.pronouns[key]) > -1) {
-	      //     mascProNum += this.props.pronouns[key];
-	      //   }
-	      // }
-	      // this.setState({proNum: totalProNum});
-	      // this.setState({femPro: femProNum});
-	      // this.setState({mascPro: mascProNum});
 	
 	      return _react2.default.createElement(
 	        'div',
@@ -21616,7 +21610,7 @@ webpackJsonp([0,4],[
 	            ' feminine and ',
 	            this.state.mascPro,
 	            ' masculine out of ',
-	            this.state.proNum,
+	            this.state.allPro,
 	            ' total gendered pronouns'
 	          )
 	        ),
@@ -24893,6 +24887,18 @@ webpackJsonp([0,4],[
 	var mascPronouns = exports.mascPronouns = ['he', 'him', 'his', 'himself'];
 	
 	var femPronouns = exports.femPronouns = ['she', 'her', 'herself', 'hers'];
+	
+	var sumPronouns = exports.sumPronouns = function sumPronouns(obj) {
+	  var total = 0,
+	      masc = 0,
+	      fem = 0;
+	  for (var key in obj) {
+	    total += obj[key];
+	    if (femPronouns.indexOf(key) > -1) fem += obj[key];
+	    if (mascPronouns.indexOf(key) > -1) masc += obj[key];
+	  }
+	  return { total: total, masc: masc, fem: fem };
+	};
 
 /***/ }
 ]);

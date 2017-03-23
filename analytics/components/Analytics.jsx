@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import {mascPronouns, femPronouns} from '../categories'
+import {mascPronouns, femPronouns, sumPronouns} from '../categories'
 
 
 class Analytics extends Component {
@@ -8,29 +8,22 @@ class Analytics extends Component {
   constructor () {
     super();
     this.state = {
-      proNum: 0,
+      allPro: 0,
       femPro: 0,
       mascPro: 0,
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    const pronNum = sumPronouns(nextProps.data.pronouns);
+    console.log(pronNum);
+    this.setState({allPro: pronNum.total})
+    this.setState({femPro: pronNum.fem})
+    this.setState({mascPro: pronNum.masc})
+  }
+
   render () {
     console.log('da props',this.props);
-    // let totalProNum = 0;
-    // let mascProNum = 0;
-    // let femProNum = 0;
-    // for (key in this.props.pronouns) {
-    //   totalProNum += this.props.pronouns[key];
-    //   if (femPronouns.indexOf(this.props.pronouns[key]) > -1) {
-    //     femProNum += this.props.pronouns[key];
-    //   }
-    //   if (mascPronouns.indexOf(this.props.pronouns[key]) > -1) {
-    //     mascProNum += this.props.pronouns[key];
-    //   }
-    // }
-    // this.setState({proNum: totalProNum});
-    // this.setState({femPro: femProNum});
-    // this.setState({mascPro: mascProNum});
 
     return  (
     <div>
@@ -47,7 +40,7 @@ class Analytics extends Component {
       </nav>
       <main>
         <p>READY FOR GRAPHS</p>
-        <span>There were {this.state.femPro} feminine and {this.state.mascPro} masculine out of {this.state.proNum} total gendered pronouns</span>
+        <span>There were {this.state.femPro} feminine and {this.state.mascPro} masculine out of {this.state.allPro} total gendered pronouns</span>
       </main>
       <footer>
       </footer>
