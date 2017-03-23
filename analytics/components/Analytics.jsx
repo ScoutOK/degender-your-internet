@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
+
+import {VictoryPie} from 'victory';
+
 import {mascPronouns, femPronouns, sumPronouns} from '../categories'
+
 
 
 class Analytics extends Component {
@@ -40,6 +44,18 @@ class Analytics extends Component {
       </nav>
       <main>
         <p>READY FOR GRAPHS</p>
+        <svg viewBox="0 0 450 350">
+          <g>
+            <VictoryPie name="pie"
+              width={250}
+              standalone={true}
+              style={{ labels: {fontSize: 25, padding: 10}}}
+              data={[
+                {x: "feminine", y: this.state.femPro}, {x: "masculine", y: this.state.mascPro}
+              ]}
+            />
+          </g>
+        </svg>
         <span>There were {this.state.femPro} feminine and {this.state.mascPro} masculine out of {this.state.allPro} total gendered pronouns</span>
       </main>
       <footer>
