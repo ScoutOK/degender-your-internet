@@ -21581,14 +21581,16 @@ webpackJsonp([0,4],[
 	          _react2.default.createElement(
 	            'h2',
 	            null,
+	            'Page Title: ',
 	            this.props.title
 	          ),
 	          _react2.default.createElement(
-	            'a',
-	            { href: this.props.url },
+	            'span',
+	            { className: 'page-url' },
+	            'Page Url: ',
 	            _react2.default.createElement(
-	              'span',
-	              { className: 'page-url' },
+	              'a',
+	              { href: this.props.url },
 	              this.props.url
 	            )
 	          ),
@@ -21600,9 +21602,9 @@ webpackJsonp([0,4],[
 	              null,
 	              _react2.default.createElement(
 	                'a',
-	                { onClick: function onClick() {
+	                { className: this.props.view === 'pronouns' ? 'active' : null, onClick: function onClick() {
 	                    return _this2.props.changeView('pronouns');
-	                  } },
+	                  }, tabIndex: '0' },
 	                'Pronouns'
 	              )
 	            ),
@@ -21611,9 +21613,9 @@ webpackJsonp([0,4],[
 	              null,
 	              _react2.default.createElement(
 	                'a',
-	                { onClick: function onClick() {
+	                { className: this.props.view === 'nouns' ? 'active' : null, onClick: function onClick() {
 	                    return _this2.props.changeView('nouns');
-	                  } },
+	                  }, tabIndex: '0' },
 	                'Nouns'
 	              )
 	            ),
@@ -21622,9 +21624,9 @@ webpackJsonp([0,4],[
 	              null,
 	              _react2.default.createElement(
 	                'a',
-	                { onClick: function onClick() {
+	                { className: this.props.view === 'adjectives' ? 'active' : null, onClick: function onClick() {
 	                    return _this2.props.changeView('adjectives');
-	                  } },
+	                  }, tabIndex: '0' },
 	                'Adjectives'
 	              )
 	            )
@@ -53915,7 +53917,7 @@ webpackJsonp([0,4],[
 	
 	
 	// module
-	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  font-size: 1em;\n  font-family: \"Telefon Black\", Sans-Serif;\n  margin: 0;\n}\n\nnav {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1em 1em 0;;\n  color: #333;\n}\n\nnav ul {\n  display: flex;\n  list-style: none;\n  width: 100%;\n  padding: 0;\n  margin: 0;\n}\n\nnav ul li {\n  padding: 1.5em;\n  font-weight: bold;\n  font-size: 1em;\n  border: black 1px solid;\n}\n\nnav .page-url {\n  font-size: .75em;\n}\n\nh1 {\n  font-size: 1.5em;\n  padding: 0;\n  margin-top: 0;\n}\n\nh2 {\n  font-size: 1.125em;\n  margin-bottom: .25em;\n}\n\nmain {\n  max-width: 1500px;\n  margin: auto;\n}\n\n.big-pie {\n  margin: auto;\n  width: 50%;\n}\n\n.big-pie svg {\n  overflow-x: visible\n}\n\n.pie-row {\n  display: flex;\n}", ""]);
+	exports.push([module.id, "* {\n  box-sizing: border-box;\n}\n\nbody {\n  font-size: 1em;\n  font-family: \"Telefon Black\", Sans-Serif;\n  margin: 0;\n}\n\nnav {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1em 1em 0;;\n  color: #333;\n}\n\nnav ul {\n  display: flex;\n  list-style: none;\n  width: 100%;\n  padding: 0;\n  margin: 0;\n}\n\nnav ul li {\n  font-weight: bold;\n  font-size: 1em;\n  padding-top: .5em;\n}\n\nnav ul li a {\n  display: block;\n  width: 100%;\n  height: 100%;\n  cursor: pointer;\n  padding: 1.5em;\n}\n\nnav ul li a:hover, nav ul li a:focus {\n  background: rgba(255, 255, 255, 0.4)\n}\n\nnav ul li a.active {\n  background: rgba(255, 255, 255, 0.8)\n}\n\nnav .page-url {\n  font-size: .75em;\n}\n\nh1 {\n  font-size: 1.5em;\n  padding: 0;\n  margin-top: 0;\n}\n\nh2 {\n  font-size: 1.125em;\n  margin-bottom: .25em;\n}\n\nmain {\n  max-width: 1500px;\n  margin: auto;\n}\n\n.big-pie {\n  margin: auto;\n  width: 50%;\n}\n\n.big-pie svg {\n  overflow-x: visible\n}\n\n.pie-row {\n  display: flex;\n}", ""]);
 	
 	// exports
 
