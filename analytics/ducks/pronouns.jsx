@@ -8,7 +8,7 @@ const zeros = {
   masc: 0,
 }
 
-const intitialState = {
+const initialState = {
   all: zeros,
   nom: zeros,
   ref: zeros

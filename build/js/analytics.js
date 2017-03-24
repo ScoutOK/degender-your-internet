@@ -55205,7 +55205,7 @@ webpackJsonp([0,4],[
 	  masc: 0
 	};
 	
-	var intitialState = {
+	var initialState = {
 	  all: zeros,
 	  nom: zeros,
 	  ref: zeros
