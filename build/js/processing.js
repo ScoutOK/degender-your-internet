@@ -66,7 +66,11 @@ webpackJsonp([3,4],[
 	  wife: "spouse",
 	  Wife: "Spouse",
 	  sister: "sibling",
-	  Sister: "sibling"
+	  Sister: "sibling",
+	  father: 'parent',
+	  Father: 'Parent',
+	  mother: 'parent',
+	  Mother: 'Parent'
 	};
 	
 	var adjectives = {
@@ -138,16 +142,22 @@ webpackJsonp([3,4],[
 	var switchWords = function switchWords(string) {
 	  var arr = string.split(' ');
 	  return arr.map(function (word) {
+	    var endPunc = '';
+	    //loop deals with ending punctuation
+	    while (!/^[a-zA-Z]/.test(word.slice(-1)) && word.length) {
+	      endPunc = word.slice(-1) + endPunc;
+	      word = word.slice(0, -1);
+	    }
 	    if (pronouns[word]) {
 	      if (pageStats.pronouns[word.toLowerCase()]) pageStats.pronouns[word.toLowerCase()]++;else pageStats.pronouns[word.toLowerCase()] = 1;
-	      return '<span class=\'converted pronoun\'>' + pronouns[word] + '</span>';
+	      return '<span class=\'converted pronoun\'>' + pronouns[word] + '</span>' + endPunc;
 	    } else if (nouns[word]) {
 	      if (pageStats.nouns[word.toLowerCase()]) pageStats.nouns[word.toLowerCase()]++;else pageStats.nouns[word.toLowerCase()] = 1;
-	      return '<span class=\'converted noun\'>' + nouns[word] + '</span>';
+	      return '<span class=\'converted noun\'>' + nouns[word] + '</span>' + endPunc;
 	    } else if (adjectives[word]) {
 	      if (pageStats.adjectives[word.toLowerCase()]) pageStats.adjectives[word.toLowerCase()]++;else pageStats.adjectives[word.toLowerCase()] = 1;
-	      return '<span class=\'converted adjective\'>' + adjectives[word] + '</span>';
-	    } else return word;
+	      return '<span class=\'converted adjective\'>' + adjectives[word] + '</span>' + endPunc;
+	    } else return word + endPunc;
 	  }).join(' ');
 	};
 	
