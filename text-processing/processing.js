@@ -198,6 +198,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   const originalBody = document.body.cloneNode(true);
   const degenderWrapper = `<div id='degender-wrapper'>${bodyInsides}</div>`
   document.body.innerHTML = degenderWrapper;
+  const spinnerDiv = document.createElement('div');
+  spinnerDiv.id = 'spinner-overlay';
+  document.body.appendChild(spinnerDiv);
 
   // //in order to add tags around the changes, need to access the text in a different way :(
   const allText = document.getElementById('degender-wrapper').innerHTML;
@@ -207,14 +210,13 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
       if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
         alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
       }
-      const spinnerDiv = document.createElement('div');
-      spinnerDiv.id = 'spinner-overlay';
-      document.body.appendChild(spinnerDiv)
       document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides);//something about this function is RUINING my onClicks
       const topBar = createTopbar(pageStats);
       //to set margin at top of original content
       //see if you can pass stuff to TopBar to make this addListens unnecessary
       addListens(allText);
+      debugger;
+      document.body.removeChild(spinnerDiv)
       sendResponse({pageStatus: 'converted'});
       break
     case 'revert':

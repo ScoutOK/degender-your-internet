@@ -202,6 +202,9 @@ webpackJsonp([3,4],[
 	  var originalBody = document.body.cloneNode(true);
 	  var degenderWrapper = '<div id=\'degender-wrapper\'>' + bodyInsides + '</div>';
 	  document.body.innerHTML = degenderWrapper;
+	  var spinnerDiv = document.createElement('div');
+	  spinnerDiv.id = 'spinner-overlay';
+	  document.body.appendChild(spinnerDiv);
 	
 	  // //in order to add tags around the changes, need to access the text in a different way :(
 	  var allText = document.getElementById('degender-wrapper').innerHTML;
@@ -211,14 +214,13 @@ webpackJsonp([3,4],[
 	      if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
 	        alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
 	      }
-	      var spinnerDiv = document.createElement('div');
-	      spinnerDiv.id = 'spinner-overlay';
-	      document.body.appendChild(spinnerDiv);
 	      document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides); //something about this function is RUINING my onClicks
 	      var topBar = createTopbar(pageStats);
 	      //to set margin at top of original content
 	      //see if you can pass stuff to TopBar to make this addListens unnecessary
 	      addListens(allText);
+	      debugger;
+	      document.body.removeChild(spinnerDiv);
 	      sendResponse({ pageStatus: 'converted' });
 	      break;
 	    case 'revert':
@@ -22597,7 +22599,7 @@ webpackJsonp([3,4],[
 	
 	
 	// module
-	exports.push([module.id, "#degender-bar {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n  position: relative;\n  top: 0;\n  left: 0;\n  z-index: 500;\n  box-sizing: border-box;\n}\n\n#degender-bar h1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n#degender-bar.hide {\n  display: none;\n}\n\n#degender-bar .buttons {\n  display: flex;\n  justify-content: space-between;\n}\n\n#degender-bar button {\n  cursor: pointer;\n  background: #555;\n  border-radius: 4px;\n  color: #fff;\n  text-shadow: none;\n  border: 0!important;\n  font-size: 12pt;\n  font-weight: 400;\n  text-transform: uppercase;\n  padding: 5px 15px;\n  box-shadow: none;\n  line-height: 1rem;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:hover {\n  background: #333;\n  border: 0;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button.active {\n  background: #ccc;\n  color: #333;\n}\n\n.active-converted {\n  background: #bc93cd;\n  border-radius: 4px;\n  padding: 0 .25rem;\n}\n\n#degender-wrapper {\n  position: relative;\n}\n\n#spinner-overlay {\n  height: 100vh;\n  width: 100vw;\n  background: rgba(22,22,22, 0.75)\n}", ""]);
+	exports.push([module.id, "#degender-bar {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n  position: relative;\n  top: 0;\n  left: 0;\n  z-index: 500;\n  box-sizing: border-box;\n}\n\n#degender-bar h1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n#degender-bar.hide {\n  display: none;\n}\n\n#degender-bar .buttons {\n  display: flex;\n  justify-content: space-between;\n}\n\n#degender-bar button {\n  cursor: pointer;\n  background: #555;\n  border-radius: 4px;\n  color: #fff;\n  text-shadow: none;\n  border: 0!important;\n  font-size: 12pt;\n  font-weight: 400;\n  text-transform: uppercase;\n  padding: 5px 15px;\n  box-shadow: none;\n  line-height: 1rem;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:hover {\n  background: #333;\n  border: 0;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button.active {\n  background: #ccc;\n  color: #333;\n}\n\n.active-converted {\n  background: #bc93cd;\n  border-radius: 4px;\n  padding: 0 .25rem;\n}\n\n#degender-wrapper {\n  position: relative;\n}\n\n#spinner-overlay {\n  height: 100vh;\n  width: 100vw;\n  background: rgba(22,22,22, 0.85);\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 999;\n}", ""]);
 	
 	// exports
 
@@ -22636,9 +22638,51 @@ webpackJsonp([3,4],[
 
 /***/ },
 /* 603 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	//import {connect} from 'react-redux'
+	
+	
+	var Spinner = function (_Component) {
+	  _inherits(Spinner, _Component);
+	
+	  function Spinner(data) {
+	    _classCallCheck(this, Spinner);
+	
+	    return _possibleConstructorReturn(this, (Spinner.__proto__ || Object.getPrototypeOf(Spinner)).call(this));
+	  }
+	
+	  _createClass(Spinner, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement('div', null);
+	    }
+	  }]);
+	
+	  return Spinner;
+	}(_react.Component);
+	
+	exports.default = Spinner;
 
 /***/ }
 ]);
