@@ -37,8 +37,8 @@ class Analytics extends Component {
     <div>
       <nav>
         <h1>Degender Analytics</h1>
-        <h2>{this.props.title}</h2>
-        <a href={this.props.url}><span className='page-url'>{this.props.url}</span></a>
+        <h2>Page Title: {this.props.title}</h2>
+        <span className='page-url'>Page Url: <a href={this.props.url}>{this.props.url}</a></span>
         <ul>
           <li><a className={this.props.view === 'pronouns' ? 'active' : null} onClick={()=>this.props.changeView('pronouns')}>Pronouns</a></li>
           <li><a className={this.props.view === 'nouns' ? 'active' : null} onClick={()=>this.props.changeView('nouns')}>Nouns</a></li>

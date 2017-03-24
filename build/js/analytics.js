@@ -21581,14 +21581,16 @@ webpackJsonp([0,4],[
 	          _react2.default.createElement(
 	            'h2',
 	            null,
+	            'Page Title: ',
 	            this.props.title
 	          ),
 	          _react2.default.createElement(
-	            'a',
-	            { href: this.props.url },
+	            'span',
+	            { className: 'page-url' },
+	            'Page Url: ',
 	            _react2.default.createElement(
-	              'span',
-	              { className: 'page-url' },
+	              'a',
+	              { href: this.props.url },
 	              this.props.url
 	            )
 	          ),
