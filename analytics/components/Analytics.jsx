@@ -6,21 +6,26 @@ import {connect} from 'react-redux';
 import Pronouns from './Pronouns'
 
 //helper functions
-
+import {sumPronouns, nomPronouns, refPronouns} from '../categories'
 import theme from '../chartTheme'
 
 //reducers
-import {changeView} from '../ducks/view'
+import {changeView} from '../ducks/view';
+import {setAllPronouns, setNomPronouns, setRefPronouns} from '../ducks/pronouns'
 
 class Analytics extends Component {
 
   constructor () {
     super();
-    this.state = {
-      pronouns: {},
-      nomPron: {},
-      refPron: {}
-    }
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const pronNum = sumPronouns(nextProps.data.pronouns);
+    this.props.setAllPronouns(pronNum);
+    const nomPron = nomPronouns(nextProps.data.pronouns);
+    this.props.setNomPronouns(nomPron);
+    const refPron = refPronouns(nextProps.data.pronouns);
+    this.props.setRefPronouns(refPron);
   }
 
   render () {
@@ -49,15 +54,25 @@ class Analytics extends Component {
   
 }
 
-const mapStateToProps = ({title, url, view}) => ({
+const mapStateToProps = ({title, url, view, data}) => ({
   title,
   url,
-  view
+  view, 
+  data
 })
 
 const mapDispatchToProps = (dispatch) => ({
   changeView: (view) => {
     dispatch(changeView(view))
+  },
+  setAllPronouns: (data) => {
+    dispatch(setAllPronouns(data))
+  },
+  setNomPronouns: (data) => {
+    dispatch(setNomPronouns(data))
+  },
+  setRefPronouns: (data) => {
+    dispatch(setRefPronouns(data))
   }
 })
  
