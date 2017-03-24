@@ -1,6 +1,7 @@
 'use strict'
 
 import renderTopbar from '../content/Main.jsx';
+import renderSpinner from '../content/SpinnerRender.jsx'
 
 
 //boolean to control react rendering VERY IMPORTANT
@@ -206,7 +207,9 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
       if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
         alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
       }
-
+      const spinnerDiv = document.createElement('div');
+      spinnerDiv.id = 'spinner-overlay';
+      document.body.appendChild(spinnerDiv)
       document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides);//something about this function is RUINING my onClicks
       const topBar = createTopbar(pageStats);
       //to set margin at top of original content

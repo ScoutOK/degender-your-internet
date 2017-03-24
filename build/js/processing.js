@@ -8,6 +8,10 @@ webpackJsonp([3,4],[
 	
 	var _Main2 = _interopRequireDefault(_Main);
 	
+	var _SpinnerRender = __webpack_require__(602);
+	
+	var _SpinnerRender2 = _interopRequireDefault(_SpinnerRender);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	//boolean to control react rendering VERY IMPORTANT
@@ -207,7 +211,9 @@ webpackJsonp([3,4],[
 	      if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
 	        alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
 	      }
-	
+	      var spinnerDiv = document.createElement('div');
+	      spinnerDiv.id = 'spinner-overlay';
+	      document.body.appendChild(spinnerDiv);
 	      document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides); //something about this function is RUINING my onClicks
 	      var topBar = createTopbar(pageStats);
 	      //to set margin at top of original content
@@ -22591,10 +22597,48 @@ webpackJsonp([3,4],[
 	
 	
 	// module
-	exports.push([module.id, "#degender-bar {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n  position: relative;\n  top: 0;\n  left: 0;\n  z-index: 500;\n  box-sizing: border-box;\n}\n\n#degender-bar h1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n#degender-bar.hide {\n  display: none;\n}\n\n#degender-bar .buttons {\n  display: flex;\n  justify-content: space-between;\n}\n\n#degender-bar button {\n  cursor: pointer;\n  background: #555;\n  border-radius: 4px;\n  color: #fff;\n  text-shadow: none;\n  border: 0!important;\n  font-size: 12pt;\n  font-weight: 400;\n  text-transform: uppercase;\n  padding: 5px 15px;\n  box-shadow: none;\n  line-height: 1rem;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:hover {\n  background: #333;\n  border: 0;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button.active {\n  background: #ccc;\n  color: #333;\n}\n\n.active-converted {\n  background: #bc93cd;\n  border-radius: 4px;\n  padding: 0 .25rem;\n}\n\n#degender-wrapper {\n  position: relative;\n}\n", ""]);
+	exports.push([module.id, "#degender-bar {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n  position: relative;\n  top: 0;\n  left: 0;\n  z-index: 500;\n  box-sizing: border-box;\n}\n\n#degender-bar h1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n#degender-bar.hide {\n  display: none;\n}\n\n#degender-bar .buttons {\n  display: flex;\n  justify-content: space-between;\n}\n\n#degender-bar button {\n  cursor: pointer;\n  background: #555;\n  border-radius: 4px;\n  color: #fff;\n  text-shadow: none;\n  border: 0!important;\n  font-size: 12pt;\n  font-weight: 400;\n  text-transform: uppercase;\n  padding: 5px 15px;\n  box-shadow: none;\n  line-height: 1rem;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:hover {\n  background: #333;\n  border: 0;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button.active {\n  background: #ccc;\n  color: #333;\n}\n\n.active-converted {\n  background: #bc93cd;\n  border-radius: 4px;\n  padding: 0 .25rem;\n}\n\n#degender-wrapper {\n  position: relative;\n}\n\n#spinner-overlay {\n  height: 100vh;\n  width: 100vw;\n  background: rgba(22,22,22, 0.75)\n}", ""]);
 	
 	// exports
 
+
+/***/ },
+/* 600 */,
+/* 601 */,
+/* 602 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactDom = __webpack_require__(32);
+	
+	var _Spinner = __webpack_require__(603);
+	
+	var _Spinner2 = _interopRequireDefault(_Spinner);
+	
+	var _content = __webpack_require__(598);
+	
+	var _content2 = _interopRequireDefault(_content);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  (0, _reactDom.render)(_react2.default.createElement(_Spinner2.default, null), document.getElementById('spinner-overlay'));
+	};
+
+/***/ },
+/* 603 */
+/***/ function(module, exports) {
+
+	"use strict";
 
 /***/ }
 ]);
