@@ -21604,7 +21604,7 @@ webpackJsonp([0,4],[
 	                'a',
 	                { className: this.props.view === 'pronouns' ? 'active' : null, onClick: function onClick() {
 	                    return _this2.props.changeView('pronouns');
-	                  } },
+	                  }, tabIndex: '0' },
 	                'Pronouns'
 	              )
 	            ),
@@ -21615,7 +21615,7 @@ webpackJsonp([0,4],[
 	                'a',
 	                { className: this.props.view === 'nouns' ? 'active' : null, onClick: function onClick() {
 	                    return _this2.props.changeView('nouns');
-	                  } },
+	                  }, tabIndex: '0' },
 	                'Nouns'
 	              )
 	            ),
@@ -21626,7 +21626,7 @@ webpackJsonp([0,4],[
 	                'a',
 	                { className: this.props.view === 'adjectives' ? 'active' : null, onClick: function onClick() {
 	                    return _this2.props.changeView('adjectives');
-	                  } },
+	                  }, tabIndex: '0' },
 	                'Adjectives'
 	              )
 	            )
