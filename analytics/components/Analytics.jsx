@@ -4,14 +4,16 @@ import {connect} from 'react-redux';
 
 //word visuals
 import PronounsContainer from './PronounsContainer'
+import NounsContainer from './NounsContainer'
 
 //helper functions
-import {sumPronouns, nomPronouns, refPronouns} from '../categories'
+import {sumPronouns, nomPronouns, refPronouns, sumNouns} from '../categories'
 import theme from '../chartTheme'
 
 //reducers
 import {changeView} from '../ducks/view';
 import {setAllPronouns, setNomPronouns, setRefPronouns} from '../ducks/pronouns'
+import {setAllNouns} from '../ducks/nouns'
 
 class Analytics extends Component {
 
@@ -26,6 +28,8 @@ class Analytics extends Component {
     this.props.setNomPronouns(nomPron);
     const refPron = refPronouns(nextProps.data.pronouns);
     this.props.setRefPronouns(refPron);
+    const allPron = sumNouns(nextProps.data.nouns);
+    this.props.setAllNouns(allPron);
   }
 
   render () {
@@ -43,7 +47,7 @@ class Analytics extends Component {
       </nav>
       <main>
         {this.props.view === 'pronouns' ? <PronounsContainer theme={theme}/> : null}
-        {this.props.view === 'nouns' ? 'NOUNS WILL GO HERE' : null}
+        {this.props.view === 'nouns' ? <NounsContainer theme={theme}/> : null}
         {this.props.view === 'adjectives' ? 'ADJECTIVES WILL GO HERE' : null}
       </main>
       <footer>
@@ -73,6 +77,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setRefPronouns: (data) => {
     dispatch(setRefPronouns(data))
+  },
+  setAllNouns: (data) => {
+    dispatch(setAllNouns(data))
   }
 })
  

@@ -6,22 +6,22 @@ export default (props) => {
   return (
     <div>
       <div className='big-pie'>
-          <h3>All Pronouns</h3>
-          <VictoryPie name="allPronouns"
+          <h3>All Nouns</h3>
+          <VictoryPie name="allNouns"
             innerRadius={100}
             cornerRadius={5}
             padAngle={1}
             theme={props.theme}
             style={{ labels: {fontSize: 14, padding: 10}}}
             data={[
-              {x: `feminine ${Math.round(100*props.pronouns.all.fem/props.pronouns.all.total)}%`, y: props.pronouns.all.fem}, {x: `masculine ${Math.round(100*props.pronouns.all.masc/props.pronouns.all.total)}%`, y: props.pronouns.all.masc}
+              {x: `feminine ${Math.round(100*props.nouns.all.fem/props.nouns.all.total)}%`, y: props.nouns.all.fem}, {x: `masculine ${Math.round(100*props.nouns.all.masc/props.nouns.all.total)}%`, y: props.nouns.all.masc}
             ]}
           />
-          <span>There were {props.pronouns.all.fem} feminine and {props.pronouns.all.masc} masculine out of {props.pronouns.all.total} total gendered pronouns</span>
+          <span>There were {props.nouns.all.fem} feminine and {props.nouns.all.masc} masculine out of {props.nouns.all.total} total gendered nouns</span>
         </div>
         {/*<div className='pie-row'>
           <div className='small-pie'>
-            <h3>Nominative Case Pronouns</h3>
+            <h3>Nominative Case nouns</h3>
             <VictoryPie name="nomPronouns"
               innerRadius={100}
               cornerRadius={5}

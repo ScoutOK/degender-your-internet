@@ -1,7 +1,5 @@
 'use strict'
 
-import nlp from 'compromise';
-
 import renderTopbar from '../content/Main.jsx';
 
 

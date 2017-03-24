@@ -39,7 +39,7 @@ export const refPronouns = (obj) => {
 const femNouns = ['woman', 'women', 'womens', 'girl', 'girls', 'girl\'s', 'wife', 'sister', 'mother']
 const mascNouns = ['man', 'men', 'mens', 'boy', 'boys', 'boy\'s', 'husband', 'brother', 'father']
 
-export const allPronouns = (obj) => {
+export const sumNouns = (obj) => {
   let total = 0, masc = 0, fem = 0;
   for (let key in obj) {
     if (femNouns.indexOf(key) > -1) fem += obj[key];
