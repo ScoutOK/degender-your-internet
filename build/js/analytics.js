@@ -55110,6 +55110,9 @@ webpackJsonp([0,4],[
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	//Calculate pronoun stuff
+	
 	var mascPronouns = ['he', 'him', 'his', 'himself'];
 	
 	var femPronouns = ['she', 'her', 'herself', 'hers'];
@@ -55145,6 +55148,22 @@ webpackJsonp([0,4],[
 	  if (obj) {
 	    fem = obj.herself || 0;
 	    masc = obj.himself || 0;
+	  }
+	  total = fem + masc;
+	  return { total: total, masc: masc, fem: fem };
+	};
+	
+	//Calculate Noun stuff
+	var femNouns = ['woman', 'women', 'womens', 'girl', 'girls', 'girl\'s', 'wife', 'sister', 'mother'];
+	var mascNouns = ['man', 'men', 'mens', 'boy', 'boys', 'boy\'s', 'husband', 'brother', 'father'];
+	
+	var allPronouns = exports.allPronouns = function allPronouns(obj) {
+	  var total = 0,
+	      masc = 0,
+	      fem = 0;
+	  for (var key in obj) {
+	    if (femNouns.indexOf(key) > -1) fem += obj[key];
+	    if (mascNouns.indexOf(key) > -1) masc += obj[key];
 	  }
 	  total = fem + masc;
 	  return { total: total, masc: masc, fem: fem };
