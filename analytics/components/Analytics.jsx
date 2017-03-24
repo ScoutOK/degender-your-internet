@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 
 //word visuals
-import Pronouns from './Pronouns'
+import PronounsContainer from './PronounsContainer'
 
 //helper functions
 import {sumPronouns, nomPronouns, refPronouns} from '../categories'
@@ -42,7 +42,7 @@ class Analytics extends Component {
         </ul>
       </nav>
       <main>
-        {this.props.view === 'pronouns' ? <Pronouns theme={theme}/> : null}
+        {this.props.view === 'pronouns' ? <PronounsContainer theme={theme}/> : null}
         {this.props.view === 'nouns' ? 'NOUNS WILL GO HERE' : null}
         {this.props.view === 'adjectives' ? 'ADJECTIVES WILL GO HERE' : null}
       </main>

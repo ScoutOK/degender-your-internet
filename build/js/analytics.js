@@ -21504,9 +21504,9 @@ webpackJsonp([0,4],[
 	
 	var _reactRedux = __webpack_require__(179);
 	
-	var _Pronouns = __webpack_require__(569);
+	var _PronounsContainer = __webpack_require__(598);
 	
-	var _Pronouns2 = _interopRequireDefault(_Pronouns);
+	var _PronounsContainer2 = _interopRequireDefault(_PronounsContainer);
 	
 	var _categories = __webpack_require__(596);
 	
@@ -21625,7 +21625,7 @@ webpackJsonp([0,4],[
 	        _react2.default.createElement(
 	          'main',
 	          null,
-	          this.props.view === 'pronouns' ? _react2.default.createElement(_Pronouns2.default, { theme: _chartTheme2.default }) : null,
+	          this.props.view === 'pronouns' ? _react2.default.createElement(_PronounsContainer2.default, { theme: _chartTheme2.default }) : null,
 	          this.props.view === 'nouns' ? 'NOUNS WILL GO HERE' : null,
 	          this.props.view === 'adjectives' ? 'ADJECTIVES WILL GO HERE' : null
 	        ),
@@ -53329,151 +53329,116 @@ webpackJsonp([0,4],[
 	  value: true
 	});
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
 	var _victory = __webpack_require__(209);
 	
-	var _reactRedux = __webpack_require__(179);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Pronouns = function (_Component) {
-	  _inherits(Pronouns, _Component);
-	
-	  function Pronouns() {
-	    _classCallCheck(this, Pronouns);
-	
-	    return _possibleConstructorReturn(this, (Pronouns.__proto__ || Object.getPrototypeOf(Pronouns)).call(this));
-	  }
-	
-	  _createClass(Pronouns, [{
-	    key: 'render',
-	    value: function render() {
-	      console.log('pro props', this.props);
-	      return _react2.default.createElement(
-	        'div',
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'big-pie' },
+	      _react2.default.createElement(
+	        'h3',
 	        null,
+	        'All Pronouns'
+	      ),
+	      _react2.default.createElement(_victory.VictoryPie, { name: 'allPronouns',
+	        innerRadius: 100,
+	        cornerRadius: 5,
+	        padAngle: 1,
+	        theme: props.theme,
+	        style: { labels: { fontSize: 14, padding: 10 } },
+	        data: [{ x: 'feminine ' + Math.round(100 * props.pronouns.all.fem / props.pronouns.all.total) + '%', y: props.pronouns.all.fem }, { x: 'masculine ' + Math.round(100 * props.pronouns.all.masc / props.pronouns.all.total) + '%', y: props.pronouns.all.masc }]
+	      }),
+	      _react2.default.createElement(
+	        'span',
+	        null,
+	        'There were ',
+	        props.pronouns.all.fem,
+	        ' feminine and ',
+	        props.pronouns.all.masc,
+	        ' masculine out of ',
+	        props.pronouns.all.total,
+	        ' total gendered pronouns'
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'pie-row' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'small-pie' },
 	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          'Nominative Case Pronouns'
+	        ),
+	        _react2.default.createElement(_victory.VictoryPie, { name: 'nomPronouns',
+	          innerRadius: 100,
+	          cornerRadius: 5,
+	          padAngle: 1,
+	          theme: props.theme,
+	          style: { labels: { fontSize: 14, padding: 10 } },
+	          data: [{ x: 'feminine ' + Math.round(100 * props.pronouns.nom.fem / props.pronouns.nom.total) + '%', y: props.pronouns.nom.fem }, { x: 'masculine ' + Math.round(100 * props.pronouns.nom.masc / props.pronouns.nom.total) + '%', y: props.pronouns.nom.masc }]
+	        }),
+	        _react2.default.createElement(
+	          'span',
+	          null,
+	          'There were ',
+	          props.pronouns.nom.fem,
+	          ' feminine and ',
+	          props.pronouns.nom.masc,
+	          ' masculine out of ',
+	          props.pronouns.nom.total,
+	          ' total gendered nominative case (subject) pronouns'
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'small-pie' },
+	        _react2.default.createElement(
+	          'h3',
+	          null,
+	          'Reflexive Pronouns'
+	        ),
+	        props.pronouns.ref.total ? _react2.default.createElement(
 	          'div',
-	          { className: 'big-pie' },
-	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            'All Pronouns'
-	          ),
-	          _react2.default.createElement(_victory.VictoryPie, { name: 'allPronouns',
+	          null,
+	          _react2.default.createElement(_victory.VictoryPie, { name: 'refPronouns',
 	            innerRadius: 100,
 	            cornerRadius: 5,
 	            padAngle: 1,
-	            theme: this.props.theme,
+	            theme: props.theme,
 	            style: { labels: { fontSize: 14, padding: 10 } },
-	            data: [{ x: 'feminine ' + Math.round(100 * this.props.pronouns.all.fem / this.props.pronouns.all.total) + '%', y: this.props.pronouns.all.fem }, { x: 'masculine ' + Math.round(100 * this.props.pronouns.all.masc / this.props.pronouns.all.total) + '%', y: this.props.pronouns.all.masc }]
+	            data: [{ x: 'feminine ' + Math.round(100 * props.pronouns.ref.fem / props.pronouns.ref.total) + '%', y: props.pronouns.ref.fem }, { x: 'masculine ' + Math.round(100 * props.pronouns.ref.masc / props.pronouns.ref.total) + '%', y: props.pronouns.ref.masc }]
 	          }),
 	          _react2.default.createElement(
 	            'span',
 	            null,
 	            'There were ',
-	            this.props.pronouns.all.fem,
+	            props.pronouns.ref.fem,
 	            ' feminine and ',
-	            this.props.pronouns.all.masc,
+	            props.pronouns.ref.masc,
 	            ' masculine out of ',
-	            this.props.pronouns.all.total,
-	            ' total gendered pronouns'
+	            props.pronouns.ref.total,
+	            ' total gendered nominative case (subject) pronouns'
 	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'pie-row' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'small-pie' },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Nominative Case Pronouns'
-	            ),
-	            _react2.default.createElement(_victory.VictoryPie, { name: 'nomPronouns',
-	              innerRadius: 100,
-	              cornerRadius: 5,
-	              padAngle: 1,
-	              theme: this.props.theme,
-	              style: { labels: { fontSize: 14, padding: 10 } },
-	              data: [{ x: 'feminine ' + Math.round(100 * this.props.pronouns.nom.fem / this.props.pronouns.nom.total) + '%', y: this.props.pronouns.nom.fem }, { x: 'masculine ' + Math.round(100 * this.props.pronouns.nom.masc / this.props.pronouns.nom.total) + '%', y: this.props.pronouns.nom.masc }]
-	            }),
-	            _react2.default.createElement(
-	              'span',
-	              null,
-	              'There were ',
-	              this.props.pronouns.nom.fem,
-	              ' feminine and ',
-	              this.props.pronouns.nom.masc,
-	              ' masculine out of ',
-	              this.props.pronouns.nom.total,
-	              ' total gendered nominative case (subject) pronouns'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'small-pie' },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Reflexive Pronouns'
-	            ),
-	            this.props.pronouns.ref.total ? _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(_victory.VictoryPie, { name: 'refPronouns',
-	                innerRadius: 100,
-	                cornerRadius: 5,
-	                padAngle: 1,
-	                theme: this.props.theme,
-	                style: { labels: { fontSize: 14, padding: 10 } },
-	                data: [{ x: 'feminine ' + Math.round(100 * this.props.pronouns.ref.fem / this.props.pronouns.ref.total) + '%', y: this.props.pronouns.ref.fem }, { x: 'masculine ' + Math.round(100 * this.props.pronouns.ref.masc / this.props.pronouns.ref.total) + '%', y: this.props.pronouns.ref.masc }]
-	              }),
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                'There were ',
-	                this.props.pronouns.ref.fem,
-	                ' feminine and ',
-	                this.props.pronouns.ref.masc,
-	                ' masculine out of ',
-	                this.props.pronouns.ref.total,
-	                ' total gendered nominative case (subject) pronouns'
-	              )
-	            ) : _react2.default.createElement(
-	              'span',
-	              null,
-	              'There were no reflexive pronouns in the provided example'
-	            )
-	          )
+	        ) : _react2.default.createElement(
+	          'span',
+	          null,
+	          'There were no reflexive pronouns in the provided example'
 	        )
-	      );
-	    }
-	  }]);
-	
-	  return Pronouns;
-	}(_react.Component);
-	
-	var mapStateToProps = function mapStateToProps(_ref) {
-	  var pronouns = _ref.pronouns;
-	  return {
-	    pronouns: pronouns
-	  };
+	      )
+	    )
+	  );
 	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(Pronouns);
 
 /***/ },
 /* 570 */
@@ -55249,6 +55214,33 @@ webpackJsonp([0,4],[
 	    data: data
 	  };
 	};
+
+/***/ },
+/* 598 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(179);
+	
+	var _Pronouns = __webpack_require__(569);
+	
+	var _Pronouns2 = _interopRequireDefault(_Pronouns);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(_ref) {
+	  var pronouns = _ref.pronouns;
+	  return {
+	    pronouns: pronouns
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Pronouns2.default);
 
 /***/ }
 ]);
