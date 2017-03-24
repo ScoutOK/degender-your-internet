@@ -40,9 +40,9 @@ class Analytics extends Component {
         <h2>{this.props.title}</h2>
         <a href={this.props.url}><span className='page-url'>{this.props.url}</span></a>
         <ul>
-          <li><a onClick={()=>this.props.changeView('pronouns')}>Pronouns</a></li>
-          <li><a onClick={()=>this.props.changeView('nouns')}>Nouns</a></li>
-          <li><a onClick={()=>this.props.changeView('adjectives')}>Adjectives</a></li>
+          <li><a className={this.props.view === 'pronouns' ? 'active' : null} onClick={()=>this.props.changeView('pronouns')}>Pronouns</a></li>
+          <li><a className={this.props.view === 'nouns' ? 'active' : null} onClick={()=>this.props.changeView('nouns')}>Nouns</a></li>
+          <li><a className={this.props.view === 'adjectives' ? 'active' : null} onClick={()=>this.props.changeView('adjectives')}>Adjectives</a></li>
         </ul>
       </nav>
       <main>
