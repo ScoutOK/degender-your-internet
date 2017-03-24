@@ -143,7 +143,7 @@ webpackJsonp([3,4],[
 	  var arr = string.split(' ');
 	  return arr.map(function (word) {
 	    var endPunc = '';
-	    //first just dealing with singular punctuation
+	    //loop deals with ending punctuation
 	    while (!/^[a-zA-Z]/.test(word.slice(-1)) && word.length) {
 	      endPunc = word.slice(-1) + endPunc;
 	      word = word.slice(0, -1);
