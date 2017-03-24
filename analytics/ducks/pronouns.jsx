@@ -2,8 +2,20 @@ const SET_ALL_PRONOUNS = 'SET_ALL_PRONOUNS';
 const SET_NOM_PRONOUNS = 'SET_NOM_PRONOUNS';
 const SET_REF_PRONOUNS = 'SET_REF_PRONOUNS';
 
+const zeros = {
+  total: 0,
+  fem: 0,
+  masc: 0,
+}
+
+const intitialState = {
+  all: zeros,
+  nom: zeros,
+  ref: zeros
+}
+
 //reducer
-export default function reducer (state = {}, action) {
+export default function reducer (state = initialState, action) {
   switch (action.type) {
     case SET_ALL_PRONOUNS:
       return Object.assign({}, state, {all: action.data})
