@@ -21508,11 +21508,15 @@ webpackJsonp([0,4],[
 	
 	var _Pronouns2 = _interopRequireDefault(_Pronouns);
 	
+	var _categories = __webpack_require__(596);
+	
 	var _chartTheme = __webpack_require__(570);
 	
 	var _chartTheme2 = _interopRequireDefault(_chartTheme);
 	
 	var _view = __webpack_require__(571);
+	
+	var _pronouns = __webpack_require__(597);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -21527,6 +21531,7 @@ webpackJsonp([0,4],[
 	
 	//helper functions
 	
+	
 	//reducers
 	
 	
@@ -21536,17 +21541,20 @@ webpackJsonp([0,4],[
 	  function Analytics() {
 	    _classCallCheck(this, Analytics);
 	
-	    var _this = _possibleConstructorReturn(this, (Analytics.__proto__ || Object.getPrototypeOf(Analytics)).call(this));
-	
-	    _this.state = {
-	      pronouns: {},
-	      nomPron: {},
-	      refPron: {}
-	    };
-	    return _this;
+	    return _possibleConstructorReturn(this, (Analytics.__proto__ || Object.getPrototypeOf(Analytics)).call(this));
 	  }
 	
 	  _createClass(Analytics, [{
+	    key: 'componentWillReceiveProps',
+	    value: function componentWillReceiveProps(nextProps) {
+	      var pronNum = (0, _categories.sumPronouns)(nextProps.data.pronouns);
+	      this.props.setAllPronouns(pronNum);
+	      var nomPron = (0, _categories.nomPronouns)(nextProps.data.pronouns);
+	      this.props.setNomPronouns(nomPron);
+	      var refPron = (0, _categories.refPronouns)(nextProps.data.pronouns);
+	      this.props.setRefPronouns(refPron);
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
@@ -21632,11 +21640,13 @@ webpackJsonp([0,4],[
 	var mapStateToProps = function mapStateToProps(_ref) {
 	  var title = _ref.title,
 	      url = _ref.url,
-	      view = _ref.view;
+	      view = _ref.view,
+	      data = _ref.data;
 	  return {
 	    title: title,
 	    url: url,
-	    view: view
+	    view: view,
+	    data: data
 	  };
 	};
 	
@@ -21644,6 +21654,15 @@ webpackJsonp([0,4],[
 	  return {
 	    changeView: function changeView(view) {
 	      dispatch((0, _view.changeView)(view));
+	    },
+	    setAllPronouns: function setAllPronouns(data) {
+	      dispatch((0, _pronouns.setAllPronouns)(data));
+	    },
+	    setNomPronouns: function setNomPronouns(data) {
+	      dispatch((0, _pronouns.setNomPronouns)(data));
+	    },
+	    setRefPronouns: function setRefPronouns(data) {
+	      dispatch((0, _pronouns.setRefPronouns)(data));
 	    }
 	  };
 	};
@@ -53320,8 +53339,6 @@ webpackJsonp([0,4],[
 	
 	var _reactRedux = __webpack_require__(179);
 	
-	var _categories = __webpack_require__(596);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -53336,129 +53353,13 @@ webpackJsonp([0,4],[
 	  function Pronouns() {
 	    _classCallCheck(this, Pronouns);
 	
-	    var _this = _possibleConstructorReturn(this, (Pronouns.__proto__ || Object.getPrototypeOf(Pronouns)).call(this));
-	
-	    _this.state = {
-	      pronouns: {},
-	      nomPron: {},
-	      refPron: {}
-	    };
-	    return _this;
+	    return _possibleConstructorReturn(this, (Pronouns.__proto__ || Object.getPrototypeOf(Pronouns)).call(this));
 	  }
 	
 	  _createClass(Pronouns, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      var pronNum = (0, _categories.sumPronouns)(nextProps.data.pronouns);
-	      this.setState({ pronouns: pronNum });
-	      var nomPron = (0, _categories.nomPronouns)(nextProps.data.pronouns);
-	      this.setState({ nomPron: nomPron });
-	      var refPron = (0, _categories.refPronouns)(nextProps.data.pronouns);
-	      this.setState({ refPron: refPron });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'big-pie' },
-	          _react2.default.createElement(
-	            'h3',
-	            null,
-	            'All Pronouns'
-	          ),
-	          _react2.default.createElement(_victory.VictoryPie, { name: 'allPronouns',
-	            innerRadius: 100,
-	            cornerRadius: 5,
-	            padAngle: 1,
-	            theme: this.props.theme,
-	            style: { labels: { fontSize: 14, padding: 10 } },
-	            data: [{ x: 'feminine ' + Math.round(100 * this.state.pronouns.fem / this.state.pronouns.total) + '%', y: this.state.pronouns.fem }, { x: 'masculine ' + Math.round(100 * this.state.pronouns.masc / this.state.pronouns.total) + '%', y: this.state.pronouns.masc }]
-	          }),
-	          _react2.default.createElement(
-	            'span',
-	            null,
-	            'There were ',
-	            this.state.pronouns.fem,
-	            ' feminine and ',
-	            this.state.pronouns.masc,
-	            ' masculine out of ',
-	            this.state.pronouns.total,
-	            ' total gendered pronouns'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'pie-row' },
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'small-pie' },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Nominative Case Pronouns'
-	            ),
-	            _react2.default.createElement(_victory.VictoryPie, { name: 'nomPronouns',
-	              innerRadius: 100,
-	              cornerRadius: 5,
-	              padAngle: 1,
-	              theme: this.props.theme,
-	              style: { labels: { fontSize: 14, padding: 10 } },
-	              data: [{ x: 'feminine ' + Math.round(100 * this.state.nomPron.fem / this.state.nomPron.total) + '%', y: this.state.nomPron.fem }, { x: 'masculine ' + Math.round(100 * this.state.nomPron.masc / this.state.nomPron.total) + '%', y: this.state.nomPron.masc }]
-	            }),
-	            _react2.default.createElement(
-	              'span',
-	              null,
-	              'There were ',
-	              this.state.nomPron.fem,
-	              ' feminine and ',
-	              this.state.nomPron.masc,
-	              ' masculine out of ',
-	              this.state.nomPron.total,
-	              ' total gendered nominative case (subject) pronouns'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'div',
-	            { className: 'small-pie' },
-	            _react2.default.createElement(
-	              'h3',
-	              null,
-	              'Reflexive Pronouns'
-	            ),
-	            this.state.refPron.total ? _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(_victory.VictoryPie, { name: 'refPronouns',
-	                innerRadius: 100,
-	                cornerRadius: 5,
-	                padAngle: 1,
-	                theme: this.props.theme,
-	                style: { labels: { fontSize: 14, padding: 10 } },
-	                data: [{ x: 'feminine ' + Math.round(100 * this.state.refPron.fem / this.state.refPron.total) + '%', y: this.state.refPron.fem }, { x: 'masculine ' + Math.round(100 * this.state.refPron.masc / this.state.refPron.total) + '%', y: this.state.refPron.masc }]
-	              }),
-	              _react2.default.createElement(
-	                'span',
-	                null,
-	                'There were ',
-	                this.state.refPron.fem,
-	                ' feminine and ',
-	                this.state.refPron.masc,
-	                ' masculine out of ',
-	                this.state.refPron.total,
-	                ' total gendered nominative case (subject) pronouns'
-	              )
-	            ) : _react2.default.createElement(
-	              'span',
-	              null,
-	              'There were no reflexive pronouns in the provided example'
-	            )
-	          )
-	        )
-	      );
+	      return _react2.default.createElement('div', null);
 	    }
 	  }]);
 	
@@ -54106,13 +54007,18 @@ webpackJsonp([0,4],[
 	
 	var _view2 = _interopRequireDefault(_view);
 	
+	var _pronouns = __webpack_require__(597);
+	
+	var _pronouns2 = _interopRequireDefault(_pronouns);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var rootReducer = (0, _redux.combineReducers)({
 	  title: _title2.default,
 	  url: _url2.default,
 	  data: _data2.default,
-	  view: _view2.default
+	  view: _view2.default,
+	  pronouns: _pronouns2.default
 	});
 	
 	exports.default = rootReducer;
@@ -55177,6 +55083,59 @@ webpackJsonp([0,4],[
 	  }
 	  total = fem + masc;
 	  return { total: total, masc: masc, fem: fem };
+	};
+
+/***/ },
+/* 597 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = reducer;
+	var SET_ALL_PRONOUNS = 'SET_ALL_PRONOUNS';
+	var SET_NOM_PRONOUNS = 'SET_NOM_PRONOUNS';
+	var SET_REF_PRONOUNS = 'SET_REF_PRONOUNS';
+	
+	//reducer
+	function reducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case SET_ALL_PRONOUNS:
+	      return Object.assign({}, state, { all: action.data });
+	    case SET_NOM_PRONOUNS:
+	      return Object.assign({}, state, { nom: action.data });
+	    case SET_REF_PRONOUNS:
+	      return Object.assign({}, state, { ref: action.data });
+	    default:
+	      return state;
+	  }
+	}
+	
+	//action creators
+	var setAllPronouns = exports.setAllPronouns = function setAllPronouns(data) {
+	  return {
+	    type: SET_ALL_PRONOUNS,
+	    data: data
+	  };
+	};
+	
+	var setNomPronouns = exports.setNomPronouns = function setNomPronouns(data) {
+	  return {
+	    type: SET_NOM_PRONOUNS,
+	    data: data
+	  };
+	};
+	
+	var setRefPronouns = exports.setRefPronouns = function setRefPronouns(data) {
+	  return {
+	    type: SET_REF_PRONOUNS,
+	    data: data
+	  };
 	};
 
 /***/ }

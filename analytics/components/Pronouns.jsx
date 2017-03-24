@@ -2,31 +2,16 @@ import React, {Component} from 'react';
 import {VictoryPie} from 'victory';
 import {connect} from 'react-redux';
 
-import {sumPronouns, nomPronouns, refPronouns} from '../categories'
 
 class Pronouns extends Component {
   constructor () {
     super();
-    this.state = {
-      pronouns: {},
-      nomPron: {},
-      refPron: {}
-    }
-  }
-
-  componentWillReceiveProps (nextProps) {
-    const pronNum = sumPronouns(nextProps.data.pronouns);
-    this.setState({pronouns: pronNum});
-    const nomPron = nomPronouns(nextProps.data.pronouns);
-    this.setState({nomPron});
-    const refPron = refPronouns(nextProps.data.pronouns);
-    this.setState({refPron})
   }
 
   render() {
     return (
       <div>
-      <div className='big-pie'>
+      {/*<div className='big-pie'>
             <h3>All Pronouns</h3>
             <VictoryPie name="allPronouns"
               innerRadius={100}
@@ -72,7 +57,7 @@ class Pronouns extends Component {
               </div>
               : <span>There were no reflexive pronouns in the provided example</span>}
               </div>
-          </div>
+          </div>*/}
           </div>
     )
   }
