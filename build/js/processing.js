@@ -144,8 +144,8 @@ webpackJsonp([3,4],[
 	  return arr.map(function (word) {
 	    var endPunc = '';
 	    //first just dealing with singular punctuation
-	    if (!/^[a-zA-Z]/.test(word.slice(-1))) {
-	      endPunc = word.slice(-1);
+	    while (!/^[a-zA-Z]/.test(word.slice(-1)) && word.length) {
+	      endPunc = word.slice(-1) + endPunc;
 	      word = word.slice(0, -1);
 	    }
 	    if (pronouns[word]) {
