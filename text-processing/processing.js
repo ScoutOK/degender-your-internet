@@ -5,6 +5,7 @@ import renderTopbar from '../content/Main.jsx';
 
 //boolean to control react rendering VERY IMPORTANT
 let renderBar = false;
+let beenConverted = false;
 
 const pronouns = {
   he: "they",
@@ -207,16 +208,21 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
   switch (request.message) {
     case 'convert':
-      if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
-        alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
-      }
+      if (beenConverted) {
+        console.log('in herrrrrrreeee')
+      } else {
+        if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
+          alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
+        }
 
-      document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides);//something about this function is RUINING my onClicks
-      const topBar = createTopbar(pageStats);
-      //to set margin at top of original content
-      //see if you can pass stuff to TopBar to make this addListens unnecessary
-      addListens(allText);
-      sendResponse({pageStatus: 'converted'});
+        document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides);//something about this function is RUINING my onClicks
+        const topBar = createTopbar(pageStats);
+        //to set margin at top of original content
+        //see if you can pass stuff to TopBar to make this addListens unnecessary
+        addListens(allText);
+        sendResponse({pageStatus: 'converted'});
+        beenConverted = true;
+      }
       break
     case 'revert':
       revertPage(allText);
