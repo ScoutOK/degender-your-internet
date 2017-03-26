@@ -37,9 +37,15 @@ export default class Topbar extends Component {
     if (this.state.converted) {
       this.setState({converted: false});
       document.getElementById('degender-wrapper').innerHTML = this.props.oldText;
+      document.getElementById('highPro').disabled = true;
+      document.getElementById('highAdj').disabled = true;
+      document.getElementById('highNoun').disabled = true;
     } else {
       this.setState({converted: true});
       document.getElementById('degender-wrapper').innerHTML = this.props.newText
+      document.getElementById('highPro').disabled = false;
+      document.getElementById('highAdj').disabled = false;
+      document.getElementById('highNoun').disabled = false;
     }
   }
 
