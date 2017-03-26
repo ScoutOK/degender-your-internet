@@ -35,9 +35,11 @@ export default class Topbar extends Component {
 
   switchConvert () {
     if (this.state.converted) {
-      this.setState({converted: false})
+      this.setState({converted: false});
+      document.getElementById('degender-wrapper').innerHTML = this.props.oldText;
     } else {
-      this.setState({converted: true})
+      this.setState({converted: true});
+      document.getElementById('degender-wrapper').innerHTML = this.props.newText
     }
   }
 
@@ -52,6 +54,7 @@ export default class Topbar extends Component {
   }
 
   render() {
+    console.log('what be the props', this.props)
     return  (
       <div>
         <h1>This page has been {this.state.converted ? 'degendered' : 'reverted to it\'s original form'}</h1>

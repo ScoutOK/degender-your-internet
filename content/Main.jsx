@@ -7,9 +7,9 @@ import Topbar from './components/Topbar'
 
 import styles from './content.css'
 
-export default (data) => {
+export default (data, oldText, newText) => {
   render (
-    <Topbar data={data}/>,
+    <Topbar data={data} oldText={oldText} newText={newText}/>,
     document.getElementById('degender-bar')
   )
 }

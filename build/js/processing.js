@@ -13,6 +13,8 @@ webpackJsonp([3,4],[
 	//boolean to control react rendering VERY IMPORTANT
 	var renderBar = false;
 	var beenConverted = false;
+	var convertedText = void 0;
+	var allText = document.body.innerHTML;
 	
 	var pronouns = {
 	  he: "they",
@@ -116,7 +118,7 @@ webpackJsonp([3,4],[
 	  adjectives: {}
 	};
 	
-	var createTopbar = function createTopbar(data) {
+	var createTopbar = function createTopbar(data, oldText, newText) {
 	  //build a div to go at the top of the page
 	  var topBar = document.createElement("div");
 	
@@ -126,7 +128,7 @@ webpackJsonp([3,4],[
 	  document.body.insertBefore(topBar, document.body.firstChild);
 	
 	  //render the topbar
-	  (0, _Main2.default)(data);
+	  (0, _Main2.default)(data, oldText, newText);
 	  return topBar;
 	};
 	
@@ -134,11 +136,9 @@ webpackJsonp([3,4],[
 	  document.getElementById('degender-wrapper').innerHTML = original;
 	};
 	
-	var addListens = function addListens(allText) {
-	  document.getElementById("revert").addEventListener("click", function () {
-	    return revertPage(allText);
-	  });
-	};
+	// const addListens = (allText) => {
+	//   document.getElementById("revert").addEventListener("click", () => revertPage(allText));
+	// }
 	
 	var switchWords = function switchWords(string) {
 	  var arr = string.split(' ');
@@ -200,27 +200,25 @@ webpackJsonp([3,4],[
 	
 	  //add wrapper around current body content
 	  var bodyInsides = document.body.innerHTML;
-	  var originalBody = document.body.cloneNode(true);
 	  var degenderWrapper = '<div id=\'degender-wrapper\'>' + bodyInsides + '</div>';
 	  document.body.innerHTML = degenderWrapper;
-	
-	  // //in order to add tags around the changes, need to access the text in a different way :(
-	  var allText = document.getElementById('degender-wrapper').innerHTML;
 	
 	  switch (request.message) {
 	    case 'convert':
 	      if (beenConverted) {
 	        console.log('in herrrrrrreeee');
+	        revertPage(convertedText);
 	      } else {
 	        if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
 	          alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
 	        }
 	
 	        document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides); //something about this function is RUINING my onClicks
-	        var topBar = createTopbar(pageStats);
+	        convertedText = document.getElementById('degender-wrapper').innerHTML;
+	        var topBar = createTopbar(pageStats, allText, convertedText);
 	        //to set margin at top of original content
 	        //see if you can pass stuff to TopBar to make this addListens unnecessary
-	        addListens(allText);
+	        // addListens(allText);
 	        sendResponse({ pageStatus: 'converted' });
 	        beenConverted = true;
 	      }
@@ -22419,8 +22417,8 @@ webpackJsonp([3,4],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = function (data) {
-	  (0, _reactDom.render)(_react2.default.createElement(_Topbar2.default, { data: data }), document.getElementById('degender-bar'));
+	exports.default = function (data, oldText, newText) {
+	  (0, _reactDom.render)(_react2.default.createElement(_Topbar2.default, { data: data, oldText: oldText, newText: newText }), document.getElementById('degender-bar'));
 	};
 
 /***/ },
@@ -22493,8 +22491,10 @@ webpackJsonp([3,4],[
 	    value: function switchConvert() {
 	      if (this.state.converted) {
 	        this.setState({ converted: false });
+	        document.getElementById('degender-wrapper').innerHTML = this.props.oldText;
 	      } else {
 	        this.setState({ converted: true });
+	        document.getElementById('degender-wrapper').innerHTML = this.props.newText;
 	      }
 	    }
 	  }, {
@@ -22513,6 +22513,7 @@ webpackJsonp([3,4],[
 	    value: function render() {
 	      var _this2 = this;
 	
+	      console.log('what be the props', this.props);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
