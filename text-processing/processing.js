@@ -60,6 +60,10 @@ const nouns = {
   Father: 'Parent',
   mother: 'parent',
   Mother: 'Parent',
+  girlfriend: 'partner',
+  Girlfriend: 'Partner',
+  boyfriend: 'partner',
+  Boyfriend: 'Partner'
 }
 
 const adjectives = {
