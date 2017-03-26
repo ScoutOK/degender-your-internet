@@ -10,7 +10,7 @@ export default class Topbar extends Component {
     };
     this.color = this.color.bind(this);
     this.switchConvert = this.switchConvert.bind(this);
-    this.analyze = this.analyze.bind(this)
+    this.analyze = this.analyze.bind(this);
   }
 
   color (speech) {
@@ -57,6 +57,10 @@ export default class Topbar extends Component {
     }
     console.log('in analyze function')
     chrome.runtime.sendMessage({message: "analyze", pageData: responseObj});
+  }
+
+  keyDown (e) {
+    console.log('enter was pressed', e)
   }
 
   render() {
