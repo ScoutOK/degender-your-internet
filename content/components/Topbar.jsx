@@ -35,9 +35,17 @@ export default class Topbar extends Component {
 
   switchConvert () {
     if (this.state.converted) {
-      this.setState({converted: false})
+      this.setState({converted: false});
+      document.getElementById('degender-wrapper').innerHTML = this.props.oldText;
+      document.getElementById('highPro').disabled = true;
+      document.getElementById('highAdj').disabled = true;
+      document.getElementById('highNoun').disabled = true;
     } else {
-      this.setState({converted: true})
+      this.setState({converted: true});
+      document.getElementById('degender-wrapper').innerHTML = this.props.newText
+      document.getElementById('highPro').disabled = false;
+      document.getElementById('highAdj').disabled = false;
+      document.getElementById('highNoun').disabled = false;
     }
   }
 
@@ -52,19 +60,16 @@ export default class Topbar extends Component {
   }
 
   render() {
-    console.log('anything here?', this.props)
-    console.log('or here?', this.state)
+    console.log('what be the props', this.props)
     return  (
       <div>
-        <h1>This page has been degendered</h1>
+        <h1>This page has been {this.state.converted ? 'degendered' : 'reverted to it\'s original form'}</h1>
         <div className='buttons'>
           <button id="revert" onClick={this.switchConvert}>{this.state.converted ? 'Revert' : 'Degender'}</button>
           <button id="highPro" onClick={() => this.color('pronoun')}>Altered Pronouns</button>
           <button id='highAdj' onClick={() => this.color('adjective')}>Altered Adjectives</button>
           <button id='highNoun' onClick={() => this.color('noun')}>Altered Nouns</button>
           <button id='analyze' onClick={this.analyze}>Analyze Page</button>
-          {/*need to attach a event listen to the analyze page button that send a message to the background page,
-          this message will trigger an action to bring up the analytic page*/}
         </div>
       </div>
     )
