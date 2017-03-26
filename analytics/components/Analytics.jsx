@@ -19,6 +19,7 @@ class Analytics extends Component {
 
   constructor () {
     super();
+    this.keydown = this.keydown.bind(this);
   }
 
   componentWillReceiveProps (nextProps) {
@@ -32,6 +33,12 @@ class Analytics extends Component {
     this.props.setAllNouns(allPron);
   }
 
+  keydown (e, pos) {
+    console.log('the event',e.keyCode)
+    if (e.keyCode === 13) {
+      this.props.changeView(pos);
+    }
+  }
   render () {
     return  (
     <div>
@@ -40,7 +47,7 @@ class Analytics extends Component {
         <h2>Page Title: {this.props.title}</h2>
         <span className='page-url'>Page Url: <a href={this.props.url}>{this.props.url}</a></span>
         <ul>
-          <li><a className={this.props.view === 'pronouns' ? 'active' : null} onClick={()=>this.props.changeView('pronouns')} tabIndex="0">Pronouns</a></li>
+          <li><a className={this.props.view === 'pronouns' ? 'active' : null} onClick={()=>this.props.changeView('pronouns')} onKeyDown={(e) => this.keydown(e, 'pronouns')} tabIndex="0">Pronouns</a></li>
           <li><a className={this.props.view === 'nouns' ? 'active' : null} onClick={()=>this.props.changeView('nouns')} tabIndex="0">Nouns</a></li>
           <li><a className={this.props.view === 'adjectives' ? 'active' : null} onClick={()=>this.props.changeView('adjectives')} tabIndex="0">Adjectives</a></li>
         </ul>
