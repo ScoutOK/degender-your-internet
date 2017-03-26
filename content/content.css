@@ -41,21 +41,21 @@
   transition: background-color .2s ease;
 }
 
-#degender-bar button:hover {
+#degender-bar button:hover:enabled {
   background: #333;
   border: 0;
   transition: background-color .2s ease;
 }
 
-#degender-bar button.active {
+#degender-bar button:active:enabled {
   background: #ccc;
   color: #333;
 }
 
 #degender-bar button:disabled {
   cursor: not-allowed;
+  opacity: 0.65;
 }
-
 
 /***********Content Styles***********/
 .active-converted {
