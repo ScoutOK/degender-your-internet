@@ -4,11 +4,11 @@ webpackJsonp([3,4],[
 
 	'use strict';
 	
-	var _Main = __webpack_require__(596);
+	var _Main = __webpack_require__(597);
 	
 	var _Main2 = _interopRequireDefault(_Main);
 	
-	var _SpinnerRender = __webpack_require__(602);
+	var _SpinnerRender = __webpack_require__(601);
 	
 	var _SpinnerRender2 = _interopRequireDefault(_SpinnerRender);
 	
@@ -194,6 +194,11 @@ webpackJsonp([3,4],[
 	  return convertedArr.join('');
 	};
 	
+	//try adding the overlay onload
+	var spinnerDiv = document.createElement('div');
+	spinnerDiv.id = 'spinner-overlay';
+	document.body.appendChild(spinnerDiv);
+	
 	console.log('the degender content script is totes active');
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	
@@ -202,9 +207,6 @@ webpackJsonp([3,4],[
 	  var originalBody = document.body.cloneNode(true);
 	  var degenderWrapper = '<div id=\'degender-wrapper\'>' + bodyInsides + '</div>';
 	  document.body.innerHTML = degenderWrapper;
-	  var spinnerDiv = document.createElement('div');
-	  spinnerDiv.id = 'spinner-overlay';
-	  document.body.appendChild(spinnerDiv);
 	
 	  // //in order to add tags around the changes, need to access the text in a different way :(
 	  var allText = document.getElementById('degender-wrapper').innerHTML;
@@ -214,12 +216,12 @@ webpackJsonp([3,4],[
 	      if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
 	        alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
 	      }
+	      spinnerDiv.className = 'active';
 	      document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides); //something about this function is RUINING my onClicks
 	      var topBar = createTopbar(pageStats);
 	      //to set margin at top of original content
 	      //see if you can pass stuff to TopBar to make this addListens unnecessary
 	      addListens(allText);
-	      debugger;
 	      document.body.removeChild(spinnerDiv);
 	      sendResponse({ pageStatus: 'converted' });
 	      break;
@@ -22067,7 +22069,9 @@ webpackJsonp([3,4],[
 /* 575 */,
 /* 576 */,
 /* 577 */,
-/* 578 */
+/* 578 */,
+/* 579 */,
+/* 580 */
 /***/ function(module, exports) {
 
 	/*
@@ -22123,7 +22127,7 @@ webpackJsonp([3,4],[
 
 
 /***/ },
-/* 579 */
+/* 581 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -22375,8 +22379,6 @@ webpackJsonp([3,4],[
 
 
 /***/ },
-/* 580 */,
-/* 581 */,
 /* 582 */,
 /* 583 */,
 /* 584 */,
@@ -22391,7 +22393,8 @@ webpackJsonp([3,4],[
 /* 593 */,
 /* 594 */,
 /* 595 */,
-/* 596 */
+/* 596 */,
+/* 597 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22406,11 +22409,11 @@ webpackJsonp([3,4],[
 	
 	var _reactDom = __webpack_require__(32);
 	
-	var _Topbar = __webpack_require__(597);
+	var _Topbar = __webpack_require__(598);
 	
 	var _Topbar2 = _interopRequireDefault(_Topbar);
 	
-	var _content = __webpack_require__(598);
+	var _content = __webpack_require__(599);
 	
 	var _content2 = _interopRequireDefault(_content);
 	
@@ -22421,7 +22424,7 @@ webpackJsonp([3,4],[
 	};
 
 /***/ },
-/* 597 */
+/* 598 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22565,16 +22568,16 @@ webpackJsonp([3,4],[
 	exports.default = Topbar;
 
 /***/ },
-/* 598 */
+/* 599 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(599);
+	var content = __webpack_require__(600);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(579)(content, {});
+	var update = __webpack_require__(581)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -22591,23 +22594,21 @@ webpackJsonp([3,4],[
 	}
 
 /***/ },
-/* 599 */
+/* 600 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(578)();
+	exports = module.exports = __webpack_require__(580)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "#degender-bar {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n  position: relative;\n  top: 0;\n  left: 0;\n  z-index: 500;\n  box-sizing: border-box;\n}\n\n#degender-bar h1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n#degender-bar.hide {\n  display: none;\n}\n\n#degender-bar .buttons {\n  display: flex;\n  justify-content: space-between;\n}\n\n#degender-bar button {\n  cursor: pointer;\n  background: #555;\n  border-radius: 4px;\n  color: #fff;\n  text-shadow: none;\n  border: 0!important;\n  font-size: 12pt;\n  font-weight: 400;\n  text-transform: uppercase;\n  padding: 5px 15px;\n  box-shadow: none;\n  line-height: 1rem;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:hover {\n  background: #333;\n  border: 0;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button.active {\n  background: #ccc;\n  color: #333;\n}\n\n.active-converted {\n  background: #bc93cd;\n  border-radius: 4px;\n  padding: 0 .25rem;\n}\n\n#degender-wrapper {\n  position: relative;\n}\n\n#spinner-overlay {\n  height: 100vh;\n  width: 100vw;\n  background: rgba(22,22,22, 0.85);\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 999;\n}", ""]);
+	exports.push([module.id, "#degender-bar {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n  position: relative;\n  top: 0;\n  left: 0;\n  z-index: 500;\n  box-sizing: border-box;\n}\n\n#degender-bar h1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n#degender-bar.hide {\n  display: none;\n}\n\n#degender-bar .buttons {\n  display: flex;\n  justify-content: space-between;\n}\n\n#degender-bar button {\n  cursor: pointer;\n  background: #555;\n  border-radius: 4px;\n  color: #fff;\n  text-shadow: none;\n  border: 0!important;\n  font-size: 12pt;\n  font-weight: 400;\n  text-transform: uppercase;\n  padding: 5px 15px;\n  box-shadow: none;\n  line-height: 1rem;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:hover {\n  background: #333;\n  border: 0;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button.active {\n  background: #ccc;\n  color: #333;\n}\n\n.active-converted {\n  background: #bc93cd;\n  border-radius: 4px;\n  padding: 0 .25rem;\n}\n\n#degender-wrapper {\n  position: relative;\n}\n\n#spinner-overlay {\n  height: 100vh;\n  width: 100vw;\n  background: rgba(22,22,22, 0.85);\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 999;\n  display: none;\n}\n\n#spinner-overlay.active{\n  display: block;\n}", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 600 */,
-/* 601 */,
-/* 602 */
+/* 601 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22622,11 +22623,11 @@ webpackJsonp([3,4],[
 	
 	var _reactDom = __webpack_require__(32);
 	
-	var _Spinner = __webpack_require__(603);
+	var _Spinner = __webpack_require__(602);
 	
 	var _Spinner2 = _interopRequireDefault(_Spinner);
 	
-	var _content = __webpack_require__(598);
+	var _content = __webpack_require__(599);
 	
 	var _content2 = _interopRequireDefault(_content);
 	
@@ -22637,7 +22638,7 @@ webpackJsonp([3,4],[
 	};
 
 /***/ },
-/* 603 */
+/* 602 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';

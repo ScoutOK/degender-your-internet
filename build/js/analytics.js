@@ -14,21 +14,21 @@ webpackJsonp([0,4],[
 	
 	var _Analytics2 = _interopRequireDefault(_Analytics);
 	
-	var _page = __webpack_require__(576);
+	var _page = __webpack_require__(578);
 	
 	var _page2 = _interopRequireDefault(_page);
 	
 	var _reactRedux = __webpack_require__(179);
 	
-	var _store = __webpack_require__(580);
+	var _store = __webpack_require__(582);
 	
 	var _store2 = _interopRequireDefault(_store);
 	
-	var _title = __webpack_require__(582);
+	var _title = __webpack_require__(584);
 	
-	var _url = __webpack_require__(583);
+	var _url = __webpack_require__(585);
 	
-	var _data = __webpack_require__(584);
+	var _data = __webpack_require__(586);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -21508,21 +21508,21 @@ webpackJsonp([0,4],[
 	
 	var _PronounsContainer2 = _interopRequireDefault(_PronounsContainer);
 	
-	var _NounsContainer = __webpack_require__(600);
+	var _NounsContainer = __webpack_require__(571);
 	
 	var _NounsContainer2 = _interopRequireDefault(_NounsContainer);
 	
-	var _categories = __webpack_require__(571);
+	var _categories = __webpack_require__(573);
 	
-	var _chartTheme = __webpack_require__(572);
+	var _chartTheme = __webpack_require__(574);
 	
 	var _chartTheme2 = _interopRequireDefault(_chartTheme);
 	
-	var _view = __webpack_require__(573);
+	var _view = __webpack_require__(575);
 	
-	var _pronouns = __webpack_require__(574);
+	var _pronouns = __webpack_require__(576);
 	
-	var _nouns = __webpack_require__(575);
+	var _nouns = __webpack_require__(577);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -53482,6 +53482,86 @@ webpackJsonp([0,4],[
 
 /***/ },
 /* 571 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(179);
+	
+	var _Nouns = __webpack_require__(572);
+	
+	var _Nouns2 = _interopRequireDefault(_Nouns);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(_ref) {
+	  var nouns = _ref.nouns;
+	  return {
+	    nouns: nouns
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Nouns2.default);
+
+/***/ },
+/* 572 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _victory = __webpack_require__(211);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function (props) {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'big-pie' },
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        'All Nouns'
+	      ),
+	      _react2.default.createElement(_victory.VictoryPie, { name: 'allNouns',
+	        innerRadius: 100,
+	        cornerRadius: 5,
+	        padAngle: 1,
+	        theme: props.theme,
+	        style: { labels: { fontSize: 14, padding: 10 } },
+	        data: [{ x: 'feminine ' + Math.round(100 * props.nouns.all.fem / props.nouns.all.total) + '%', y: props.nouns.all.fem }, { x: 'masculine ' + Math.round(100 * props.nouns.all.masc / props.nouns.all.total) + '%', y: props.nouns.all.masc }]
+	      }),
+	      _react2.default.createElement(
+	        'span',
+	        null,
+	        'There were ',
+	        props.nouns.all.fem,
+	        ' feminine and ',
+	        props.nouns.all.masc,
+	        ' masculine out of ',
+	        props.nouns.all.total,
+	        ' total gendered nouns'
+	      )
+	    )
+	  );
+	};
+
+/***/ },
+/* 573 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -53549,7 +53629,7 @@ webpackJsonp([0,4],[
 	};
 
 /***/ },
-/* 572 */
+/* 574 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -53742,7 +53822,7 @@ webpackJsonp([0,4],[
 	};
 
 /***/ },
-/* 573 */
+/* 575 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -53775,7 +53855,7 @@ webpackJsonp([0,4],[
 	};
 
 /***/ },
-/* 574 */
+/* 576 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -53840,7 +53920,7 @@ webpackJsonp([0,4],[
 	};
 
 /***/ },
-/* 575 */
+/* 577 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -53883,16 +53963,16 @@ webpackJsonp([0,4],[
 	};
 
 /***/ },
-/* 576 */
+/* 578 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(577);
+	var content = __webpack_require__(579);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(579)(content, {});
+	var update = __webpack_require__(581)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -53909,10 +53989,10 @@ webpackJsonp([0,4],[
 	}
 
 /***/ },
-/* 577 */
+/* 579 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(578)();
+	exports = module.exports = __webpack_require__(580)();
 	// imports
 	
 	
@@ -53923,7 +54003,7 @@ webpackJsonp([0,4],[
 
 
 /***/ },
-/* 578 */
+/* 580 */
 /***/ function(module, exports) {
 
 	/*
@@ -53979,7 +54059,7 @@ webpackJsonp([0,4],[
 
 
 /***/ },
-/* 579 */
+/* 581 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -54231,7 +54311,7 @@ webpackJsonp([0,4],[
 
 
 /***/ },
-/* 580 */
+/* 582 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54242,15 +54322,15 @@ webpackJsonp([0,4],[
 	
 	var _redux = __webpack_require__(186);
 	
-	var _ducks = __webpack_require__(581);
+	var _ducks = __webpack_require__(583);
 	
 	var _ducks2 = _interopRequireDefault(_ducks);
 	
-	var _reduxLogger = __webpack_require__(585);
+	var _reduxLogger = __webpack_require__(587);
 	
 	var _reduxLogger2 = _interopRequireDefault(_reduxLogger);
 	
-	var _reduxThunk = __webpack_require__(591);
+	var _reduxThunk = __webpack_require__(593);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
@@ -54261,7 +54341,7 @@ webpackJsonp([0,4],[
 	exports.default = store;
 
 /***/ },
-/* 581 */
+/* 583 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54272,27 +54352,27 @@ webpackJsonp([0,4],[
 	
 	var _redux = __webpack_require__(186);
 	
-	var _title = __webpack_require__(582);
+	var _title = __webpack_require__(584);
 	
 	var _title2 = _interopRequireDefault(_title);
 	
-	var _url = __webpack_require__(583);
+	var _url = __webpack_require__(585);
 	
 	var _url2 = _interopRequireDefault(_url);
 	
-	var _data = __webpack_require__(584);
+	var _data = __webpack_require__(586);
 	
 	var _data2 = _interopRequireDefault(_data);
 	
-	var _view = __webpack_require__(573);
+	var _view = __webpack_require__(575);
 	
 	var _view2 = _interopRequireDefault(_view);
 	
-	var _pronouns = __webpack_require__(574);
+	var _pronouns = __webpack_require__(576);
 	
 	var _pronouns2 = _interopRequireDefault(_pronouns);
 	
-	var _nouns = __webpack_require__(575);
+	var _nouns = __webpack_require__(577);
 	
 	var _nouns2 = _interopRequireDefault(_nouns);
 	
@@ -54310,7 +54390,7 @@ webpackJsonp([0,4],[
 	exports.default = rootReducer;
 
 /***/ },
-/* 582 */
+/* 584 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -54344,7 +54424,7 @@ webpackJsonp([0,4],[
 	};
 
 /***/ },
-/* 583 */
+/* 585 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -54377,7 +54457,7 @@ webpackJsonp([0,4],[
 	};
 
 /***/ },
-/* 584 */
+/* 586 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -54410,7 +54490,7 @@ webpackJsonp([0,4],[
 	};
 
 /***/ },
-/* 585 */
+/* 587 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54421,11 +54501,11 @@ webpackJsonp([0,4],[
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _core = __webpack_require__(586);
+	var _core = __webpack_require__(588);
 	
-	var _helpers = __webpack_require__(587);
+	var _helpers = __webpack_require__(589);
 	
-	var _defaults = __webpack_require__(590);
+	var _defaults = __webpack_require__(592);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -54542,7 +54622,7 @@ webpackJsonp([0,4],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 586 */
+/* 588 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54555,9 +54635,9 @@ webpackJsonp([0,4],[
 	
 	exports.printBuffer = printBuffer;
 	
-	var _helpers = __webpack_require__(587);
+	var _helpers = __webpack_require__(589);
 	
-	var _diff = __webpack_require__(588);
+	var _diff = __webpack_require__(590);
 	
 	var _diff2 = _interopRequireDefault(_diff);
 	
@@ -54684,7 +54764,7 @@ webpackJsonp([0,4],[
 	}
 
 /***/ },
-/* 587 */
+/* 589 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -54708,7 +54788,7 @@ webpackJsonp([0,4],[
 	var timer = exports.timer = typeof performance !== "undefined" && performance !== null && typeof performance.now === "function" ? performance : Date;
 
 /***/ },
-/* 588 */
+/* 590 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -54718,7 +54798,7 @@ webpackJsonp([0,4],[
 	});
 	exports.default = diffLogger;
 	
-	var _deepDiff = __webpack_require__(589);
+	var _deepDiff = __webpack_require__(591);
 	
 	var _deepDiff2 = _interopRequireDefault(_deepDiff);
 	
@@ -54807,7 +54887,7 @@ webpackJsonp([0,4],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 589 */
+/* 591 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(global) {/*!
@@ -55236,7 +55316,7 @@ webpackJsonp([0,4],[
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 590 */
+/* 592 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -55287,7 +55367,7 @@ webpackJsonp([0,4],[
 	module.exports = exports["default"];
 
 /***/ },
-/* 591 */
+/* 593 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -55313,94 +55393,6 @@ webpackJsonp([0,4],[
 	thunk.withExtraArgument = createThunkMiddleware;
 	
 	exports['default'] = thunk;
-
-/***/ },
-/* 592 */,
-/* 593 */,
-/* 594 */,
-/* 595 */,
-/* 596 */,
-/* 597 */,
-/* 598 */,
-/* 599 */,
-/* 600 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _reactRedux = __webpack_require__(179);
-	
-	var _Nouns = __webpack_require__(601);
-	
-	var _Nouns2 = _interopRequireDefault(_Nouns);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mapStateToProps = function mapStateToProps(_ref) {
-	  var nouns = _ref.nouns;
-	  return {
-	    nouns: nouns
-	  };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Nouns2.default);
-
-/***/ },
-/* 601 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _victory = __webpack_require__(211);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function (props) {
-	  return _react2.default.createElement(
-	    'div',
-	    null,
-	    _react2.default.createElement(
-	      'div',
-	      { className: 'big-pie' },
-	      _react2.default.createElement(
-	        'h3',
-	        null,
-	        'All Nouns'
-	      ),
-	      _react2.default.createElement(_victory.VictoryPie, { name: 'allNouns',
-	        innerRadius: 100,
-	        cornerRadius: 5,
-	        padAngle: 1,
-	        theme: props.theme,
-	        style: { labels: { fontSize: 14, padding: 10 } },
-	        data: [{ x: 'feminine ' + Math.round(100 * props.nouns.all.fem / props.nouns.all.total) + '%', y: props.nouns.all.fem }, { x: 'masculine ' + Math.round(100 * props.nouns.all.masc / props.nouns.all.total) + '%', y: props.nouns.all.masc }]
-	      }),
-	      _react2.default.createElement(
-	        'span',
-	        null,
-	        'There were ',
-	        props.nouns.all.fem,
-	        ' feminine and ',
-	        props.nouns.all.masc,
-	        ' masculine out of ',
-	        props.nouns.all.total,
-	        ' total gendered nouns'
-	      )
-	    )
-	  );
-	};
 
 /***/ }
 ]);
