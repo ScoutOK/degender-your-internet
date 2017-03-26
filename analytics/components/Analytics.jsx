@@ -65,11 +65,10 @@ class Analytics extends Component {
   
 }
 
-const mapStateToProps = ({title, url, view, data}) => ({
+const mapStateToProps = ({title, url, view}) => ({
   title,
   url,
-  view, 
-  data
+  view
 })
 
 const mapDispatchToProps = (dispatch) => ({
