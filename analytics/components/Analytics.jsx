@@ -48,8 +48,8 @@ class Analytics extends Component {
         <span className='page-url'>Page Url: <a href={this.props.url}>{this.props.url}</a></span>
         <ul>
           <li><a className={this.props.view === 'pronouns' ? 'active' : null} onClick={()=>this.props.changeView('pronouns')} onKeyDown={(e) => this.keydown(e, 'pronouns')} tabIndex="0">Pronouns</a></li>
-          <li><a className={this.props.view === 'nouns' ? 'active' : null} onClick={()=>this.props.changeView('nouns')} tabIndex="0">Nouns</a></li>
-          <li><a className={this.props.view === 'adjectives' ? 'active' : null} onClick={()=>this.props.changeView('adjectives')} tabIndex="0">Adjectives</a></li>
+          <li><a className={this.props.view === 'nouns' ? 'active' : null} onClick={()=>this.props.changeView('nouns')} onKeyDown={(e) => this.keydown(e, 'nouns')} tabIndex="0">Nouns</a></li>
+          <li><a className={this.props.view === 'adjectives' ? 'active' : null} onClick={()=>this.props.changeView('adjectives')} onKeyDown={(e) => this.keydown(e, 'adjectives')} tabIndex="0">Adjectives</a></li>
         </ul>
       </nav>
       <main>
