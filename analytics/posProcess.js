@@ -1,5 +1,6 @@
-import {setAllPronouns, setNomPronouns, setRefPronouns} from './ducks/pronouns'
-import {setAllNouns} from './ducks/nouns'
+import {setAllPronouns, setNomPronouns, setRefPronouns} from './ducks/pronouns';
+import {setAllNouns} from './ducks/nouns';
+import store from './store';
 
 
 //Calculate pronoun stuff
@@ -54,11 +55,11 @@ export const sumNouns = (obj) => {
 
 export default (dataObj) => {
   const pronNum = sumPronouns(dataObj.pronouns);
-  this.props.setAllPronouns(pronNum);
+  store.dispatch(setAllPronouns(pronNum));
   const nomPron = nomPronouns(dataObj.pronouns);
-  this.props.setNomPronouns(nomPron);
+  store.dispatch(setNomPronouns(nomPron));
   const refPron = refPronouns(dataObj.pronouns);
-  this.props.setRefPronouns(refPron);
+  store.dispatch(setRefPronouns(refPron));
   const allPron = sumNouns(dataObj.nouns);
-  this.props.setAllNouns(allPron);
+  store.dispatch(setAllNouns(allPron));
 }

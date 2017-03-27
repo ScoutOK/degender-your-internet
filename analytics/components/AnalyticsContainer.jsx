@@ -1,13 +1,8 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-
 //word visuals
 import Analytics from './Analytics'
-
-//helper functions
-import {sumPronouns, nomPronouns, refPronouns, sumNouns} from '../categories'
-import theme from '../chartTheme'
 
 //reducers
 import {changeView} from '../ducks/view';
@@ -21,7 +16,6 @@ class AnalyticsContainer extends Component {
   }
 
   keydown (e, pos) {
-    console.log('the event',e.keyCode)
     if (e.keyCode === 13) {
       this.props.changeView(pos);
     }
@@ -41,11 +35,10 @@ class AnalyticsContainer extends Component {
   
 }
 
-const mapStateToProps = ({title, url, view, data}) => ({
+const mapStateToProps = ({title, url, view}) => ({
   title,
   url,
-  view,
-  data
+  view
 })
 
 const mapDispatchToProps = (dispatch) => ({

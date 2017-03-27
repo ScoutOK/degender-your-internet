@@ -11,6 +11,9 @@ import {setTitle} from './ducks/title';
 import {setUrl} from './ducks/url';
 import {setData} from './ducks/data';
 
+//process setData
+import posProcess from './posProcess'
+
 let pageData = {}
 
 //inform the background that we are ready and get data
@@ -20,6 +23,7 @@ chrome.runtime.sendMessage({message: "pageReady"}, function(response) {
   store.dispatch(setTitle(pageData.title));
   store.dispatch(setUrl(pageData.url));
   store.dispatch(setData(pageData.data));
+  posProcess(pageData.data)
 }); 
 
 render (
