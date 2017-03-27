@@ -1,10 +1,10 @@
 import React from 'react';
-import {VictoryBar} from 'victory';
+import {VictoryBar, VictoryChart} from 'victory';
 
 const alterData = (normalData) => {
   const arr = [];
   for (let key in normalData) {
-    arr.push({word: key, number: normaData[key]})
+    arr.push({word: key, number: normalData[key]})
   }
   return arr
 }
@@ -15,11 +15,16 @@ export default ({theme, adjectives}) => {
     <div>
       <div className='big-pie'>
           <h3>All Adjectives</h3>
-          <VictoryBar name="allAdjectives"
-            theme={theme}
-            style={{ labels: {fontSize: 14, padding: 10}}}
-            data={data}
-          />
+          <VictoryChart domainPadding={16}>
+            <VictoryBar name="allAdjectives"
+              theme={theme}
+              style={{ labels: {fontSize: 14, padding: 10}}}
+              data={data}
+              x='word'
+              y='number'
+              sortKey='y'
+            />
+          </VictoryChart>
           {/*<span>There were {props.nouns.all.fem} feminine and {props.nouns.all.masc} masculine out of {props.nouns.all.total} total gendered nouns</span>*/}
         </div>
       </div>

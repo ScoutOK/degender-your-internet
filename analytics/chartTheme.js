@@ -83,7 +83,7 @@ export default {
   bar: assign({
     style: {
       data: {
-        fill: charcoal,
+        // fill: charcoal,
         padding: 10,
         stroke: "transparent",
         strokeWidth: 0,
