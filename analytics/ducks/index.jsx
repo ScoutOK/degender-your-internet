@@ -17,4 +17,4 @@ const rootReducer = combineReducers({
   adjectives,
 })
 
-export default rootReducer
+export default rootReducer;
