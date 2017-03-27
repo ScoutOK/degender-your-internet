@@ -11,25 +11,13 @@ import theme from '../chartTheme'
 
 //reducers
 import {changeView} from '../ducks/view';
-import {setAllPronouns, setNomPronouns, setRefPronouns} from '../ducks/pronouns'
-import {setAllNouns} from '../ducks/nouns'
+
 
 class AnalyticsContainer extends Component {
 
   constructor () {
     super();
     this.keydown = this.keydown.bind(this);
-  }
-
-  componentWillReceiveProps (nextProps) {
-    const pronNum = sumPronouns(nextProps.data.pronouns);
-    this.props.setAllPronouns(pronNum);
-    const nomPron = nomPronouns(nextProps.data.pronouns);
-    this.props.setNomPronouns(nomPron);
-    const refPron = refPronouns(nextProps.data.pronouns);
-    this.props.setRefPronouns(refPron);
-    const allPron = sumNouns(nextProps.data.nouns);
-    this.props.setAllNouns(allPron);
   }
 
   keydown (e, pos) {
