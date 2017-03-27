@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-
 
 //word visuals
 import PronounsContainer from './PronounsContainer'

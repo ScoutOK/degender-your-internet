@@ -52,10 +52,11 @@ class AnalyticsContainer extends Component {
   
 }
 
-const mapStateToProps = ({title, url, view}) => ({
+const mapStateToProps = ({title, url, view, data}) => ({
   title,
   url,
-  view
+  view,
+  data
 })
 
 const mapDispatchToProps = (dispatch) => ({
