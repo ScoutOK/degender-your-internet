@@ -15,7 +15,7 @@ let pageData = {}
 
 //inform the background that we are ready and get data
 chrome.runtime.sendMessage({message: "pageReady"}, function(response) {
-  console.log(response);
+  console.log('the response', response);
   pageData = response;
   store.dispatch(setTitle(pageData.title));
   store.dispatch(setUrl(pageData.url));
