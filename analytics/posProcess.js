@@ -1,5 +1,6 @@
 import {setAllPronouns, setNomPronouns, setRefPronouns} from './ducks/pronouns';
 import {setAllNouns} from './ducks/nouns';
+import {setAllAdjectives} from './ducks/adjectives'
 import store from './store';
 
 
@@ -62,4 +63,5 @@ export default (dataObj) => {
   store.dispatch(setRefPronouns(refPron));
   const allPron = sumNouns(dataObj.nouns);
   store.dispatch(setAllNouns(allPron));
+  store.dispatch(setAllAdjectives(dataObj.adjectives))
 }
