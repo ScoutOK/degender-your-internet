@@ -38,6 +38,7 @@ class AnalyticsContainer extends Component {
       this.props.changeView(pos);
     }
   }
+  
   render () {
     return  (
       <Analytics
