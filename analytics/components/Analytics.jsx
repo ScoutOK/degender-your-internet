@@ -7,7 +7,6 @@ import NounsContainer from './NounsContainer'
 //helper functions
 import theme from '../chartTheme'
 
-
 export default ({view, title, url, changeView, keydown}) => (
 <div>
   <nav>

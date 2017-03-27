@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-
 //word visuals
 import Analytics from './Analytics'
 
-//helper functions
-import {sumPronouns, nomPronouns, refPronouns, sumNouns} from '../categories'
-import theme from '../chartTheme'
-
 //reducers
 import {changeView} from '../ducks/view';
-import {setAllPronouns, setNomPronouns, setRefPronouns} from '../ducks/pronouns'
-import {setAllNouns} from '../ducks/nouns'
+
 
 class AnalyticsContainer extends Component {
 
@@ -21,19 +15,7 @@ class AnalyticsContainer extends Component {
     this.keydown = this.keydown.bind(this);
   }
 
-  componentWillReceiveProps (nextProps) {
-    const pronNum = sumPronouns(nextProps.data.pronouns);
-    this.props.setAllPronouns(pronNum);
-    const nomPron = nomPronouns(nextProps.data.pronouns);
-    this.props.setNomPronouns(nomPron);
-    const refPron = refPronouns(nextProps.data.pronouns);
-    this.props.setRefPronouns(refPron);
-    const allPron = sumNouns(nextProps.data.nouns);
-    this.props.setAllNouns(allPron);
-  }
-
   keydown (e, pos) {
-    console.log('the event',e.keyCode)
     if (e.keyCode === 13) {
       this.props.changeView(pos);
     }
@@ -53,11 +35,10 @@ class AnalyticsContainer extends Component {
   
 }
 
-const mapStateToProps = ({title, url, view, data}) => ({
+const mapStateToProps = ({title, url, view}) => ({
   title,
   url,
-  view,
-  data
+  view
 })
 
 const mapDispatchToProps = (dispatch) => ({
