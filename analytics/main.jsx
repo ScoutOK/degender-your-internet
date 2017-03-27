@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import Analytics from './components/Analytics'
+import AnalyticsContainer from './components/AnalyticsContainer'
 
 import styles from './page.css'
 import { Provider } from 'react-redux';
@@ -24,7 +24,7 @@ chrome.runtime.sendMessage({message: "pageReady"}, function(response) {
 
 render (
   <Provider store={store}>
-    <Analytics/>
+    <AnalyticsContainer />
   </Provider>,
   document.getElementById('analytics')
 )
