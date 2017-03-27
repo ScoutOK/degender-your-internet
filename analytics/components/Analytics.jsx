@@ -23,6 +23,7 @@ class Analytics extends Component {
   }
 
   componentWillReceiveProps (nextProps) {
+    console.log('next props', nextProps);
     const pronNum = sumPronouns(nextProps.data.pronouns);
     this.props.setAllPronouns(pronNum);
     const nomPron = nomPronouns(nextProps.data.pronouns);
@@ -65,10 +66,11 @@ class Analytics extends Component {
   
 }
 
-const mapStateToProps = ({title, url, view}) => ({
+const mapStateToProps = ({title, url, view, data}) => ({
   title,
   url,
-  view
+  view,
+  data
 })
 
 const mapDispatchToProps = (dispatch) => ({
