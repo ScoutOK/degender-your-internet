@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { render } from 'react-dom'
-import Topbar from './components/Topbar'
+import TopbarContainer from './components/TopbarContainer'
 
 
 import styles from './content.css'
