@@ -87,7 +87,7 @@ export default {
         padding: 10,
         stroke: "transparent",
         strokeWidth: 0,
-        width: 8
+        width: 16
       },
       labels: baseLabelStyles
     }

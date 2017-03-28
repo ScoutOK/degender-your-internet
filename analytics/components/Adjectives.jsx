@@ -19,7 +19,8 @@ export default ({theme, adjectives}) => {
             <VictoryBar name="allAdjectives"
               theme={theme}
               style={{ 
-                data: {fill: (d) => d.gender === 'masc' ? '#268A8C' : '#740D3D'},
+                data: {fill: (d) => d.gender === 'masc' ? '#268A8C' : '#740D3D',
+                      width: 16},
                 labels: {fontSize: 14, padding: 10}
               }}
               data={data}
