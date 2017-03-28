@@ -15,7 +15,7 @@ const colors = [
 ];
 
 const charcoal = "#252525";
-const raspbery = '#740D3D';
+const raspberry = '#740D3D';
 
 // Typography
 const sansSerif = "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif";
@@ -83,11 +83,11 @@ export default {
   bar: assign({
     style: {
       data: {
-        fill: charcoal,
+        // fill: charcoal,
         padding: 10,
         stroke: "transparent",
         strokeWidth: 0,
-        width: 8
+        width: 16
       },
       labels: baseLabelStyles
     }

@@ -4,7 +4,8 @@ import url from './url';
 import data from './data';
 import view from './view';
 import pronouns from './pronouns';
-import nouns from './nouns'
+import nouns from './nouns';
+import adjectives from './adjectives'
 
 const rootReducer = combineReducers({
   title,
@@ -13,6 +14,7 @@ const rootReducer = combineReducers({
   view,
   pronouns,
   nouns,
+  adjectives,
 })
 
-export default rootReducer
+export default rootReducer;

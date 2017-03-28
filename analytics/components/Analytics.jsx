@@ -1,8 +1,9 @@
 import React from 'react';
 
 //word visuals
-import PronounsContainer from './PronounsContainer'
-import NounsContainer from './NounsContainer'
+import PronounsContainer from './PronounsContainer';
+import NounsContainer from './NounsContainer';
+import AdjectivesContainer from './AdjectivesContainer';
 
 //helper functions
 import theme from '../chartTheme'
@@ -22,7 +23,7 @@ export default ({view, title, url, changeView, keydown}) => (
   <main>
     {view === 'pronouns' ? <PronounsContainer theme={theme}/> : null}
     {view === 'nouns' ? <NounsContainer theme={theme}/> : null}
-    {view === 'adjectives' ? 'ADJECTIVES WILL GO HERE' : null}
+    {view === 'adjectives' ? <AdjectivesContainer theme={theme}/>  : null}
   </main>
   <footer>
   </footer>
