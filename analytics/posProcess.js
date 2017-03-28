@@ -54,6 +54,23 @@ export const sumNouns = (obj) => {
   return {total, masc, fem};
 }   
 
+//Calculate Adjective stuff
+const femAdj = ['feisty', 'frisky', 'irritable', 'ambitious', 'abrasive', 'nasty', 'bitchy', 'bossy', 'bubbly', 'curvy', 'ditzy', 'emotional', 'frigid', 'frumpy', 'high-maintenence', 'hysterical', 'illogical', 'irrational', 'pushy', 'sassy', 'shrill', 'exotic', 'brash', 'catty', 'slutty', 'pretty']
+const mascAdj = ['handsome', 'studly', 'charming', 'aggressive', 'cocky', 'arrogant']
+
+export const catAdj = (obj) => {
+  let expandObj = {}
+  for (let key in obj) {
+    let wordObj = {
+      number: obj[key],
+    };
+    if (femAdj.indexOf(key) > -1) wordObj.gender = 'fem';
+    if (mascAdj.indexOf(key) > -1) wordObj.gender = 'masc';
+    expandObj[key] = wordObj
+  }
+  return expandObj
+}
+
 export default (dataObj) => {
   const pronNum = sumPronouns(dataObj.pronouns);
   store.dispatch(setAllPronouns(pronNum));
@@ -63,5 +80,7 @@ export default (dataObj) => {
   store.dispatch(setRefPronouns(refPron));
   const allPron = sumNouns(dataObj.nouns);
   store.dispatch(setAllNouns(allPron));
-  store.dispatch(setAllAdjectives(dataObj.adjectives))
+  const expandAdj = catAdj(dataObj.adjectives);
+  console.log(expandAdj)
+  store.dispatch(setAllAdjectives(expandAdj))
 }
