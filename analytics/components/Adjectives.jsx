@@ -29,7 +29,6 @@ export default ({theme, adjectives}) => {
               sortKey='y'
             />
           </VictoryChart>
-          {/*<span>There were {props.nouns.all.fem} feminine and {props.nouns.all.masc} masculine out of {props.nouns.all.total} total gendered nouns</span>*/}
         </div>
       </div>
   )
