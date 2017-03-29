@@ -79,11 +79,10 @@
   top: 0;
   left: 0;
   z-index: 999;
-  display: block;
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  align-items: center;
   color: #eee;
   text-align: center;
-}
-
-#spinny-wheel {
-  margin: auto;
 }
