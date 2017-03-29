@@ -76,6 +76,41 @@ webpackJsonp([4,3],[
 	  Boyfriend: 'Partner'
 	};
 	
+	var adjectives = {
+	  feisty: "lively",
+	  frisky: "spirited",
+	  irritable: "grouchy",
+	  ambitious: "determined",
+	  abrasive: "unpleasant",
+	  nasty: "disagreeable",
+	  bitchy: "mean",
+	  bossy: "forceful",
+	  bubbly: "friendly",
+	  curvy: "robust",
+	  ditzy: "careless",
+	  emotional: "impassioned",
+	  frigid: "serious",
+	  frumpy: "un-made-up",
+	  "high-maintenence": "exacting",
+	  hysterical: "furious",
+	  illogical: "incorrectsass",
+	  irrational: "incorrect",
+	  pushy: "assertive",
+	  sassy: "bold",
+	  shrill: "assertive",
+	  exotic: "unusual",
+	  brash: "cocksure",
+	  catty: "mean",
+	  slutty: "sexually-active", //don't really have a neutral for this
+	  pretty: "attractive",
+	  handsome: "attractive",
+	  studly: "hot",
+	  charming: "pleasant",
+	  aggressive: "determined",
+	  cocky: "self-confident",
+	  arrogant: "overconfident"
+	};
+	
 	//object to contain info about page for analytics
 	var pageStats = {
 	  pronouns: {},
