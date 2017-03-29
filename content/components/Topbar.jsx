@@ -2,7 +2,7 @@
 import React from 'react';
 
 export default ({converted, color, analyze, switchConvert}) => (
-  <div>
+  <div className='color-top'>
     <h1>This page has been {converted ? 'degendered' : 'reverted to it\'s original form'}</h1>
     <div className='buttons'>
       <button id="revert" onClick={switchConvert}>{converted ? 'Revert' : 'Degender'}</button>

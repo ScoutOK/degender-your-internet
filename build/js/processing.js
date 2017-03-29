@@ -22575,7 +22575,7 @@ webpackJsonp([4,3],[
 	      switchConvert = _ref.switchConvert;
 	  return _react2.default.createElement(
 	    'div',
-	    null,
+	    { className: 'color-top' },
 	    _react2.default.createElement(
 	      'h1',
 	      null,
@@ -22655,7 +22655,7 @@ webpackJsonp([4,3],[
 	
 	
 	// module
-	exports.push([module.id, "#degender-bar {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n  position: relative;\n  top: 0;\n  left: 0;\n  z-index: 500;\n  box-sizing: border-box;\n}\n\n#degender-bar h1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n#degender-bar.hide {\n  display: none;\n}\n\n#degender-bar .buttons {\n  display: flex;\n  justify-content: space-between;\n}\n\n#degender-bar button {\n  cursor: pointer;\n  background: #555;\n  border-radius: 4px;\n  color: #fff;\n  text-shadow: none;\n  border: 0!important;\n  font-size: 12pt;\n  font-weight: 400;\n  text-transform: uppercase;\n  padding: 5px 15px;\n  box-shadow: none;\n  line-height: 1rem;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:hover:enabled {\n  background: #333;\n  border: 0;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:active:enabled {\n  background: #ccc;\n  color: #333;\n}\n\n#degender-bar button:disabled {\n  cursor: not-allowed;\n  opacity: 0.65;\n}\n\n/***********Content Styles***********/\n.active-converted {\n  background: #bc93cd;\n  border-radius: 4px;\n  padding: 0 .25rem;\n}\n\n#degender-wrapper {\n  position: relative;\n}\n\n#spinner-overlay {\n  height: 100vh;\n  width: 100vw;\n  background: rgba(22,22,22, 0.85);\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 999;\n  display: block;\n  color: #eee;\n  text-align: center;\n}\n\n#spinny-wheel {\n  margin: auto;\n}", ""]);
+	exports.push([module.id, "#degender-bar {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  color: #333;\n  position: relative;\n  top: 0;\n  left: 0;\n  z-index: 500;\n  box-sizing: border-box;\n}\n\n#degender-bar .color-top {\n  padding: 1rem;\n}\n\n#degender-bar h1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n#degender-bar.hide {\n  display: none;\n}\n\n#degender-bar .buttons {\n  display: flex;\n  justify-content: space-between;\n}\n\n#degender-bar button {\n  cursor: pointer;\n  background: #555;\n  border-radius: 4px;\n  color: #fff;\n  text-shadow: none;\n  border: 0!important;\n  font-size: 12pt;\n  font-weight: 400;\n  text-transform: uppercase;\n  padding: 5px 15px;\n  box-shadow: none;\n  line-height: 1rem;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:hover:enabled {\n  background: #333;\n  border: 0;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:active:enabled {\n  background: #ccc;\n  color: #333;\n}\n\n#degender-bar button:disabled {\n  cursor: not-allowed;\n  opacity: 0.65;\n}\n\n/***********Content Styles***********/\n.active-converted {\n  background: #bc93cd;\n  border-radius: 4px;\n  padding: 0 .25rem;\n}\n\n#degender-wrapper {\n  position: relative;\n}\n\n#spinner-overlay {\n  height: 100vh;\n  width: 100vw;\n  background: rgba(22,22,22, 0.85);\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 999;\n  display: block;\n  color: #eee;\n  text-align: center;\n}\n\n#spinny-wheel {\n  margin: auto;\n}", ""]);
 	
 	// exports
 
