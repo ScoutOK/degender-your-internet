@@ -8,10 +8,6 @@ webpackJsonp([3,4],[
 	
 	var _Main2 = _interopRequireDefault(_Main);
 	
-	var _SpinnerRender = __webpack_require__(607);
-	
-	var _SpinnerRender2 = _interopRequireDefault(_SpinnerRender);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	//boolean to control react rendering VERY IMPORTANT
@@ -194,11 +190,6 @@ webpackJsonp([3,4],[
 	  return convertedArr.join('');
 	};
 	
-	//try adding the overlay onload
-	var spinnerDiv = document.createElement('div');
-	spinnerDiv.id = 'spinner-overlay';
-	document.body.appendChild(spinnerDiv);
-	
 	console.log('the degender content script is totes active');
 	chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
 	
@@ -216,13 +207,11 @@ webpackJsonp([3,4],[
 	      if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
 	        alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
 	      }
-	      spinnerDiv.className = 'active';
 	      document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides); //something about this function is RUINING my onClicks
 	      var topBar = createTopbar(pageStats);
 	      //to set margin at top of original content
 	      //see if you can pass stuff to TopBar to make this addListens unnecessary
 	      addListens(allText);
-	      document.body.removeChild(spinnerDiv);
 	      sendResponse({ pageStatus: 'converted' });
 	      break;
 	    case 'revert':
@@ -22523,6 +22512,7 @@ webpackJsonp([3,4],[
 	      return _react2.default.createElement(
 	        'div',
 	        null,
+	        this.props.data ? _react2.default.createElement(Spinner, null) : null,
 	        _react2.default.createElement(
 	          'h1',
 	          null,
@@ -22611,85 +22601,6 @@ webpackJsonp([3,4],[
 	
 	// exports
 
-
-/***/ },
-/* 606 */,
-/* 607 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactDom = __webpack_require__(32);
-	
-	var _Spinner = __webpack_require__(608);
-	
-	var _Spinner2 = _interopRequireDefault(_Spinner);
-	
-	var _content = __webpack_require__(604);
-	
-	var _content2 = _interopRequireDefault(_content);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function () {
-	  (0, _reactDom.render)(_react2.default.createElement(_Spinner2.default, null), document.getElementById('spinner-overlay'));
-	};
-
-/***/ },
-/* 608 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	//import {connect} from 'react-redux'
-	
-	
-	var Spinner = function (_Component) {
-	  _inherits(Spinner, _Component);
-	
-	  function Spinner(data) {
-	    _classCallCheck(this, Spinner);
-	
-	    return _possibleConstructorReturn(this, (Spinner.__proto__ || Object.getPrototypeOf(Spinner)).call(this));
-	  }
-	
-	  _createClass(Spinner, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement('div', { id: 'spinner-overlay' });
-	    }
-	  }]);
-	
-	  return Spinner;
-	}(_react.Component);
-	
-	exports.default = Spinner;
 
 /***/ }
 ]);

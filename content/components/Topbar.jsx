@@ -6,7 +6,7 @@ export default class Topbar extends Component {
   constructor (data) {
     super();
     this.state ={
-      converted: true
+      converted: true,
     };
     this.color = this.color.bind(this);
     this.switchConvert = this.switchConvert.bind(this);
@@ -56,6 +56,7 @@ export default class Topbar extends Component {
     console.log('or here?', this.state)
     return  (
       <div>
+        {this.props.data ? <Spinner /> : null}
         <h1>This page has been degendered</h1>
         <div className='buttons'>
           <button id="revert" onClick={this.switchConvert}>{this.state.converted ? 'Revert' : 'Degender'}</button>
