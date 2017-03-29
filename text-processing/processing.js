@@ -111,7 +111,7 @@ const pageStats = {
   adjectives: {}
 }
 
-const createTopbar = (data, oldText, newText) => {
+const createTopbar = () => {
   //build a div to go at the top of the page
   let topBar = document.createElement("div");
 
@@ -121,9 +121,14 @@ const createTopbar = (data, oldText, newText) => {
   document.body.insertBefore(topBar, document.body.firstChild);
 
   //render the topbar
-  renderTopbar(data, oldText, newText);
+  renderTopbar();
   return topBar
 
+}
+
+const updateTopbar = (data, oldText, newText) => {
+  //render the topbar
+  renderTopbar(data, oldText, newText);
 }
 
 const revertPage = (original) => {
@@ -213,15 +218,18 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
           alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
         }
-
-        document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides);//something about this function is RUINING my onClicks
-        convertedText = document.getElementById('degender-wrapper').innerHTML;
-        const topBar = createTopbar(pageStats, allText, convertedText);
-        //to set margin at top of original content
-        //see if you can pass stuff to TopBar to make this addListens unnecessary
-        // addListens(allText);
-        sendResponse({pageStatus: 'converted'});
-        beenConverted = true;
+        createTopbar();
+        window.setTimeout(()=> {
+          document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides);//something about this function is RUINING my onClicks
+          convertedText = document.getElementById('degender-wrapper').innerHTML;
+          updateTopbar(pageStats, allText, convertedText);
+          //to set margin at top of original content
+          //see if you can pass stuff to TopBar to make this addListens unnecessary
+          // addListens(allText);
+          sendResponse({pageStatus: 'converted'});
+          beenConverted = true;
+        }, 5)
+        
         
       }
       break

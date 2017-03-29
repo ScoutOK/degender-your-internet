@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import {connect} from 'react-redux'
 
 import Topbar from './Topbar';
+import Spinner from './Spinner';
 
 
 export default class TopbarContainer extends Component {

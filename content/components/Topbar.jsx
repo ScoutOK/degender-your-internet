@@ -1,15 +1,15 @@
 
 import React from 'react';
 
-export default () => (
+export default ({converted, color, analyze, switchConvert}) => (
   <div>
-    <h1>This page has been {this.props.converted ? 'degendered' : 'reverted to it\'s original form'}</h1>
+    <h1>This page has been {converted ? 'degendered' : 'reverted to it\'s original form'}</h1>
     <div className='buttons'>
-      <button id="revert" onClick={this.props.switchConvert}>{this.props.converted ? 'Revert' : 'Degender'}</button>
-      <button id="highPro" onClick={() => this.props.color('pronoun')}>Altered Pronouns</button>
-      <button id='highAdj' onClick={() => this.props.color('adjective')}>Altered Adjectives</button>
-      <button id='highNoun' onClick={() => this.props.color('noun')}>Altered Nouns</button>
-      <button id='analyze' onClick={this.props.analyze}>Analyze Page</button>
+      <button id="revert" onClick={switchConvert}>{converted ? 'Revert' : 'Degender'}</button>
+      <button id="highPro" onClick={() => color('pronoun')}>Altered Pronouns</button>
+      <button id='highAdj' onClick={() => color('adjective')}>Altered Adjectives</button>
+      <button id='highNoun' onClick={() => color('noun')}>Altered Nouns</button>
+      <button id='analyze' onClick={analyze}>Analyze Page</button>
     </div>
   </div>
 )

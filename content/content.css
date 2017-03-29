@@ -76,9 +76,9 @@
   top: 0;
   left: 0;
   z-index: 999;
-  display: none;
+  display: block;
 }
 
-#spinner-overlay.active{
-  display: block;
+#spinny-wheel {
+  margin: auto;
 }
