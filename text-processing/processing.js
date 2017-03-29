@@ -228,7 +228,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
           // addListens(allText);
           sendResponse({pageStatus: 'converted'});
           beenConverted = true;
-        }, 5)
+        }, 0)
         
         
       }

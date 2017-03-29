@@ -10,8 +10,8 @@ export default class Spinner extends Component {
   render() {
     return  (
       <div id='spinner-overlay'>
-        <img id='spinny-wheel' src='/img/Loading_icon.gif' alt='loading wheel' />
-        <h1>LOADING</h1>
+        {/*<img id='spinny-wheel' src='/img/Loading_icon.gif' alt='loading wheel' />*/}
+        <h1>PROCESSING</h1>
       </div>
     )
   }

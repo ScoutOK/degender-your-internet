@@ -77,6 +77,8 @@
   left: 0;
   z-index: 999;
   display: block;
+  color: #eee;
+  text-align: center;
 }
 
 #spinny-wheel {
