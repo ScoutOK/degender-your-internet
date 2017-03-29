@@ -9,7 +9,7 @@ export default class Spinner extends Component {
 
   render() {
     return  (
-      <div>
+      <div id='spinner-overlay'>
       </div>
     )
   }
