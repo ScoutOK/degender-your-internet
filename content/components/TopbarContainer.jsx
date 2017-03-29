@@ -65,12 +65,12 @@ export default class TopbarContainer extends Component {
     return  (
       <div>
       {this.props.data ? null : <Spinner />}
-      <Topbar
+      {this.props.data ? <Topbar
         converted={this.state.converted}
         switchConvert={this.switchConvert}
         color={this.color}
         analyze={this.analyze}
-      />
+      /> : null}
       </div>
     )
   }

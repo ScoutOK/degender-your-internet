@@ -22537,12 +22537,12 @@ webpackJsonp([4,3],[
 	        'div',
 	        null,
 	        this.props.data ? null : _react2.default.createElement(_Spinner2.default, null),
-	        _react2.default.createElement(_Topbar2.default, {
+	        this.props.data ? _react2.default.createElement(_Topbar2.default, {
 	          converted: this.state.converted,
 	          switchConvert: this.switchConvert,
 	          color: this.color,
 	          analyze: this.analyze
-	        })
+	        }) : null
 	      );
 	    }
 	  }]);
