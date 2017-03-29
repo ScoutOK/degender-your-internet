@@ -5,6 +5,9 @@ import renderTopbar from '../content/Main.jsx';
 
 //boolean to control react rendering VERY IMPORTANT
 let renderBar = false;
+let beenConverted = false;
+let convertedText;
+const allText = document.body.innerHTML;
 
 const pronouns = {
   he: "they",
@@ -60,41 +63,10 @@ const nouns = {
   Father: 'Parent',
   mother: 'parent',
   Mother: 'Parent',
-}
-
-const adjectives = {
-  feisty: "lively",
-  frisky: "spirited",
-  irritable: "grouchy",
-  ambitious: "determined",
-  abrasive: "unpleasant",
-  nasty: "disagreeable",
-  bitchy: "mean",
-  bossy: "forceful",
-  bubbly: "friendly",
-  curvy: "robust",
-  ditzy: "careless",
-  emotional: "impassioned",
-  frigid: "serious",
-  frumpy: "un-made-up",
-  "high-maintenence": "exacting",
-  hysterical: "furious",
-  illogical: "incorrectsass",
-  irrational: "incorrect",
-  pushy: "assertive",
-  sassy: "bold",
-  shrill: "assertive",
-  exotic: "unusual",
-  brash: "cocksure",
-  catty: "mean",
-  slutty: "sexually-active",//don't really have a neutral for this
-  pretty: "attractive",
-  handsome: "attractive",
-  studly: "hot",
-  charming: "pleasant",
-  aggressive: "determined",
-  cocky: "self-confident",
-  arrogant: "overconfident",
+  girlfriend: 'partner',
+  Girlfriend: 'Partner',
+  boyfriend: 'partner',
+  Boyfriend: 'Partner'
 }
 
 //object to contain info about page for analytics
@@ -104,7 +76,7 @@ const pageStats = {
   adjectives: {}
 }
 
-const createTopbar = (data) => {
+const createTopbar = (data, oldText, newText) => {
   //build a div to go at the top of the page
   let topBar = document.createElement("div");
 
@@ -114,7 +86,7 @@ const createTopbar = (data) => {
   document.body.insertBefore(topBar, document.body.firstChild);
 
   //render the topbar
-  renderTopbar(data);
+  renderTopbar(data, oldText, newText);
   return topBar
 
 }
@@ -123,9 +95,9 @@ const revertPage = (original) => {
   document.getElementById('degender-wrapper').innerHTML = original;
 }
 
-const addListens = (allText) => {
-  document.getElementById("revert").addEventListener("click", () => revertPage(allText));
-}
+// const addListens = (allText) => {
+//   document.getElementById("revert").addEventListener("click", () => revertPage(allText));
+// }
 
 const switchWords = (string) => {
   const arr = string.split(' ');
@@ -194,25 +166,29 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
 
   //add wrapper around current body content
   const bodyInsides = document.body.innerHTML;
-  const originalBody = document.body.cloneNode(true);
   const degenderWrapper = `<div id='degender-wrapper'>${bodyInsides}</div>`
   document.body.innerHTML = degenderWrapper;
 
-
-  // //in order to add tags around the changes, need to access the text in a different way :(
-  const allText = document.getElementById('degender-wrapper').innerHTML;
-
   switch (request.message) {
     case 'convert':
-      if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
-        alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
+      if (beenConverted) {
+        console.log('in herrrrrrreeee');
+        revertPage(convertedText);
+      } else {
+        if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
+          alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
+        }
+
+        document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides);//something about this function is RUINING my onClicks
+        convertedText = document.getElementById('degender-wrapper').innerHTML;
+        const topBar = createTopbar(pageStats, allText, convertedText);
+        //to set margin at top of original content
+        //see if you can pass stuff to TopBar to make this addListens unnecessary
+        // addListens(allText);
+        sendResponse({pageStatus: 'converted'});
+        beenConverted = true;
+        
       }
-      document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides);//something about this function is RUINING my onClicks
-      const topBar = createTopbar(pageStats);
-      //to set margin at top of original content
-      //see if you can pass stuff to TopBar to make this addListens unnecessary
-      addListens(allText);
-      sendResponse({pageStatus: 'converted'});
       break
     case 'revert':
       revertPage(allText);

@@ -1,4 +1,4 @@
-webpackJsonp([3,4],[
+webpackJsonp([4,3],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -12,6 +12,9 @@ webpackJsonp([3,4],[
 	
 	//boolean to control react rendering VERY IMPORTANT
 	var renderBar = false;
+	var beenConverted = false;
+	var convertedText = void 0;
+	var allText = document.body.innerHTML;
 	
 	var pronouns = {
 	  he: "they",
@@ -66,42 +69,11 @@ webpackJsonp([3,4],[
 	  father: 'parent',
 	  Father: 'Parent',
 	  mother: 'parent',
-	  Mother: 'Parent'
-	};
-	
-	var adjectives = {
-	  feisty: "lively",
-	  frisky: "spirited",
-	  irritable: "grouchy",
-	  ambitious: "determined",
-	  abrasive: "unpleasant",
-	  nasty: "disagreeable",
-	  bitchy: "mean",
-	  bossy: "forceful",
-	  bubbly: "friendly",
-	  curvy: "robust",
-	  ditzy: "careless",
-	  emotional: "impassioned",
-	  frigid: "serious",
-	  frumpy: "un-made-up",
-	  "high-maintenence": "exacting",
-	  hysterical: "furious",
-	  illogical: "incorrectsass",
-	  irrational: "incorrect",
-	  pushy: "assertive",
-	  sassy: "bold",
-	  shrill: "assertive",
-	  exotic: "unusual",
-	  brash: "cocksure",
-	  catty: "mean",
-	  slutty: "sexually-active", //don't really have a neutral for this
-	  pretty: "attractive",
-	  handsome: "attractive",
-	  studly: "hot",
-	  charming: "pleasant",
-	  aggressive: "determined",
-	  cocky: "self-confident",
-	  arrogant: "overconfident"
+	  Mother: 'Parent',
+	  girlfriend: 'partner',
+	  Girlfriend: 'Partner',
+	  boyfriend: 'partner',
+	  Boyfriend: 'Partner'
 	};
 	
 	//object to contain info about page for analytics
@@ -111,7 +83,7 @@ webpackJsonp([3,4],[
 	  adjectives: {}
 	};
 	
-	var createTopbar = function createTopbar(data) {
+	var createTopbar = function createTopbar(data, oldText, newText) {
 	  //build a div to go at the top of the page
 	  var topBar = document.createElement("div");
 	
@@ -121,7 +93,7 @@ webpackJsonp([3,4],[
 	  document.body.insertBefore(topBar, document.body.firstChild);
 	
 	  //render the topbar
-	  (0, _Main2.default)(data);
+	  (0, _Main2.default)(data, oldText, newText);
 	  return topBar;
 	};
 	
@@ -129,11 +101,9 @@ webpackJsonp([3,4],[
 	  document.getElementById('degender-wrapper').innerHTML = original;
 	};
 	
-	var addListens = function addListens(allText) {
-	  document.getElementById("revert").addEventListener("click", function () {
-	    return revertPage(allText);
-	  });
-	};
+	// const addListens = (allText) => {
+	//   document.getElementById("revert").addEventListener("click", () => revertPage(allText));
+	// }
 	
 	var switchWords = function switchWords(string) {
 	  var arr = string.split(' ');
@@ -195,24 +165,28 @@ webpackJsonp([3,4],[
 	
 	  //add wrapper around current body content
 	  var bodyInsides = document.body.innerHTML;
-	  var originalBody = document.body.cloneNode(true);
 	  var degenderWrapper = '<div id=\'degender-wrapper\'>' + bodyInsides + '</div>';
 	  document.body.innerHTML = degenderWrapper;
 	
-	  // //in order to add tags around the changes, need to access the text in a different way :(
-	  var allText = document.getElementById('degender-wrapper').innerHTML;
-	
 	  switch (request.message) {
 	    case 'convert':
-	      if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
-	        alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
+	      if (beenConverted) {
+	        console.log('in herrrrrrreeee');
+	        revertPage(convertedText);
+	      } else {
+	        if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
+	          alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
+	        }
+	
+	        document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides); //something about this function is RUINING my onClicks
+	        convertedText = document.getElementById('degender-wrapper').innerHTML;
+	        var topBar = createTopbar(pageStats, allText, convertedText);
+	        //to set margin at top of original content
+	        //see if you can pass stuff to TopBar to make this addListens unnecessary
+	        // addListens(allText);
+	        sendResponse({ pageStatus: 'converted' });
+	        beenConverted = true;
 	      }
-	      document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides); //something about this function is RUINING my onClicks
-	      var topBar = createTopbar(pageStats);
-	      //to set margin at top of original content
-	      //see if you can pass stuff to TopBar to make this addListens unnecessary
-	      addListens(allText);
-	      sendResponse({ pageStatus: 'converted' });
 	      break;
 	    case 'revert':
 	      revertPage(allText);
@@ -22402,9 +22376,9 @@ webpackJsonp([3,4],[
 	
 	var _reactDom = __webpack_require__(32);
 	
-	var _Topbar = __webpack_require__(603);
+	var _TopbarContainer = __webpack_require__(602);
 	
-	var _Topbar2 = _interopRequireDefault(_Topbar);
+	var _TopbarContainer2 = _interopRequireDefault(_TopbarContainer);
 	
 	var _content = __webpack_require__(604);
 	
@@ -22412,13 +22386,12 @@ webpackJsonp([3,4],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = function (data) {
-	  (0, _reactDom.render)(_react2.default.createElement(_Topbar2.default, { data: data }), document.getElementById('degender-bar'));
+	exports.default = function (data, oldText, newText) {
+	  (0, _reactDom.render)(_react2.default.createElement(Topbar, { data: data, oldText: oldText, newText: newText }), document.getElementById('degender-bar'));
 	};
 
 /***/ },
-/* 602 */,
-/* 603 */
+/* 602 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -22433,6 +22406,10 @@ webpackJsonp([3,4],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _Topbar = __webpack_require__(603);
+	
+	var _Topbar2 = _interopRequireDefault(_Topbar);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22440,17 +22417,15 @@ webpackJsonp([3,4],[
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
 	//import {connect} from 'react-redux'
 	
+	var TopbarContainer = function (_Component) {
+	  _inherits(TopbarContainer, _Component);
 	
-	var Topbar = function (_Component) {
-	  _inherits(Topbar, _Component);
+	  function TopbarContainer(data) {
+	    _classCallCheck(this, TopbarContainer);
 	
-	  function Topbar(data) {
-	    _classCallCheck(this, Topbar);
-	
-	    var _this = _possibleConstructorReturn(this, (Topbar.__proto__ || Object.getPrototypeOf(Topbar)).call(this));
+	    var _this = _possibleConstructorReturn(this, (TopbarContainer.__proto__ || Object.getPrototypeOf(TopbarContainer)).call(this));
 	
 	    _this.state = {
 	      converted: true
@@ -22461,7 +22436,7 @@ webpackJsonp([3,4],[
 	    return _this;
 	  }
 	
-	  _createClass(Topbar, [{
+	  _createClass(TopbarContainer, [{
 	    key: 'color',
 	    value: function color(speech) {
 	      var changed = document.getElementsByClassName('converted ' + speech);
@@ -22487,8 +22462,16 @@ webpackJsonp([3,4],[
 	    value: function switchConvert() {
 	      if (this.state.converted) {
 	        this.setState({ converted: false });
+	        document.getElementById('degender-wrapper').innerHTML = this.props.oldText;
+	        document.getElementById('highPro').disabled = true;
+	        document.getElementById('highAdj').disabled = true;
+	        document.getElementById('highNoun').disabled = true;
 	      } else {
 	        this.setState({ converted: true });
+	        document.getElementById('degender-wrapper').innerHTML = this.props.newText;
+	        document.getElementById('highPro').disabled = false;
+	        document.getElementById('highAdj').disabled = false;
+	        document.getElementById('highNoun').disabled = false;
 	      }
 	    }
 	  }, {
@@ -22499,68 +22482,93 @@ webpackJsonp([3,4],[
 	        url: document.URL,
 	        data: this.props.data
 	      };
-	      console.log('in analyze function');
 	      chrome.runtime.sendMessage({ message: "analyze", pageData: responseObj });
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
-	
-	      console.log('anything here?', this.props);
-	      console.log('or here?', this.state);
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        this.props.data ? _react2.default.createElement(Spinner, null) : null,
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          'This page has been degendered'
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'buttons' },
-	          _react2.default.createElement(
-	            'button',
-	            { id: 'revert', onClick: this.switchConvert },
-	            this.state.converted ? 'Revert' : 'Degender'
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { id: 'highPro', onClick: function onClick() {
-	                return _this2.color('pronoun');
-	              } },
-	            'Altered Pronouns'
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { id: 'highAdj', onClick: function onClick() {
-	                return _this2.color('adjective');
-	              } },
-	            'Altered Adjectives'
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { id: 'highNoun', onClick: function onClick() {
-	                return _this2.color('noun');
-	              } },
-	            'Altered Nouns'
-	          ),
-	          _react2.default.createElement(
-	            'button',
-	            { id: 'analyze', onClick: this.analyze },
-	            'Analyze Page'
-	          )
-	        )
+	        this.props.data ? null : _react2.default.createElement(Spinner, null),
+	        _react2.default.createElement(_Topbar2.default, {
+	          converted: this.state.converted,
+	          switchConvert: this.switchConvert,
+	          color: this.color,
+	          analyze: this.analyze
+	        })
 	      );
 	    }
 	  }]);
 	
-	  return Topbar;
+	  return TopbarContainer;
 	}(_react.Component);
 	
-	exports.default = Topbar;
+	exports.default = TopbarContainer;
+
+/***/ },
+/* 603 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'h1',
+	      null,
+	      'This page has been ',
+	      undefined.props.converted ? 'degendered' : 'reverted to it\'s original form'
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'buttons' },
+	      _react2.default.createElement(
+	        'button',
+	        { id: 'revert', onClick: undefined.props.switchConvert },
+	        undefined.props.converted ? 'Revert' : 'Degender'
+	      ),
+	      _react2.default.createElement(
+	        'button',
+	        { id: 'highPro', onClick: function onClick() {
+	            return undefined.props.color('pronoun');
+	          } },
+	        'Altered Pronouns'
+	      ),
+	      _react2.default.createElement(
+	        'button',
+	        { id: 'highAdj', onClick: function onClick() {
+	            return undefined.props.color('adjective');
+	          } },
+	        'Altered Adjectives'
+	      ),
+	      _react2.default.createElement(
+	        'button',
+	        { id: 'highNoun', onClick: function onClick() {
+	            return undefined.props.color('noun');
+	          } },
+	        'Altered Nouns'
+	      ),
+	      _react2.default.createElement(
+	        'button',
+	        { id: 'analyze', onClick: undefined.props.analyze },
+	        'Analyze Page'
+	      )
+	    )
+	  );
+	};
 
 /***/ },
 /* 604 */
@@ -22597,7 +22605,7 @@ webpackJsonp([3,4],[
 	
 	
 	// module
-	exports.push([module.id, "#degender-bar {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n  position: relative;\n  top: 0;\n  left: 0;\n  z-index: 500;\n  box-sizing: border-box;\n}\n\n#degender-bar h1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n#degender-bar.hide {\n  display: none;\n}\n\n#degender-bar .buttons {\n  display: flex;\n  justify-content: space-between;\n}\n\n#degender-bar button {\n  cursor: pointer;\n  background: #555;\n  border-radius: 4px;\n  color: #fff;\n  text-shadow: none;\n  border: 0!important;\n  font-size: 12pt;\n  font-weight: 400;\n  text-transform: uppercase;\n  padding: 5px 15px;\n  box-shadow: none;\n  line-height: 1rem;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:hover {\n  background: #333;\n  border: 0;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button.active {\n  background: #ccc;\n  color: #333;\n}\n\n.active-converted {\n  background: #bc93cd;\n  border-radius: 4px;\n  padding: 0 .25rem;\n}\n\n#degender-wrapper {\n  position: relative;\n}\n\n#spinner-overlay {\n  height: 100vh;\n  width: 100vw;\n  background: rgba(22,22,22, 0.85);\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 999;\n  display: none;\n}\n\n#spinner-overlay.active{\n  display: block;\n}", ""]);
+	exports.push([module.id, "#degender-bar {\n  background: linear-gradient(170deg, #89c8c9, #ef8594);\n  width: 100%;\n  padding: 1rem;\n  color: #333;\n  position: relative;\n  top: 0;\n  left: 0;\n  z-index: 500;\n  box-sizing: border-box;\n}\n\n#degender-bar h1 {\n  font-family: \"Telefon Black\", Sans-Serif;\n  padding: 0;\n  margin-top: 0;\n}\n\n#degender-bar.hide {\n  display: none;\n}\n\n#degender-bar .buttons {\n  display: flex;\n  justify-content: space-between;\n}\n\n#degender-bar button {\n  cursor: pointer;\n  background: #555;\n  border-radius: 4px;\n  color: #fff;\n  text-shadow: none;\n  border: 0!important;\n  font-size: 12pt;\n  font-weight: 400;\n  text-transform: uppercase;\n  padding: 5px 15px;\n  box-shadow: none;\n  line-height: 1rem;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:hover:enabled {\n  background: #333;\n  border: 0;\n  transition: background-color .2s ease;\n}\n\n#degender-bar button:active:enabled {\n  background: #ccc;\n  color: #333;\n}\n\n#degender-bar button:disabled {\n  cursor: not-allowed;\n  opacity: 0.65;\n}\n\n/***********Content Styles***********/\n.active-converted {\n  background: #bc93cd;\n  border-radius: 4px;\n  padding: 0 .25rem;\n}\n\n#degender-wrapper {\n  position: relative;\n}\n\n#spinner-overlay {\n  height: 100vh;\n  width: 100vw;\n  background: rgba(22,22,22, 0.85);\n  position: fixed;\n  top: 0;\n  left: 0;\n  z-index: 999;\n  display: none;\n}\n\n#spinner-overlay.active{\n  display: block;\n}", ""]);
 	
 	// exports
 

@@ -1,4 +1,4 @@
-webpackJsonp([0,4],[
+webpackJsonp([0,3],[
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -10,9 +10,9 @@ webpackJsonp([0,4],[
 	
 	var _reactDom = __webpack_require__(32);
 	
-	var _Analytics = __webpack_require__(209);
+	var _AnalyticsContainer = __webpack_require__(178);
 	
-	var _Analytics2 = _interopRequireDefault(_Analytics);
+	var _AnalyticsContainer2 = _interopRequireDefault(_AnalyticsContainer);
 	
 	var _page = __webpack_require__(578);
 	
@@ -30,26 +30,32 @@ webpackJsonp([0,4],[
 	
 	var _data = __webpack_require__(586);
 	
+	var _posProcess = __webpack_require__(597);
+	
+	var _posProcess2 = _interopRequireDefault(_posProcess);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	//reducers
 	var pageData = {};
 	
 	//inform the background that we are ready and get data
 	
 	
-	//reducers
+	//process setData
 	chrome.runtime.sendMessage({ message: "pageReady" }, function (response) {
-	  console.log(response);
+	  console.log('the response', response);
 	  pageData = response;
 	  _store2.default.dispatch((0, _title.setTitle)(pageData.title));
 	  _store2.default.dispatch((0, _url.setUrl)(pageData.url));
 	  _store2.default.dispatch((0, _data.setData)(pageData.data));
+	  (0, _posProcess2.default)(pageData.data);
 	});
 	
 	(0, _reactDom.render)(_react2.default.createElement(
 	  _reactRedux.Provider,
 	  { store: _store2.default },
-	  _react2.default.createElement(_Analytics2.default, null)
+	  _react2.default.createElement(_AnalyticsContainer2.default, null)
 	), document.getElementById('analytics'));
 
 /***/ },
@@ -21487,7 +21493,152 @@ webpackJsonp([0,4],[
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 178 */,
+/* 178 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(179);
+	
+	var _Analytics = __webpack_require__(209);
+	
+	var _Analytics2 = _interopRequireDefault(_Analytics);
+	
+	var _view = __webpack_require__(577);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	//word visuals
+	
+	
+	//reducers
+	
+	
+	var AnalyticsContainer = function (_Component) {
+	  _inherits(AnalyticsContainer, _Component);
+	
+	  function AnalyticsContainer() {
+	    _classCallCheck(this, AnalyticsContainer);
+	
+	    var _this = _possibleConstructorReturn(this, (AnalyticsContainer.__proto__ || Object.getPrototypeOf(AnalyticsContainer)).call(this));
+	
+	    _this.keydown = _this.keydown.bind(_this);
+	    return _this;
+	  }
+	
+	  _createClass(AnalyticsContainer, [{
+	    key: 'keydown',
+	    value: function keydown(e, pos) {
+	      if (e.keyCode === 13) {
+	        this.props.changeView(pos);
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(_Analytics2.default, {
+	        view: this.props.view,
+	        title: this.props.title,
+	        url: this.props.url,
+	        changeView: this.props.changeView,
+	        keydown: this.keydown
+	      });
+	    }
+	  }]);
+	
+	  return AnalyticsContainer;
+	}(_react.Component);
+	
+	var mapStateToProps = function mapStateToProps(_ref) {
+	  var title = _ref.title,
+	      url = _ref.url,
+	      view = _ref.view;
+	  return {
+	    title: title,
+	    url: url,
+	    view: view
+	  };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	  return {
+	    changeView: function changeView(view) {
+	      dispatch((0, _view.changeView)(view));
+	    },
+	    setAllPronouns: function (_setAllPronouns) {
+	      function setAllPronouns(_x) {
+	        return _setAllPronouns.apply(this, arguments);
+	      }
+	
+	      setAllPronouns.toString = function () {
+	        return _setAllPronouns.toString();
+	      };
+	
+	      return setAllPronouns;
+	    }(function (data) {
+	      dispatch(setAllPronouns(data));
+	    }),
+	    setNomPronouns: function (_setNomPronouns) {
+	      function setNomPronouns(_x2) {
+	        return _setNomPronouns.apply(this, arguments);
+	      }
+	
+	      setNomPronouns.toString = function () {
+	        return _setNomPronouns.toString();
+	      };
+	
+	      return setNomPronouns;
+	    }(function (data) {
+	      dispatch(setNomPronouns(data));
+	    }),
+	    setRefPronouns: function (_setRefPronouns) {
+	      function setRefPronouns(_x3) {
+	        return _setRefPronouns.apply(this, arguments);
+	      }
+	
+	      setRefPronouns.toString = function () {
+	        return _setRefPronouns.toString();
+	      };
+	
+	      return setRefPronouns;
+	    }(function (data) {
+	      dispatch(setRefPronouns(data));
+	    }),
+	    setAllNouns: function (_setAllNouns) {
+	      function setAllNouns(_x4) {
+	        return _setAllNouns.apply(this, arguments);
+	      }
+	
+	      setAllNouns.toString = function () {
+	        return _setAllNouns.toString();
+	      };
+	
+	      return setAllNouns;
+	    }(function (data) {
+	      dispatch(setAllNouns(data));
+	    })
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(AnalyticsContainer);
+
+/***/ },
 /* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -23244,13 +23395,9 @@ webpackJsonp([0,4],[
 	  value: true
 	});
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(179);
 	
 	var _PronounsContainer = __webpack_require__(210);
 	
@@ -23260,175 +23407,106 @@ webpackJsonp([0,4],[
 	
 	var _NounsContainer2 = _interopRequireDefault(_NounsContainer);
 	
-	var _categories = __webpack_require__(606);
+	var _AdjectivesContainer = __webpack_require__(574);
+	
+	var _AdjectivesContainer2 = _interopRequireDefault(_AdjectivesContainer);
 	
 	var _chartTheme = __webpack_require__(576);
 	
 	var _chartTheme2 = _interopRequireDefault(_chartTheme);
 	
-	var _view = __webpack_require__(577);
-	
-	var _pronouns = __webpack_require__(587);
-	
-	var _nouns = __webpack_require__(588);
-	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
 	//word visuals
-	
-	
-	//helper functions
-	
-	
-	//reducers
-	
-	
-	var Analytics = function (_Component) {
-	  _inherits(Analytics, _Component);
-	
-	  function Analytics() {
-	    _classCallCheck(this, Analytics);
-	
-	    return _possibleConstructorReturn(this, (Analytics.__proto__ || Object.getPrototypeOf(Analytics)).call(this));
-	  }
-	
-	  _createClass(Analytics, [{
-	    key: 'componentWillReceiveProps',
-	    value: function componentWillReceiveProps(nextProps) {
-	      var pronNum = (0, _categories.sumPronouns)(nextProps.data.pronouns);
-	      this.props.setAllPronouns(pronNum);
-	      var nomPron = (0, _categories.nomPronouns)(nextProps.data.pronouns);
-	      this.props.setNomPronouns(nomPron);
-	      var refPron = (0, _categories.refPronouns)(nextProps.data.pronouns);
-	      this.props.setRefPronouns(refPron);
-	      var allPron = (0, _categories.sumNouns)(nextProps.data.nouns);
-	      this.props.setAllNouns(allPron);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-	
-	      return _react2.default.createElement(
-	        'div',
+	exports.default = function (_ref) {
+	  var view = _ref.view,
+	      title = _ref.title,
+	      url = _ref.url,
+	      changeView = _ref.changeView,
+	      keydown = _ref.keydown;
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'nav',
+	      null,
+	      _react2.default.createElement(
+	        'h1',
+	        null,
+	        'Degender Analytics'
+	      ),
+	      _react2.default.createElement(
+	        'h2',
+	        null,
+	        'Page Title: ',
+	        title
+	      ),
+	      _react2.default.createElement(
+	        'span',
+	        { className: 'page-url' },
+	        'Page Url: ',
+	        _react2.default.createElement(
+	          'a',
+	          { href: url },
+	          url
+	        )
+	      ),
+	      _react2.default.createElement(
+	        'ul',
 	        null,
 	        _react2.default.createElement(
-	          'nav',
+	          'li',
 	          null,
 	          _react2.default.createElement(
-	            'h1',
-	            null,
-	            'Degender Analytics'
-	          ),
-	          _react2.default.createElement(
-	            'h2',
-	            null,
-	            'Page Title: ',
-	            this.props.title
-	          ),
-	          _react2.default.createElement(
-	            'span',
-	            { className: 'page-url' },
-	            'Page Url: ',
-	            _react2.default.createElement(
-	              'a',
-	              { href: this.props.url },
-	              this.props.url
-	            )
-	          ),
-	          _react2.default.createElement(
-	            'ul',
-	            null,
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                'a',
-	                { className: this.props.view === 'pronouns' ? 'active' : null, onClick: function onClick() {
-	                    return _this2.props.changeView('pronouns');
-	                  }, tabIndex: '0' },
-	                'Pronouns'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                'a',
-	                { className: this.props.view === 'nouns' ? 'active' : null, onClick: function onClick() {
-	                    return _this2.props.changeView('nouns');
-	                  }, tabIndex: '0' },
-	                'Nouns'
-	              )
-	            ),
-	            _react2.default.createElement(
-	              'li',
-	              null,
-	              _react2.default.createElement(
-	                'a',
-	                { className: this.props.view === 'adjectives' ? 'active' : null, onClick: function onClick() {
-	                    return _this2.props.changeView('adjectives');
-	                  }, tabIndex: '0' },
-	                'Adjectives'
-	              )
-	            )
+	            'a',
+	            { className: view === 'pronouns' ? 'active' : null, onClick: function onClick() {
+	                return changeView('pronouns');
+	              }, onKeyDown: function onKeyDown(e) {
+	                return keydown(e, 'pronouns');
+	              }, tabIndex: '0' },
+	            'Pronouns'
 	          )
 	        ),
 	        _react2.default.createElement(
-	          'main',
+	          'li',
 	          null,
-	          this.props.view === 'pronouns' ? _react2.default.createElement(_PronounsContainer2.default, { theme: _chartTheme2.default }) : null,
-	          this.props.view === 'nouns' ? _react2.default.createElement(_NounsContainer2.default, { theme: _chartTheme2.default }) : null,
-	          this.props.view === 'adjectives' ? 'ADJECTIVES WILL GO HERE' : null
+	          _react2.default.createElement(
+	            'a',
+	            { className: view === 'nouns' ? 'active' : null, onClick: function onClick() {
+	                return changeView('nouns');
+	              }, onKeyDown: function onKeyDown(e) {
+	                return keydown(e, 'nouns');
+	              }, tabIndex: '0' },
+	            'Nouns'
+	          )
 	        ),
-	        _react2.default.createElement('footer', null)
-	      );
-	    }
-	  }]);
-	
-	  return Analytics;
-	}(_react.Component);
-	
-	var mapStateToProps = function mapStateToProps(_ref) {
-	  var title = _ref.title,
-	      url = _ref.url,
-	      view = _ref.view,
-	      data = _ref.data;
-	  return {
-	    title: title,
-	    url: url,
-	    view: view,
-	    data: data
-	  };
+	        _react2.default.createElement(
+	          'li',
+	          null,
+	          _react2.default.createElement(
+	            'a',
+	            { className: view === 'adjectives' ? 'active' : null, onClick: function onClick() {
+	                return changeView('adjectives');
+	              }, onKeyDown: function onKeyDown(e) {
+	                return keydown(e, 'adjectives');
+	              }, tabIndex: '0' },
+	            'Adjectives'
+	          )
+	        )
+	      )
+	    ),
+	    _react2.default.createElement(
+	      'main',
+	      null,
+	      view === 'pronouns' ? _react2.default.createElement(_PronounsContainer2.default, { theme: _chartTheme2.default }) : null,
+	      view === 'nouns' ? _react2.default.createElement(_NounsContainer2.default, { theme: _chartTheme2.default }) : null,
+	      view === 'adjectives' ? _react2.default.createElement(_AdjectivesContainer2.default, { theme: _chartTheme2.default }) : null
+	    ),
+	    _react2.default.createElement('footer', null)
+	  );
 	};
 	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	  return {
-	    changeView: function changeView(view) {
-	      dispatch((0, _view.changeView)(view));
-	    },
-	    setAllPronouns: function setAllPronouns(data) {
-	      dispatch((0, _pronouns.setAllPronouns)(data));
-	    },
-	    setNomPronouns: function setNomPronouns(data) {
-	      dispatch((0, _pronouns.setNomPronouns)(data));
-	    },
-	    setRefPronouns: function setRefPronouns(data) {
-	      dispatch((0, _pronouns.setRefPronouns)(data));
-	    },
-	    setAllNouns: function setAllNouns(data) {
-	      dispatch((0, _nouns.setAllNouns)(data));
-	    }
-	  };
-	};
-	
-	exports.default = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(Analytics);
+	//helper functions
 
 /***/ },
 /* 210 */
@@ -53562,8 +53640,97 @@ webpackJsonp([0,4],[
 	};
 
 /***/ },
-/* 574 */,
-/* 575 */,
+/* 574 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _reactRedux = __webpack_require__(179);
+	
+	var _Adjectives = __webpack_require__(575);
+	
+	var _Adjectives2 = _interopRequireDefault(_Adjectives);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(_ref) {
+	  var adjectives = _ref.adjectives;
+	  return {
+	    adjectives: adjectives
+	  };
+	};
+	
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(_Adjectives2.default);
+
+/***/ },
+/* 575 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _victory = __webpack_require__(212);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var alterData = function alterData(normalData) {
+	  var arr = [];
+	  for (var key in normalData) {
+	    arr.push({ word: key, number: normalData[key].number, gender: normalData[key].gender });
+	  }
+	  return arr;
+	};
+	
+	exports.default = function (_ref) {
+	  var theme = _ref.theme,
+	      adjectives = _ref.adjectives;
+	
+	  var data = alterData(adjectives);
+	  return _react2.default.createElement(
+	    'div',
+	    null,
+	    _react2.default.createElement(
+	      'div',
+	      { className: 'big-pie' },
+	      _react2.default.createElement(
+	        'h3',
+	        null,
+	        'All Adjectives'
+	      ),
+	      _react2.default.createElement(
+	        _victory.VictoryChart,
+	        { domainPadding: 16 },
+	        _react2.default.createElement(_victory.VictoryBar, { name: 'allAdjectives',
+	          theme: theme,
+	          style: {
+	            data: { fill: function fill(d) {
+	                return d.gender === 'masc' ? '#268A8C' : '#740D3D';
+	              },
+	              width: 16 },
+	            labels: { fontSize: 14, padding: 10 }
+	          },
+	          data: data,
+	          x: 'word',
+	          y: 'number',
+	          sortKey: 'y'
+	        })
+	      )
+	    )
+	  );
+	};
+
+/***/ },
 /* 576 */
 /***/ function(module, exports) {
 
@@ -53580,7 +53747,7 @@ webpackJsonp([0,4],[
 	var colors = ["#740D3D", "#268A8C", "#737373", "#969696", "#bdbdbd", "#d9d9d9", "#f0f0f0"];
 	
 	var charcoal = "#252525";
-	var raspbery = '#740D3D';
+	var raspberry = '#740D3D';
 	
 	// Typography
 	var sansSerif = "'Gill Sans', 'Gill Sans MT', 'Ser­avek', 'Trebuchet MS', sans-serif";
@@ -53648,11 +53815,11 @@ webpackJsonp([0,4],[
 	  bar: assign({
 	    style: {
 	      data: {
-	        fill: charcoal,
+	        // fill: charcoal,
 	        padding: 10,
 	        stroke: "transparent",
 	        strokeWidth: 0,
-	        width: 8
+	        width: 16
 	      },
 	      labels: baseLabelStyles
 	    }
@@ -54203,6 +54370,10 @@ webpackJsonp([0,4],[
 	
 	var _nouns2 = _interopRequireDefault(_nouns);
 	
+	var _adjectives = __webpack_require__(589);
+	
+	var _adjectives2 = _interopRequireDefault(_adjectives);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var rootReducer = (0, _redux.combineReducers)({
@@ -54211,7 +54382,8 @@ webpackJsonp([0,4],[
 	  data: _data2.default,
 	  view: _view2.default,
 	  pronouns: _pronouns2.default,
-	  nouns: _nouns2.default
+	  nouns: _nouns2.default,
+	  adjectives: _adjectives2.default
 	});
 	
 	exports.default = rootReducer;
@@ -54425,7 +54597,41 @@ webpackJsonp([0,4],[
 	};
 
 /***/ },
-/* 589 */,
+/* 589 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = reducer;
+	var SET_ALL_ADJECTIVES = 'SET_ALL_ADJECTIVES';
+	
+	var initialState = {};
+	
+	//reducer
+	function reducer() {
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : initialState;
+	  var action = arguments[1];
+	
+	  switch (action.type) {
+	    case SET_ALL_ADJECTIVES:
+	      return action.data;
+	    default:
+	      return state;
+	  }
+	}
+	
+	//action creators
+	var setAllAdjectives = exports.setAllAdjectives = function setAllAdjectives(data) {
+	  return {
+	    type: SET_ALL_ADJECTIVES,
+	    data: data
+	  };
+	};
+
+/***/ },
 /* 590 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -55331,23 +55537,27 @@ webpackJsonp([0,4],[
 	exports['default'] = thunk;
 
 /***/ },
-/* 597 */,
-/* 598 */,
-/* 599 */,
-/* 600 */,
-/* 601 */,
-/* 602 */,
-/* 603 */,
-/* 604 */,
-/* 605 */,
-/* 606 */
-/***/ function(module, exports) {
+/* 597 */
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.catAdj = exports.sumNouns = exports.refPronouns = exports.nomPronouns = exports.sumPronouns = undefined;
+	
+	var _pronouns = __webpack_require__(587);
+	
+	var _nouns = __webpack_require__(588);
+	
+	var _adjectives = __webpack_require__(589);
+	
+	var _store = __webpack_require__(582);
+	
+	var _store2 = _interopRequireDefault(_store);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	//Calculate pronoun stuff
 	
@@ -55405,6 +55615,37 @@ webpackJsonp([0,4],[
 	  }
 	  total = fem + masc;
 	  return { total: total, masc: masc, fem: fem };
+	};
+	
+	//Calculate Adjective stuff
+	var femAdj = ['feisty', 'frisky', 'irritable', 'ambitious', 'abrasive', 'nasty', 'bitchy', 'bossy', 'bubbly', 'curvy', 'ditzy', 'emotional', 'frigid', 'frumpy', 'high-maintenence', 'hysterical', 'illogical', 'irrational', 'pushy', 'sassy', 'shrill', 'exotic', 'brash', 'catty', 'slutty', 'pretty'];
+	var mascAdj = ['handsome', 'studly', 'charming', 'aggressive', 'cocky', 'arrogant'];
+	
+	var catAdj = exports.catAdj = function catAdj(obj) {
+	  var expandObj = {};
+	  for (var key in obj) {
+	    var wordObj = {
+	      number: obj[key]
+	    };
+	    if (femAdj.indexOf(key) > -1) wordObj.gender = 'fem';
+	    if (mascAdj.indexOf(key) > -1) wordObj.gender = 'masc';
+	    expandObj[key] = wordObj;
+	  }
+	  return expandObj;
+	};
+	
+	exports.default = function (dataObj) {
+	  var pronNum = sumPronouns(dataObj.pronouns);
+	  _store2.default.dispatch((0, _pronouns.setAllPronouns)(pronNum));
+	  var nomPron = nomPronouns(dataObj.pronouns);
+	  _store2.default.dispatch((0, _pronouns.setNomPronouns)(nomPron));
+	  var refPron = refPronouns(dataObj.pronouns);
+	  _store2.default.dispatch((0, _pronouns.setRefPronouns)(refPron));
+	  var allPron = sumNouns(dataObj.nouns);
+	  _store2.default.dispatch((0, _nouns.setAllNouns)(allPron));
+	  var expandAdj = catAdj(dataObj.adjectives);
+	  console.log(expandAdj);
+	  _store2.default.dispatch((0, _adjectives.setAllAdjectives)(expandAdj));
 	};
 
 /***/ }
