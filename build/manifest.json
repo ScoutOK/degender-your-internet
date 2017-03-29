@@ -22,5 +22,8 @@
   "permissions": [
     "tabs",
     "https://ajax.googleapis.com/"
+  ],
+  "web_accessible_resources": [
+    "img/Loading_icon.gif"
   ]
 }

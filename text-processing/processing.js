@@ -69,6 +69,41 @@ const nouns = {
   Boyfriend: 'Partner'
 }
 
+const adjectives = {
+  feisty: "lively",
+  frisky: "spirited",
+  irritable: "grouchy",
+  ambitious: "determined",
+  abrasive: "unpleasant",
+  nasty: "disagreeable",
+  bitchy: "mean",
+  bossy: "forceful",
+  bubbly: "friendly",
+  curvy: "robust",
+  ditzy: "careless",
+  emotional: "impassioned",
+  frigid: "serious",
+  frumpy: "un-made-up",
+  "high-maintenence": "exacting",
+  hysterical: "furious",
+  illogical: "incorrectsass",
+  irrational: "incorrect",
+  pushy: "assertive",
+  sassy: "bold",
+  shrill: "assertive",
+  exotic: "unusual",
+  brash: "cocksure",
+  catty: "mean",
+  slutty: "sexually-active",//don't really have a neutral for this
+  pretty: "attractive",
+  handsome: "attractive",
+  studly: "hot",
+  charming: "pleasant",
+  aggressive: "determined",
+  cocky: "self-confident",
+  arrogant: "overconfident",
+}
+
 //object to contain info about page for analytics
 const pageStats = {
   pronouns: {},
@@ -76,7 +111,7 @@ const pageStats = {
   adjectives: {}
 }
 
-const createTopbar = (data, oldText, newText) => {
+const createTopbar = () => {
   //build a div to go at the top of the page
   let topBar = document.createElement("div");
 
@@ -86,9 +121,14 @@ const createTopbar = (data, oldText, newText) => {
   document.body.insertBefore(topBar, document.body.firstChild);
 
   //render the topbar
-  renderTopbar(data, oldText, newText);
+  renderTopbar();
   return topBar
 
+}
+
+const updateTopbar = (data, oldText, newText) => {
+  //render the topbar
+  renderTopbar(data, oldText, newText);
 }
 
 const revertPage = (original) => {
@@ -169,8 +209,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
   const degenderWrapper = `<div id='degender-wrapper'>${bodyInsides}</div>`
   document.body.innerHTML = degenderWrapper;
 
-  
-
   switch (request.message) {
     case 'convert':
       if (beenConverted) {
@@ -180,15 +218,18 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse){
         if (document.documentElement.lang !== 'en' && document.documentElement.lang !== 'en-US') {
           alert('WARNING: It appears this page is not in English. Currently Degender Your Internet is only equipped to handle pages in English. It could just be incorrectly marked. If you would like to help develop Degender Your Internet for other languages, please contact me');
         }
-
-        document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides);//something about this function is RUINING my onClicks
-        convertedText = document.getElementById('degender-wrapper').innerHTML;
-        const topBar = createTopbar(pageStats, allText, convertedText);
-        //to set margin at top of original content
-        //see if you can pass stuff to TopBar to make this addListens unnecessary
-        // addListens(allText);
-        sendResponse({pageStatus: 'converted'});
-        beenConverted = true;
+        createTopbar();
+        window.setTimeout(()=> {
+          document.getElementById('degender-wrapper').innerHTML = convert(bodyInsides);//something about this function is RUINING my onClicks
+          convertedText = document.getElementById('degender-wrapper').innerHTML;
+          updateTopbar(pageStats, allText, convertedText);
+          //to set margin at top of original content
+          //see if you can pass stuff to TopBar to make this addListens unnecessary
+          // addListens(allText);
+          sendResponse({pageStatus: 'converted'});
+          beenConverted = true;
+        }, 0)
+        
         
       }
       break

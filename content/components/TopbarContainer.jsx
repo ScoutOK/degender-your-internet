@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import {connect} from 'react-redux'
 
 import Topbar from './Topbar';
+import Spinner from './Spinner';
 
 
 export default class TopbarContainer extends Component {
@@ -62,12 +63,15 @@ export default class TopbarContainer extends Component {
 
   render() {
     return  (
-      <Topbar
+      <div>
+      {this.props.data ? null : <Spinner />}
+      {this.props.data ? <Topbar
         converted={this.state.converted}
         switchConvert={this.switchConvert}
         color={this.color}
         analyze={this.analyze}
-      />
+      /> : null}
+      </div>
     )
   }
 }
