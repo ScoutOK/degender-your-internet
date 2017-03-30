@@ -14,8 +14,7 @@ export default class Spinner extends Component {
         <h1>PROCESSING</h1>
         <div className='svg-cont'>
           <svg>
-              <circle r='10' style={{'animation-delay' : '-1.2s',
-                transform: 'rotate(0deg) translate(300%)'}} />
+              <circle r='10' style={{'animation-delay' : '-1.2s', transform: 'rotate(0deg) translate(300%)'}} />
               <circle r='10' style={{'animation-delay' : '-1.1s', transform: 'rotate(30deg) translate(300%)'}} />
               <circle r='10' style={{'animation-delay' : '-1.0s', transform: 'rotate(60deg) translate(300%)'}} />
               <circle r='10' style={{'animation-delay' : '-0.9s', transform: 'rotate(90deg) translate(300%)'}} />
