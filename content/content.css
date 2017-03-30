@@ -109,10 +109,10 @@
 @keyframes dot-spin {
   0% {
     opacity: 1;
-    r: 10;
+    /*r: 10;*/
   }
   100% {
     opacity: 0.083;
-    r: 2.5
+    /*r: 2.5*/
   }
 }
