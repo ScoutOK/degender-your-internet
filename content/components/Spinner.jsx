@@ -8,11 +8,23 @@ export default class Spinner extends Component {
     super();
   }
 
+  createSpinner(num) {
+    let arr = []
+    for (let idx = 0; idx < num; idx++) {
+      arr.push(<circle key={idx} r='10' style={{animationDelay : `${(idx - num)/10}s`, transform: `rotate(${idx * (360/num)}deg) translate(300%)`}} />)
+    }
+    return arr
+  }
+
   render() {
     return  (
       <div id='spinner-overlay'>
         <h1>PROCESSING</h1>
-        <img id='spinny-wheel' src={spinnerUrl} alt='loading wheel' />
+        <div className='svg-cont'>
+          <svg>
+            {this.createSpinner(12)}
+          </svg>
+        </div>
       </div>
     )
   }

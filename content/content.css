@@ -71,6 +71,7 @@
   position: relative;
 }
 
+/***********Spinner Styles***********/
 #spinner-overlay {
   height: 100vh;
   width: 100vw;
@@ -85,4 +86,33 @@
   align-items: center;
   color: #eee;
   text-align: center;
+}
+
+#spinner-overlay .svg-cont {
+  height: 200px;
+  width: 200px;
+}
+
+#spinner-overlay svg {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  overflow: visible;
+}
+
+#spinner-overlay svg circle {
+  fill: #eee;
+  position: absolute;
+  animation: dot-spin 1.2s linear infinite;
+}
+
+@keyframes dot-spin {
+  0% {
+    opacity: 1;
+    /*r: 10;*/
+  }
+  100% {
+    opacity: 0.083;
+    /*r: 2.5*/
+  }
 }
