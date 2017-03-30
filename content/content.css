@@ -103,4 +103,16 @@
 #spinner-overlay svg circle {
   fill: #eee;
   position: absolute;
+  animation: dot-spin 1.2s linear infinite;
+}
+
+@keyframes dot-spin {
+  0% {
+    opacity: 1;
+    r: 10;
+  }
+  100% {
+    opacity: 0.083;
+    r: 2.5
+  }
 }
