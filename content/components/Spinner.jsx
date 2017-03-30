@@ -9,10 +9,8 @@ export default class Spinner extends Component {
   }
 
   createSpinner(num) {
-    console.log('creating spinner')
     let arr = []
     for (let idx = 0; idx < num; idx++) {
-      console.log(idx)
       arr.push(<circle key={idx} r='10' style={{animationDelay : `${(idx - num)/10}s`, transform: `rotate(${idx * (360/num)}deg) translate(300%)`}} />)
     }
     return arr
